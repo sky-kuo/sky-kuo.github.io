@@ -1,0 +1,4533 @@
+<!DOCTYPE html>
+<html lang="zh-Hant" class="dark">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Sky CV</title>
+  <meta name="description" content="SkyKuo 個人動態履歷與技術檔案。中孚科技技術副理、Palo Alto NGFW 與 Cisco CCNP Enterprise / Security 認證專家、網路自動化開發工程師、國立臺中科技大學兼任講師。" />
+  <meta name="author" content="SkyKuo" />
+  <meta name="theme-color" content="#0b1120" />
+
+  <!-- Open Graph Metadata -->
+  <meta property="og:title" content="Sky CV — 技術副理・企業網路與資安架構專家" />
+  <meta property="og:description" content="有難度，才有挑戰的價值｜中孚科技技術副理・Palo Alto NGFW・Cisco CCNP Enterprise / Security・網路自動化" />
+  <meta property="og:type" content="website" />
+
+  <style>
+    /* =====================================================================
+       1. DESIGN TOKENS & THEME VARIABLES (DARK TECH DEFAULT + LIGHT MODE)
+       ===================================================================== */
+    :root {
+      /* Default Avatar Focal Framing (tuned for S__336470020_0.jpg) */
+      --avatar-scale: 1.85;
+      --avatar-x: 58%;
+      --avatar-y: 14%;
+      --avatar-tx: -57.3%;
+      --avatar-ty: 0%;
+
+      /* Light Theme Palette */
+      --bg-page: #f8fafc;
+      --bg-surface: #ffffff;
+      --bg-card: rgba(255, 255, 255, 0.9);
+      --bg-nav: rgba(248, 250, 252, 0.9);
+      --bg-chip: rgba(15, 23, 42, 0.05);
+      --border-subtle: rgba(15, 23, 42, 0.12);
+      --border-strong: rgba(2, 132, 199, 0.45);
+      --text-primary: #0f172a;
+      --text-secondary: #334155;
+      --text-muted: #64748b;
+      --accent-cyan: #0284c7;
+      --accent-indigo: #4f46e5;
+      --accent-emerald: #059669;
+      --accent-amber: #d97706;
+      --accent-rose: #e11d48;
+      --glow-cyan: rgba(2, 132, 199, 0.11);
+      --glow-indigo: rgba(79, 70, 229, 0.11);
+      --glow-amber: rgba(217, 119, 6, 0.12);
+      --ring-gradient: linear-gradient(135deg, #0284c7 0%, #6366f1 52%, #10b981 100%);
+      --ring-shadow: 0 12px 26px -8px rgba(2, 132, 199, 0.34), 0 4px 12px -4px rgba(79, 70, 229, 0.22);
+      --flagship-border: linear-gradient(135deg, rgba(2, 132, 199, 0.72), rgba(99, 102, 241, 0.65), rgba(217, 119, 6, 0.68));
+      --radar-grid: rgba(15, 23, 42, 0.14);
+      --radar-axis: rgba(15, 23, 42, 0.18);
+      --radar-fill: rgba(2, 132, 199, 0.22);
+      --radar-stroke: #0284c7;
+      --shadow-card: 0 12px 30px -14px rgba(15, 23, 42, 0.12);
+      --shadow-hover: 0 20px 38px -14px rgba(2, 132, 199, 0.22);
+
+      /* SVG Workflow Diagram Tokens (Light) */
+      --svg-bg: #f1f5f9;
+      --svg-node-a-fill: #e0f2fe;
+      --svg-node-a-stroke: #0284c7;
+      --svg-node-b-fill: #ffe4e6;
+      --svg-node-b-stroke: #e11d48;
+      --svg-role-fill: #ffffff;
+      --svg-role-stroke: #4f46e5;
+      --svg-line: rgba(51, 65, 85, 0.45);
+      --svg-text: #0f172a;
+      --svg-muted: #475569;
+
+      /* Crisp System Font Stacks (Zero External Dependency) */
+      --font-sans: "Inter", "Noto Sans TC", -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang TC", "Microsoft JhengHei", sans-serif;
+      --font-mono: "JetBrains Mono", ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+
+      --radius-sm: 10px;
+      --radius-md: 14px;
+      --radius-lg: 20px;
+      --container-max: 1180px;
+      --nav-height: 68px;
+    }
+
+    html.dark {
+      --bg-page: #0b1120;
+      --bg-surface: #111827;
+      --bg-card: rgba(17, 24, 39, 0.78);
+      --bg-nav: rgba(11, 17, 32, 0.88);
+      --bg-chip: rgba(148, 163, 184, 0.09);
+      --border-subtle: rgba(148, 163, 184, 0.18);
+      --border-strong: rgba(56, 189, 248, 0.52);
+      --text-primary: #f8fafc;
+      --text-secondary: #cbd5e1;
+      --text-muted: #94a3b8;
+      --accent-cyan: #38bdf8;
+      --accent-indigo: #818cf8;
+      --accent-emerald: #34d399;
+      --accent-amber: #fbbf24;
+      --accent-rose: #fb7185;
+      --glow-cyan: rgba(56, 189, 248, 0.14);
+      --glow-indigo: rgba(129, 140, 248, 0.15);
+      --glow-amber: rgba(251, 191, 36, 0.14);
+      --ring-gradient: linear-gradient(135deg, #38bdf8 0%, #818cf8 52%, #34d399 100%);
+      --ring-shadow: 0 0 0 1px rgba(56, 189, 248, 0.22), 0 14px 32px -6px rgba(56, 189, 248, 0.34), 0 6px 18px -4px rgba(129, 140, 248, 0.26);
+      --flagship-border: linear-gradient(135deg, rgba(56, 189, 248, 0.78), rgba(129, 140, 248, 0.68), rgba(251, 191, 36, 0.74));
+      --radar-grid: rgba(148, 163, 184, 0.22);
+      --radar-axis: rgba(148, 163, 184, 0.24);
+      --radar-fill: rgba(56, 189, 248, 0.24);
+      --radar-stroke: #38bdf8;
+      --shadow-card: 0 14px 34px -16px rgba(2, 6, 23, 0.7);
+      --shadow-hover: 0 22px 42px -14px rgba(56, 189, 248, 0.25);
+
+      /* SVG Workflow Diagram Tokens (Dark) */
+      --svg-bg: rgba(7, 12, 24, 0.78);
+      --svg-node-a-fill: rgba(56, 189, 248, 0.16);
+      --svg-node-a-stroke: #38bdf8;
+      --svg-node-b-fill: rgba(251, 113, 133, 0.16);
+      --svg-node-b-stroke: #fb7185;
+      --svg-role-fill: #131f38;
+      --svg-role-stroke: #818cf8;
+      --svg-line: rgba(148, 163, 184, 0.5);
+      --svg-text: #f8fafc;
+      --svg-muted: #94a3b8;
+    }
+
+    /* =====================================================================
+       2. GLOBAL RESET & LAYER STACKING (ZERO HORIZONTAL OVERFLOW)
+       ===================================================================== */
+    *, *::before, *::after {
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+      scroll-padding-top: calc(var(--nav-height) + 18px);
+      overflow-x: clip;
+      -webkit-text-size-adjust: 100%;
+    }
+
+    body {
+      margin: 0;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      background-color: var(--bg-page);
+      color: var(--text-primary);
+      font-family: var(--font-sans);
+      line-height: 1.65;
+      overflow-x: clip;
+      transition: background-color 0.28s ease, color 0.28s ease;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    /* Fixed Background Topology Canvas — Always behind all content */
+    #network-canvas {
+      position: fixed;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      z-index: 0;
+      pointer-events: none;
+    }
+
+    /* Core Semantic Landmarks — Guaranteed above canvas */
+    header.site-header {
+      position: sticky;
+      top: 0;
+      z-index: 40;
+    }
+
+    main, footer.site-footer {
+      position: relative;
+      z-index: 1;
+    }
+
+    img, svg, canvas {
+      display: block;
+      max-width: 100%;
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    button, input, select, textarea {
+      font: inherit;
+      color: inherit;
+    }
+
+    button {
+      cursor: pointer;
+      background: transparent;
+      border: none;
+      padding: 0;
+    }
+
+    :focus-visible {
+      outline: 2px solid var(--accent-cyan);
+      outline-offset: 2px;
+    }
+
+    .container {
+      width: 100%;
+      max-width: var(--container-max);
+      margin-inline: auto;
+      padding-inline: 1rem;
+    }
+
+    @media (min-width: 640px) {
+      .container { padding-inline: 1.5rem; }
+    }
+
+    @media (min-width: 1024px) {
+      .container { padding-inline: 2rem; }
+    }
+
+    .sr-only {
+      position: absolute;
+      width: 1px;
+      height: 1px;
+      padding: 0;
+      margin: -1px;
+      overflow: hidden;
+      clip: rect(0, 0, 0, 0);
+      white-space: nowrap;
+      border: 0;
+    }
+
+    .text-gradient {
+      background: linear-gradient(135deg, var(--accent-cyan) 0%, var(--accent-indigo) 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    .mono {
+      font-family: var(--font-mono);
+    }
+
+    .glass-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border-subtle);
+      border-radius: var(--radius-lg);
+      box-shadow: var(--shadow-card);
+      backdrop-filter: blur(14px);
+      -webkit-backdrop-filter: blur(14px);
+      transition: transform 0.25s ease, border-color 0.25s ease, box-shadow 0.25s ease, background-color 0.28s ease;
+    }
+
+    .glass-card.interactive:hover {
+      border-color: var(--border-strong);
+      transform: translateY(-3px);
+      box-shadow: var(--shadow-hover);
+    }
+
+    .is-hidden {
+      display: none !important;
+    }
+
+    /* =====================================================================
+       3. AVATAR SYSTEM (HERO, NAVBAR, WORKBENCH, PRINT & INLINE SVG FALLBACK)
+       ===================================================================== */
+    .avatar-crop-box {
+      position: relative;
+      width: 100%;
+      height: 100%;
+      border-radius: 50%;
+      overflow: hidden;
+      background: linear-gradient(135deg, #0ea5e9 0%, #6366f1 100%);
+      isolation: isolate;
+    }
+
+    .avatar-crop-img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: var(--avatar-x) var(--avatar-y);
+      transform-origin: 0 0;
+      transform: translate(var(--avatar-tx), var(--avatar-ty)) scale(var(--avatar-scale));
+      will-change: transform;
+    }
+
+    .avatar-fallback-svg {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      display: none;
+    }
+
+    .avatar-crop-box.is-fallback .avatar-crop-img {
+      display: none;
+    }
+
+    .avatar-crop-box.is-fallback .avatar-fallback-svg {
+      display: block;
+    }
+
+    .hero-identity-row {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      margin-bottom: 1.15rem;
+    }
+
+    @media (min-width: 640px) {
+      .hero-identity-row { gap: 1.4rem; }
+    }
+
+    .hero-avatar-wrap {
+      position: relative;
+      flex-shrink: 0;
+      width: 76px;
+      height: 76px;
+    }
+
+    @media (min-width: 640px) {
+      .hero-avatar-wrap { width: 100px; height: 100px; }
+    }
+
+    @media (min-width: 1024px) {
+      .hero-avatar-wrap { width: 112px; height: 112px; }
+    }
+
+    .hero-avatar-trigger {
+      position: relative;
+      display: block;
+      width: 100%;
+      height: 100%;
+      padding: 3px;
+      border-radius: 50%;
+      background: var(--ring-gradient);
+      box-shadow: var(--ring-shadow);
+      transition: transform 0.26s ease, box-shadow 0.26s ease;
+    }
+
+    .hero-avatar-trigger:hover {
+      transform: scale(1.04);
+    }
+
+    .hero-avatar-inner {
+      width: 100%;
+      height: 100%;
+      border-radius: 50%;
+      padding: 2px;
+      background: var(--bg-page);
+    }
+
+    .hero-avatar-hover-hint {
+      position: absolute;
+      inset: 5px;
+      border-radius: 50%;
+      background: rgba(11, 17, 32, 0.62);
+      color: #f8fafc;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 2px;
+      opacity: 0;
+      transition: opacity 0.2s ease;
+      pointer-events: none;
+      font-size: 0.68rem;
+      font-weight: 700;
+    }
+
+    .hero-avatar-trigger:hover .hero-avatar-hover-hint,
+    .hero-avatar-trigger:focus-visible .hero-avatar-hover-hint {
+      opacity: 1;
+    }
+
+    .avatar-status-dot {
+      position: absolute;
+      right: 1px;
+      bottom: 1px;
+      width: 18px;
+      height: 18px;
+      border-radius: 50%;
+      background: var(--bg-page);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      pointer-events: none;
+      z-index: 2;
+    }
+
+    @media (min-width: 640px) {
+      .avatar-status-dot {
+        right: 3px;
+        bottom: 3px;
+        width: 21px;
+        height: 21px;
+      }
+    }
+
+    .avatar-status-core {
+      position: relative;
+      width: 11px;
+      height: 11px;
+      border-radius: 50%;
+      background: #10b981;
+      box-shadow: 0 0 8px rgba(16, 185, 129, 0.85);
+    }
+
+    .avatar-status-core::after {
+      content: "";
+      position: absolute;
+      inset: -3px;
+      border-radius: 50%;
+      border: 2px solid #34d399;
+      animation: status-ping 2.2s cubic-bezier(0, 0, 0.2, 1) infinite;
+    }
+
+    @keyframes status-ping {
+      0% { transform: scale(0.8); opacity: 0.9; }
+      75%, 100% { transform: scale(1.75); opacity: 0; }
+    }
+
+    /* Bottom-Left Camera Button with >=44px Touch Hit Area */
+    .avatar-edit-btn {
+      position: absolute;
+      left: -6px;
+      bottom: -6px;
+      width: 34px;
+      height: 34px;
+      border-radius: 50%;
+      background: var(--bg-surface);
+      border: 1.5px solid var(--border-strong);
+      color: var(--accent-cyan);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 6px 16px rgba(2, 6, 23, 0.35);
+      transition: transform 0.2s ease, background-color 0.2s ease, color 0.2s ease;
+      z-index: 3;
+    }
+
+    .avatar-edit-btn::after {
+      content: "";
+      position: absolute;
+      inset: -6px;
+    }
+
+    .avatar-edit-btn:hover {
+      transform: scale(1.1);
+      background: var(--accent-cyan);
+      color: #0b1120;
+    }
+
+    /* =====================================================================
+       4. STICKY GLASS HEADER, SCROLL PROGRESS & MOBILE SLIDE-OVER DRAWER
+       ===================================================================== */
+    .site-header {
+      width: 100%;
+      background: var(--bg-nav);
+      border-bottom: 1px solid var(--border-subtle);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+    }
+
+    .reading-progress-track {
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 3px;
+      background: transparent;
+      overflow: hidden;
+    }
+
+    .reading-progress-bar {
+      height: 100%;
+      width: 0%;
+      background: linear-gradient(90deg, var(--accent-cyan), var(--accent-indigo), var(--accent-emerald));
+      transition: width 0.08s linear;
+    }
+
+    .header-inner {
+      height: var(--nav-height);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 0.75rem;
+    }
+
+    .brand-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.6rem;
+      min-height: 44px;
+      padding: 0.25rem 0.4rem 0.25rem 0.1rem;
+      border-radius: var(--radius-sm);
+      min-width: 0;
+    }
+
+    .nav-mini-avatar {
+      width: 32px;
+      height: 32px;
+      padding: 1.5px;
+      border-radius: 50%;
+      background: var(--ring-gradient);
+      flex-shrink: 0;
+      box-shadow: 0 2px 10px rgba(56, 189, 248, 0.26);
+    }
+
+    .brand-name {
+      font-weight: 800;
+      font-size: 1rem;
+      letter-spacing: -0.015em;
+      white-space: nowrap;
+    }
+
+    .desktop-nav {
+      display: none;
+      align-items: center;
+      gap: 0.15rem;
+    }
+
+    @media (min-width: 860px) {
+      .desktop-nav { display: flex; }
+    }
+
+    .nav-link {
+      min-height: 44px;
+      padding: 0.45rem 0.72rem;
+      border-radius: var(--radius-sm);
+      font-size: 0.87rem;
+      font-weight: 600;
+      color: var(--text-secondary);
+      display: inline-flex;
+      align-items: center;
+      white-space: nowrap;
+      transition: color 0.2s ease, background-color 0.2s ease;
+    }
+
+    .nav-link:hover,
+    .nav-link.active {
+      color: var(--accent-cyan);
+      background: var(--glow-cyan);
+    }
+
+    .header-actions {
+      display: flex;
+      align-items: center;
+      gap: 0.45rem;
+      flex-shrink: 0;
+    }
+
+    .icon-btn {
+      min-width: 44px;
+      min-height: 44px;
+      padding: 0 0.65rem;
+      border-radius: var(--radius-sm);
+      border: 1px solid var(--border-subtle);
+      background: var(--bg-chip);
+      color: var(--text-primary);
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.4rem;
+      font-size: 0.82rem;
+      font-weight: 600;
+      transition: border-color 0.2s ease, color 0.2s ease;
+    }
+
+    .icon-btn:hover {
+      border-color: var(--border-strong);
+      color: var(--accent-cyan);
+    }
+
+    .desktop-print-btn {
+      display: none;
+    }
+
+    @media (min-width: 1080px) {
+      .desktop-print-btn { display: inline-flex; }
+    }
+
+    .icon-sun { display: none; color: #fbbf24; }
+    .icon-moon { display: block; color: #4f46e5; }
+    html.dark .icon-sun { display: block; }
+    html.dark .icon-moon { display: none; }
+
+    .hamburger-btn {
+      flex-direction: column;
+      gap: 5px;
+    }
+
+    @media (min-width: 860px) {
+      .hamburger-btn { display: none; }
+    }
+
+    .hamburger-bar {
+      width: 20px;
+      height: 2px;
+      border-radius: 2px;
+      background: currentColor;
+      transition: transform 0.24s ease, opacity 0.2s ease;
+    }
+
+    .hamburger-btn.is-open .bar-1 { transform: translateY(7px) rotate(45deg); }
+    .hamburger-btn.is-open .bar-2 { opacity: 0; transform: scaleX(0); }
+    .hamburger-btn.is-open .bar-3 { transform: translateY(-7px) rotate(-45deg); }
+
+    /* Mobile Drawer (Hidden by default via display:none) */
+    .drawer-backdrop {
+      display: none;
+      position: fixed;
+      inset: 0;
+      z-index: 50;
+      background: rgba(2, 6, 23, 0.68);
+      backdrop-filter: blur(4px);
+    }
+
+    .drawer-backdrop.is-open {
+      display: block;
+    }
+
+    .mobile-drawer {
+      display: none;
+      position: fixed;
+      top: 0;
+      right: 0;
+      z-index: 55;
+      height: 100%;
+      width: min(84vw, 320px);
+      background: var(--bg-surface);
+      border-left: 1px solid var(--border-subtle);
+      box-shadow: -12px 0 36px rgba(2, 6, 23, 0.45);
+      flex-direction: column;
+    }
+
+    .mobile-drawer.is-open {
+      display: flex;
+      animation: drawer-slide 0.26s cubic-bezier(0.22, 1, 0.36, 1);
+    }
+
+    @keyframes drawer-slide {
+      from { transform: translateX(100%); }
+      to { transform: translateX(0); }
+    }
+
+    .drawer-header {
+      height: var(--nav-height);
+      padding: 0 1rem 0 1.25rem;
+      border-bottom: 1px solid var(--border-subtle);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .drawer-nav {
+      flex: 1;
+      padding: 1.1rem 1rem;
+      display: flex;
+      flex-direction: column;
+      gap: 0.35rem;
+      overflow-y: auto;
+    }
+
+    .drawer-link {
+      min-height: 48px;
+      padding: 0.72rem 1rem;
+      border-radius: var(--radius-md);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      font-weight: 600;
+      color: var(--text-primary);
+      transition: background-color 0.2s ease, color 0.2s ease;
+    }
+
+    .drawer-link:hover {
+      background: var(--glow-cyan);
+      color: var(--accent-cyan);
+    }
+
+    .drawer-footer {
+      padding: 1rem;
+      border-top: 1px solid var(--border-subtle);
+      display: flex;
+      flex-direction: column;
+      gap: 0.65rem;
+    }
+
+    /* =====================================================================
+       5. BUTTONS, BADGES & CHIPS
+       ===================================================================== */
+    .btn {
+      min-height: 46px;
+      padding: 0.65rem 1.3rem;
+      border-radius: var(--radius-md);
+      font-size: 0.9rem;
+      font-weight: 700;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.5rem;
+      transition: transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease, color 0.2s ease;
+      white-space: nowrap;
+    }
+
+    .btn-primary {
+      background: linear-gradient(135deg, #0ea5e9 0%, #6366f1 100%);
+      color: #ffffff;
+      box-shadow: 0 10px 24px -8px rgba(14, 165, 233, 0.5);
+    }
+
+    .btn-primary:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 14px 28px -8px rgba(14, 165, 233, 0.65);
+    }
+
+    .btn-secondary {
+      background: var(--bg-card);
+      border: 1px solid var(--border-subtle);
+      color: var(--text-primary);
+    }
+
+    .btn-secondary:hover {
+      border-color: var(--border-strong);
+      color: var(--accent-cyan);
+      transform: translateY(-2px);
+    }
+
+    .btn-ghost {
+      border: 1px solid var(--border-subtle);
+      color: var(--text-secondary);
+    }
+
+    .btn-ghost:hover {
+      border-color: var(--accent-indigo);
+      color: var(--accent-indigo);
+    }
+
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.35rem;
+      padding: 0.24rem 0.62rem;
+      border-radius: 8px;
+      font-family: var(--font-mono);
+      font-size: 0.72rem;
+      font-weight: 600;
+      border: 1px solid transparent;
+      white-space: nowrap;
+    }
+
+    .badge-cyan { background: rgba(56, 189, 248, 0.14); color: var(--accent-cyan); border-color: rgba(56, 189, 248, 0.3); }
+    .badge-indigo { background: rgba(129, 140, 248, 0.14); color: var(--accent-indigo); border-color: rgba(129, 140, 248, 0.3); }
+    .badge-emerald { background: rgba(52, 211, 153, 0.14); color: var(--accent-emerald); border-color: rgba(52, 211, 153, 0.3); }
+    .badge-amber { background: rgba(251, 191, 36, 0.15); color: var(--accent-amber); border-color: rgba(251, 191, 36, 0.34); }
+    .badge-rose { background: rgba(251, 113, 133, 0.14); color: var(--accent-rose); border-color: rgba(251, 113, 133, 0.3); }
+
+    .tag-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.42rem;
+    }
+
+    .tag-chip {
+      font-family: var(--font-mono);
+      font-size: 0.73rem;
+      padding: 0.24rem 0.56rem;
+      border-radius: 7px;
+      border: 1px solid var(--border-subtle);
+      background: var(--bg-chip);
+      color: var(--text-secondary);
+    }
+
+    /* =====================================================================
+       6. HERO SECTION (AVATAR + SkyKuo, RADAR CARD & 4 KPI CARDS)
+       ===================================================================== */
+    .hero-section {
+      position: relative;
+      padding: 2.25rem 0 3.25rem;
+    }
+
+    @media (min-width: 768px) {
+      .hero-section { padding: 3.5rem 0 4rem; }
+    }
+
+    .hero-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 2rem;
+      align-items: center;
+    }
+
+    @media (min-width: 1024px) {
+      .hero-grid {
+        grid-template-columns: 1.12fr 0.88fr;
+        gap: 2.4rem;
+      }
+    }
+
+    .hero-name-block {
+      min-width: 0;
+    }
+
+    .hero-name {
+      margin: 0;
+      font-size: clamp(2rem, 5.2vw, 3.3rem);
+      font-weight: 900;
+      line-height: 1.12;
+      letter-spacing: -0.025em;
+    }
+
+    .hero-handle-row {
+      margin-top: 0.42rem;
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .handle-chip {
+      font-family: var(--font-mono);
+      font-size: 0.8rem;
+      font-weight: 700;
+      padding: 0.2rem 0.6rem;
+      border-radius: 8px;
+      border: 1px solid var(--border-strong);
+      background: var(--glow-cyan);
+      color: var(--accent-cyan);
+    }
+
+    .motto-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.45rem;
+      padding: 0.26rem 0.78rem;
+      border-radius: 999px;
+      font-size: 0.8rem;
+      font-weight: 700;
+      color: var(--text-primary);
+      border: 1px solid var(--border-subtle);
+      background: var(--bg-chip);
+    }
+
+    .motto-dot {
+      width: 7px;
+      height: 7px;
+      border-radius: 50%;
+      background: var(--accent-emerald);
+      flex-shrink: 0;
+      box-shadow: 0 0 8px rgba(16, 185, 129, 0.85);
+    }
+
+    .typewriter-row {
+      display: flex;
+      align-items: center;
+      min-height: 2.2em;
+      font-size: clamp(0.98rem, 2vw, 1.24rem);
+      font-weight: 700;
+      margin-bottom: 0.9rem;
+      line-height: 1.45;
+    }
+
+    .typewriter-prompt {
+      font-family: var(--font-mono);
+      color: var(--accent-cyan);
+      margin-right: 0.5rem;
+      user-select: none;
+      flex-shrink: 0;
+    }
+
+    .typewriter-cursor {
+      display: inline-block;
+      width: 2.5px;
+      height: 1.12em;
+      background: var(--accent-cyan);
+      margin-left: 4px;
+      flex-shrink: 0;
+      animation: blink 0.9s step-end infinite;
+    }
+
+    @keyframes blink {
+      0%, 100% { opacity: 1; }
+      50% { opacity: 0; }
+    }
+
+    .hero-bio {
+      margin: 0 0 1.45rem;
+      font-size: clamp(0.93rem, 1.15vw, 1.02rem);
+      color: var(--text-secondary);
+      line-height: 1.8;
+      max-width: 60ch;
+    }
+
+    .hero-bio strong {
+      color: var(--text-primary);
+      font-weight: 700;
+    }
+
+    .hero-cta-group {
+      display: flex;
+      flex-direction: column;
+      gap: 0.7rem;
+    }
+
+    @media (min-width: 480px) {
+      .hero-cta-group {
+        flex-direction: row;
+        flex-wrap: wrap;
+      }
+    }
+
+    /* Right Column: Core Expertise Radar & Flagship Certs Card */
+    .competency-card {
+      padding: 1.25rem;
+      display: flex;
+      flex-direction: column;
+      gap: 0.85rem;
+    }
+
+    @media (min-width: 640px) {
+      .competency-card { padding: 1.45rem 1.5rem; }
+    }
+
+    .competency-header {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+      gap: 0.5rem;
+    }
+
+    .competency-title {
+      margin: 0;
+      font-size: 0.92rem;
+      font-weight: 800;
+      color: var(--text-primary);
+      letter-spacing: 0.01em;
+    }
+
+    .radar-stage {
+      width: 100%;
+      max-width: 420px;
+      margin-inline: auto;
+    }
+
+    .radar-svg {
+      width: 100%;
+      height: auto;
+      display: block;
+      user-select: none;
+    }
+
+    .radar-polygon {
+      fill: var(--radar-fill);
+      stroke: var(--radar-stroke);
+      stroke-width: 2.4;
+      stroke-linejoin: round;
+    }
+
+    .radar-node {
+      cursor: pointer;
+      outline: none;
+    }
+
+    .radar-halo {
+      fill: var(--accent-cyan);
+      opacity: 0;
+      transition: opacity 0.2s ease;
+    }
+
+    .radar-dot {
+      fill: var(--bg-surface);
+      stroke: var(--accent-cyan);
+      stroke-width: 2.4;
+      transition: fill 0.2s ease, stroke 0.2s ease;
+    }
+
+    .radar-label {
+      fill: var(--text-secondary);
+      font-size: 12px;
+      font-weight: 700;
+      font-family: var(--font-sans);
+      transition: fill 0.2s ease;
+    }
+
+    .radar-score {
+      fill: var(--text-muted);
+      font-size: 10.5px;
+      font-weight: 700;
+      font-family: var(--font-mono);
+      transition: fill 0.2s ease;
+    }
+
+    .radar-node:hover .radar-halo,
+    .radar-node:focus-visible .radar-halo,
+    .radar-node.is-active .radar-halo {
+      opacity: 0.26;
+    }
+
+    .radar-node:hover .radar-dot,
+    .radar-node:focus-visible .radar-dot,
+    .radar-node.is-active .radar-dot {
+      fill: var(--accent-cyan);
+      stroke: var(--bg-surface);
+    }
+
+    .radar-node:hover .radar-label,
+    .radar-node:focus-visible .radar-label,
+    .radar-node.is-active .radar-label {
+      fill: var(--accent-cyan);
+    }
+
+    .radar-node:hover .radar-score,
+    .radar-node:focus-visible .radar-score,
+    .radar-node.is-active .radar-score {
+      fill: var(--text-primary);
+    }
+
+    .radar-callout {
+      padding: 0.72rem 0.95rem;
+      border-radius: var(--radius-sm);
+      border: 1px solid var(--border-strong);
+      background: var(--glow-cyan);
+      display: flex;
+      align-items: center;
+      gap: 0.6rem;
+      min-height: 48px;
+    }
+
+    .radar-callout-dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: var(--accent-cyan);
+      box-shadow: 0 0 8px var(--accent-cyan);
+      flex-shrink: 0;
+    }
+
+    .radar-callout-text {
+      margin: 0;
+      font-size: 0.83rem;
+      color: var(--text-secondary);
+      line-height: 1.5;
+    }
+
+    .radar-callout-text strong {
+      color: var(--text-primary);
+    }
+
+    .radar-cert-pills {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 0.5rem;
+    }
+
+    .radar-cert-pill {
+      min-height: 44px;
+      padding: 0.45rem 0.72rem;
+      border-radius: 10px;
+      border: 1px solid var(--border-subtle);
+      background: var(--bg-chip);
+      color: var(--text-primary);
+      font-family: var(--font-mono);
+      font-size: 0.74rem;
+      font-weight: 700;
+      display: inline-flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 0.35rem;
+      transition: border-color 0.2s ease, background-color 0.2s ease, color 0.2s ease, transform 0.2s ease;
+    }
+
+    .radar-cert-pill:hover {
+      border-color: var(--border-strong);
+      background: var(--glow-cyan);
+      color: var(--accent-cyan);
+      transform: translateY(-1px);
+    }
+
+    /* 4 Compact KPI Stat Cards */
+    .kpi-grid {
+      margin-top: 2rem;
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 0.85rem;
+    }
+
+    @media (min-width: 900px) {
+      .kpi-grid {
+        grid-template-columns: repeat(4, 1fr);
+        gap: 1.1rem;
+      }
+    }
+
+    .kpi-card {
+      padding: 1.15rem;
+      display: flex;
+      flex-direction: column;
+      gap: 0.32rem;
+    }
+
+    .kpi-value {
+      font-size: clamp(1.5rem, 3vw, 2rem);
+      font-weight: 900;
+      line-height: 1.15;
+      letter-spacing: -0.02em;
+    }
+
+    .kpi-title {
+      font-size: 0.88rem;
+      font-weight: 700;
+      color: var(--text-primary);
+    }
+
+    .kpi-sub {
+      font-size: 0.77rem;
+      color: var(--text-muted);
+      line-height: 1.45;
+    }
+
+    /* =====================================================================
+       7. SECTION HEADERS, ICON BOXES & FILTER PILLS
+       ===================================================================== */
+    .section {
+      padding: 3.25rem 0;
+    }
+
+    @media (min-width: 768px) {
+      .section { padding: 4.5rem 0; }
+    }
+
+    .section-head {
+      display: flex;
+      flex-direction: column;
+      gap: 0.6rem;
+      margin-bottom: 1.65rem;
+    }
+
+    @media (min-width: 768px) {
+      .section-head.split {
+        flex-direction: row;
+        align-items: flex-end;
+        justify-content: space-between;
+      }
+    }
+
+    .section-kicker {
+      font-family: var(--font-mono);
+      font-size: 0.76rem;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      color: var(--accent-cyan);
+      text-transform: uppercase;
+    }
+
+    .section-title {
+      margin: 0.2rem 0 0;
+      font-size: clamp(1.48rem, 3vw, 2.15rem);
+      font-weight: 900;
+      letter-spacing: -0.02em;
+      line-height: 1.24;
+    }
+
+    .section-desc {
+      margin: 0;
+      font-size: 0.92rem;
+      color: var(--text-muted);
+      max-width: 50ch;
+    }
+
+    .icon-box {
+      width: 42px;
+      height: 42px;
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+    }
+
+    .icon-cyan { background: rgba(56, 189, 248, 0.14); color: var(--accent-cyan); }
+    .icon-indigo { background: rgba(129, 140, 248, 0.14); color: var(--accent-indigo); }
+    .icon-emerald { background: rgba(52, 211, 153, 0.14); color: var(--accent-emerald); }
+    .icon-amber { background: rgba(251, 191, 36, 0.14); color: var(--accent-amber); }
+
+    .filter-scroll {
+      display: flex;
+      align-items: center;
+      gap: 0.55rem;
+      overflow-x: auto;
+      padding: 0.2rem 0 0.8rem;
+      margin-bottom: 1.1rem;
+      scrollbar-width: none;
+      -ms-overflow-style: none;
+    }
+
+    .filter-scroll::-webkit-scrollbar { display: none; }
+
+    .filter-pill {
+      flex-shrink: 0;
+      min-height: 44px;
+      padding: 0.5rem 1.05rem;
+      border-radius: 12px;
+      border: 1px solid var(--border-subtle);
+      background: var(--bg-card);
+      color: var(--text-secondary);
+      font-size: 0.86rem;
+      font-weight: 600;
+      transition: all 0.2s ease;
+    }
+
+    .filter-pill:hover {
+      border-color: var(--border-strong);
+      color: var(--accent-cyan);
+    }
+
+    .filter-pill.is-active {
+      border-color: transparent;
+      background: linear-gradient(135deg, #0ea5e9 0%, #6366f1 100%);
+      color: #ffffff;
+      box-shadow: 0 8px 20px -6px rgba(14, 165, 233, 0.48);
+    }
+
+    /* =====================================================================
+       8. EXPERIENCE & EDUCATION SECTION (#experience)
+       ===================================================================== */
+    .exp-layout {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 1.75rem;
+    }
+
+    @media (min-width: 1024px) {
+      .exp-layout.mode-all {
+        grid-template-columns: 1.3fr 0.9fr;
+        align-items: start;
+      }
+    }
+
+    .exp-col-heading {
+      display: flex;
+      align-items: center;
+      gap: 0.65rem;
+      margin: 0 0 1.15rem;
+      font-size: 1.12rem;
+      font-weight: 800;
+    }
+
+    .timeline-stack {
+      position: relative;
+      padding-left: 1.65rem;
+      display: flex;
+      flex-direction: column;
+      gap: 1.05rem;
+    }
+
+    .timeline-stack::before {
+      content: "";
+      position: absolute;
+      left: 6px;
+      top: 12px;
+      bottom: 12px;
+      width: 2px;
+      background: linear-gradient(180deg, var(--accent-cyan) 0%, var(--accent-indigo) 65%, rgba(148, 163, 184, 0.22) 100%);
+    }
+
+    .timeline-item {
+      position: relative;
+    }
+
+    .timeline-dot {
+      position: absolute;
+      left: -1.65rem;
+      top: 1.3rem;
+      width: 14px;
+      height: 14px;
+      border-radius: 50%;
+      background: var(--accent-cyan);
+      box-shadow: 0 0 0 5px var(--glow-cyan);
+    }
+
+    .timeline-dot.indigo { background: var(--accent-indigo); box-shadow: 0 0 0 5px var(--glow-indigo); }
+    .timeline-dot.emerald { background: var(--accent-emerald); box-shadow: 0 0 0 5px rgba(52, 211, 153, 0.18); }
+    .timeline-dot.amber { background: var(--accent-amber); box-shadow: 0 0 0 5px var(--glow-amber); }
+
+    .exp-card {
+      padding: 1.25rem 1.35rem;
+    }
+
+    .exp-card-top {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+      gap: 0.5rem;
+      margin-bottom: 0.4rem;
+    }
+
+    .exp-org {
+      margin: 0;
+      font-size: 1.05rem;
+      font-weight: 800;
+      line-height: 1.35;
+    }
+
+    .exp-role {
+      font-size: 0.89rem;
+      font-weight: 700;
+      color: var(--accent-cyan);
+      margin-bottom: 0.55rem;
+    }
+
+    .exp-bullets {
+      margin: 0;
+      padding: 0;
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 0.4rem;
+      font-size: 0.88rem;
+      color: var(--text-secondary);
+      line-height: 1.65;
+    }
+
+    .exp-bullets li {
+      display: flex;
+      align-items: flex-start;
+      gap: 0.5rem;
+    }
+
+    .exp-bullets li::before {
+      content: "";
+      width: 5px;
+      height: 5px;
+      border-radius: 50%;
+      background: var(--accent-cyan);
+      margin-top: 0.58rem;
+      flex-shrink: 0;
+    }
+
+    .edu-metric-bar {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.45rem;
+      margin: 0.55rem 0 0.7rem;
+    }
+
+    /* =====================================================================
+       9. SKILLS MATRIX SECTION (#skills)
+       ===================================================================== */
+    .skills-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 1rem;
+    }
+
+    @media (min-width: 640px) {
+      .skills-grid { grid-template-columns: repeat(2, 1fr); }
+    }
+
+    @media (min-width: 1024px) {
+      .skills-grid { grid-template-columns: repeat(3, 1fr); gap: 1.2rem; }
+    }
+
+    .skill-card {
+      padding: 1.35rem;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      gap: 1rem;
+    }
+
+    .skill-top {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 0.5rem;
+      margin-bottom: 0.55rem;
+    }
+
+    .skill-name {
+      margin: 0 0 0.35rem;
+      font-size: 1.03rem;
+      font-weight: 800;
+    }
+
+    .skill-sub {
+      margin: 0;
+      font-size: 0.85rem;
+      color: var(--text-muted);
+      line-height: 1.55;
+    }
+
+    .skill-progress-track {
+      width: 100%;
+      height: 8px;
+      border-radius: 999px;
+      background: rgba(148, 163, 184, 0.22);
+      overflow: hidden;
+      margin-bottom: 0.8rem;
+    }
+
+    .skill-progress-fill {
+      height: 100%;
+      border-radius: 999px;
+      background: linear-gradient(90deg, var(--accent-cyan), var(--accent-indigo));
+    }
+
+    /* =====================================================================
+       10. CERTIFICATIONS SECTION (#certs)
+       ===================================================================== */
+    .flagship-label {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.45rem;
+      font-family: var(--font-mono);
+      font-size: 0.78rem;
+      font-weight: 700;
+      color: var(--accent-amber);
+      margin-bottom: 0.9rem;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+    }
+
+    .flagship-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 1rem;
+      margin-bottom: 2rem;
+    }
+
+    @media (min-width: 640px) {
+      .flagship-grid { grid-template-columns: repeat(2, 1fr); }
+    }
+
+    @media (min-width: 1080px) {
+      .flagship-grid { grid-template-columns: repeat(4, 1fr); }
+    }
+
+    .flagship-wrap {
+      padding: 1.5px;
+      border-radius: var(--radius-lg);
+      background: var(--flagship-border);
+      box-shadow: var(--shadow-card);
+      transition: transform 0.25s ease, box-shadow 0.25s ease;
+    }
+
+    .flagship-wrap:hover {
+      transform: translateY(-3px);
+      box-shadow: var(--shadow-hover);
+    }
+
+    .flagship-card {
+      height: 100%;
+      padding: 1.25rem;
+      border-radius: calc(var(--radius-lg) - 1.5px);
+      background: var(--bg-surface);
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      gap: 0.9rem;
+    }
+
+    .flagship-vendor {
+      font-family: var(--font-mono);
+      font-size: 0.72rem;
+      font-weight: 700;
+      color: var(--accent-cyan);
+      text-transform: uppercase;
+    }
+
+    .flagship-title {
+      margin: 0.35rem 0 0;
+      font-size: 0.96rem;
+      font-weight: 800;
+      line-height: 1.42;
+    }
+
+    .cert-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 0.85rem;
+    }
+
+    @media (min-width: 640px) {
+      .cert-grid { grid-template-columns: repeat(2, 1fr); }
+    }
+
+    @media (min-width: 1024px) {
+      .cert-grid { grid-template-columns: repeat(3, 1fr); }
+    }
+
+    .cert-card {
+      padding: 1.1rem 1.2rem;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      gap: 0.7rem;
+    }
+
+    .cert-title {
+      margin: 0.35rem 0 0;
+      font-size: 0.92rem;
+      font-weight: 700;
+      line-height: 1.45;
+    }
+
+    .cert-meta {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+      gap: 0.4rem;
+      font-family: var(--font-mono);
+      font-size: 0.72rem;
+      color: var(--text-muted);
+    }
+
+    /* =====================================================================
+       11. RESEARCH & PUBLICATIONS SECTION (#research)
+       ===================================================================== */
+    .research-card {
+      padding: 1.5rem;
+      margin-bottom: 1.75rem;
+    }
+
+    @media (min-width: 768px) {
+      .research-card { padding: 2rem; }
+    }
+
+    .research-top-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 1.5rem;
+      align-items: center;
+    }
+
+    @media (min-width: 1024px) {
+      .research-top-grid { grid-template-columns: 1.05fr 0.95fr; }
+    }
+
+    .svg-diagram-box {
+      border-radius: var(--radius-md);
+      border: 1px solid var(--border-subtle);
+      background: var(--svg-bg);
+      padding: 1rem;
+      overflow: hidden;
+    }
+
+    .svg-diagram-caption {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+      gap: 0.5rem;
+      margin-top: 0.75rem;
+      font-size: 0.78rem;
+      color: var(--text-muted);
+    }
+
+    .publications-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 1rem;
+    }
+
+    @media (min-width: 768px) {
+      .publications-grid { grid-template-columns: repeat(2, 1fr); }
+    }
+
+    .pub-card {
+      padding: 1.35rem;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      gap: 1rem;
+    }
+
+    .pub-citation {
+      margin: 0.55rem 0 0;
+      font-size: 0.89rem;
+      color: var(--text-secondary);
+      line-height: 1.72;
+    }
+
+    .pub-citation strong {
+      color: var(--accent-cyan);
+    }
+
+    /* =====================================================================
+       12. CONTACT SECTION (#contact)
+       ===================================================================== */
+    .contact-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 1.5rem;
+    }
+
+    @media (min-width: 1024px) {
+      .contact-grid { grid-template-columns: 5fr 7fr; gap: 2rem; }
+    }
+
+    .connect-stack {
+      display: flex;
+      flex-direction: column;
+      gap: 0.9rem;
+    }
+
+    .connect-card {
+      width: 100%;
+      min-height: 78px;
+      padding: 0.95rem 1.1rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 0.75rem;
+    }
+
+    .connect-left {
+      display: flex;
+      align-items: center;
+      gap: 0.85rem;
+      min-width: 0;
+      flex: 1;
+    }
+
+    .connect-label {
+      font-family: var(--font-mono);
+      font-size: 0.72rem;
+      color: var(--text-muted);
+    }
+
+    .connect-value {
+      font-weight: 700;
+      font-size: 0.93rem;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
+
+    .connect-actions {
+      display: flex;
+      align-items: center;
+      gap: 0.4rem;
+      flex-shrink: 0;
+    }
+
+    .contact-form-card {
+      padding: 1.5rem;
+    }
+
+    @media (min-width: 640px) {
+      .contact-form-card { padding: 1.85rem; }
+    }
+
+    .form-grid-2 {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 1rem;
+    }
+
+    @media (min-width: 640px) {
+      .form-grid-2 { grid-template-columns: 1fr 1fr; }
+    }
+
+    .form-group {
+      margin-bottom: 1rem;
+    }
+
+    .form-label {
+      display: block;
+      font-size: 0.85rem;
+      font-weight: 700;
+      margin-bottom: 0.4rem;
+    }
+
+    .form-input, .form-select, .form-textarea {
+      width: 100%;
+      min-height: 46px;
+      padding: 0.65rem 0.9rem;
+      border-radius: 12px;
+      border: 1px solid var(--border-subtle);
+      background: var(--bg-chip);
+      color: var(--text-primary);
+      font-size: 0.91rem;
+      transition: border-color 0.2s ease, box-shadow 0.2s ease;
+    }
+
+    .form-select {
+      background-color: var(--bg-surface);
+    }
+
+    .form-textarea {
+      min-height: 112px;
+      resize: vertical;
+    }
+
+    .form-input:focus, .form-select:focus, .form-textarea:focus {
+      outline: none;
+      border-color: var(--accent-cyan);
+      box-shadow: 0 0 0 3px var(--glow-cyan);
+    }
+
+    .form-input.is-error, .form-textarea.is-error {
+      border-color: var(--accent-rose);
+    }
+
+    .field-error {
+      display: none;
+      margin-top: 0.35rem;
+      font-size: 0.78rem;
+      color: var(--accent-rose);
+    }
+
+    .field-error.is-visible {
+      display: block;
+    }
+
+    .form-actions-row {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 0.7rem;
+    }
+
+    /* =====================================================================
+       13. MODALS (HIDDEN BY DEFAULT — DISPLAY: NONE UNTIL .is-open)
+       ===================================================================== */
+    .modal-overlay {
+      position: fixed;
+      inset: 0;
+      z-index: 70;
+      display: none;
+      align-items: center;
+      justify-content: center;
+      padding: 1rem;
+      background: rgba(2, 6, 23, 0.78);
+      backdrop-filter: blur(6px);
+    }
+
+    .modal-overlay.is-open {
+      display: flex;
+    }
+
+    .modal-dialog {
+      position: relative;
+      width: 100%;
+      max-width: 700px;
+      max-height: 90vh;
+      display: flex;
+      flex-direction: column;
+      background: var(--bg-surface);
+      border: 1px solid var(--border-subtle);
+      border-radius: var(--radius-lg);
+      box-shadow: 0 28px 60px -16px rgba(2, 6, 23, 0.75);
+      overflow: hidden;
+    }
+
+    .modal-dialog.compact {
+      max-width: 520px;
+    }
+
+    .modal-header {
+      padding: 1.15rem 1.35rem;
+      border-bottom: 1px solid var(--border-subtle);
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      gap: 1rem;
+    }
+
+    .modal-body {
+      padding: 1.35rem;
+      overflow-y: auto;
+      display: flex;
+      flex-direction: column;
+      gap: 1.15rem;
+    }
+
+    .modal-footer {
+      padding: 1rem 1.35rem;
+      border-top: 1px solid var(--border-subtle);
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: flex-end;
+      gap: 0.65rem;
+    }
+
+    .lightbox-panel {
+      position: relative;
+      max-width: min(92vw, 760px);
+      max-height: 90vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 0.9rem;
+    }
+
+    .lightbox-img-frame {
+      position: relative;
+      border-radius: var(--radius-lg);
+      overflow: hidden;
+      border: 2px solid rgba(56, 189, 248, 0.42);
+      box-shadow: 0 24px 64px rgba(0, 0, 0, 0.7);
+      background: #0f172a;
+      max-height: 74vh;
+    }
+
+    .lightbox-img {
+      max-height: 74vh;
+      width: auto;
+      max-width: 90vw;
+      object-fit: contain;
+    }
+
+    .lightbox-fallback {
+      width: min(76vw, 320px);
+      height: min(76vw, 320px);
+      display: none;
+    }
+
+    .lightbox-img-frame.is-fallback .lightbox-img { display: none; }
+    .lightbox-img-frame.is-fallback .lightbox-fallback { display: block; }
+
+    .editor-preview-stage {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 0.75rem;
+      padding: 1.1rem;
+      border-radius: var(--radius-md);
+      background: var(--bg-chip);
+      border: 1px solid var(--border-subtle);
+    }
+
+    .editor-avatar-preview {
+      width: 132px;
+      height: 132px;
+      padding: 3.5px;
+      border-radius: 50%;
+      background: var(--ring-gradient);
+      box-shadow: var(--ring-shadow);
+    }
+
+    .slider-group {
+      display: flex;
+      flex-direction: column;
+      gap: 0.85rem;
+    }
+
+    .slider-row {
+      display: flex;
+      flex-direction: column;
+      gap: 0.35rem;
+    }
+
+    .slider-head {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 0.84rem;
+      font-weight: 600;
+    }
+
+    .slider-input {
+      width: 100%;
+      height: 6px;
+      accent-color: var(--accent-cyan);
+      cursor: pointer;
+    }
+
+    .upload-dropzone {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+      gap: 0.75rem;
+      padding: 0.85rem 1rem;
+      border-radius: var(--radius-md);
+      border: 1px dashed var(--border-strong);
+      background: var(--glow-cyan);
+    }
+
+    /* =====================================================================
+       14. FOOTER, BACK-TO-TOP & TOAST NOTIFICATIONS
+       ===================================================================== */
+    .site-footer {
+      margin-top: auto;
+      border-top: 1px solid var(--border-subtle);
+      padding: 2rem 0;
+    }
+
+    .footer-inner {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: space-between;
+      gap: 1rem;
+      text-align: center;
+    }
+
+    @media (min-width: 640px) {
+      .footer-inner {
+        flex-direction: row;
+        text-align: left;
+      }
+    }
+
+    .back-to-top {
+      position: fixed;
+      right: 1.25rem;
+      bottom: 1.25rem;
+      z-index: 35;
+      width: 46px;
+      height: 46px;
+      border-radius: 14px;
+      border: 1px solid var(--border-subtle);
+      background: var(--bg-card);
+      color: var(--text-primary);
+      backdrop-filter: blur(12px);
+      display: none;
+      align-items: center;
+      justify-content: center;
+      box-shadow: var(--shadow-card);
+    }
+
+    .back-to-top.is-visible {
+      display: flex;
+    }
+
+    .back-to-top:hover {
+      border-color: var(--border-strong);
+      color: var(--accent-cyan);
+    }
+
+    .toast-stack {
+      position: fixed;
+      left: 50%;
+      bottom: 1.25rem;
+      transform: translateX(-50%);
+      z-index: 90;
+      width: min(92vw, 390px);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 0.5rem;
+      pointer-events: none;
+    }
+
+    .toast-item {
+      pointer-events: auto;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.55rem;
+      padding: 0.72rem 1.05rem;
+      border-radius: 12px;
+      background: rgba(15, 23, 42, 0.96);
+      color: #f8fafc;
+      border: 1px solid rgba(56, 189, 248, 0.45);
+      box-shadow: 0 14px 30px rgba(2, 6, 23, 0.5);
+      font-size: 0.84rem;
+      font-weight: 600;
+    }
+
+    .toast-item.is-error {
+      border-color: rgba(251, 113, 133, 0.55);
+      color: #fecdd3;
+    }
+
+    /* =====================================================================
+       15. REDUCED MOTION SUPPORT
+       ===================================================================== */
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+        scroll-behavior: auto !important;
+      }
+    }
+
+    /* =====================================================================
+       16. A4 PRINT / EXPORT PDF STYLING (@media print)
+       ===================================================================== */
+    .print-header {
+      display: none;
+    }
+
+    @media print {
+      @page {
+        size: A4 portrait;
+        margin: 12mm 13mm;
+      }
+
+      html, body {
+        background: #ffffff !important;
+        color: #0f172a !important;
+        font-size: 9.4pt !important;
+        line-height: 1.45 !important;
+        overflow: visible !important;
+      }
+
+      .no-print,
+      .site-header,
+      .mobile-drawer,
+      .drawer-backdrop,
+      .modal-overlay,
+      .back-to-top,
+      .toast-stack,
+      #network-canvas,
+      .avatar-edit-btn,
+      .avatar-status-dot,
+      .hero-avatar-hover-hint,
+      .hero-cta-group,
+      .filter-scroll,
+      .contact-form-panel,
+      .connect-actions,
+      .pub-copy-btn,
+      .research-modal-btn,
+      .radar-cert-pills {
+        display: none !important;
+      }
+
+      .print-header {
+        display: flex !important;
+        align-items: center;
+        justify-content: space-between;
+        gap: 14pt;
+        padding-bottom: 10pt;
+        margin-bottom: 12pt;
+        border-bottom: 2px solid #0f172a;
+      }
+
+      .print-header-left {
+        display: flex;
+        align-items: center;
+        gap: 12pt;
+      }
+
+      .print-avatar {
+        width: 68px;
+        height: 68px;
+        border-radius: 50%;
+        padding: 2px;
+        border: 1.5px solid #0284c7;
+        flex-shrink: 0;
+        -webkit-print-color-adjust: exact;
+        print-color-adjust: exact;
+      }
+
+      .hero-section {
+        padding: 2pt 0 10pt !important;
+      }
+
+      .hero-identity-row,
+      .typewriter-row {
+        display: none !important;
+      }
+
+      .hero-grid {
+        grid-template-columns: 1fr !important;
+        gap: 8pt !important;
+      }
+
+      .competency-card {
+        display: none !important;
+      }
+
+      .section {
+        padding: 10pt 0 !important;
+      }
+
+      .glass-card,
+      .flagship-wrap,
+      .flagship-card {
+        background: #ffffff !important;
+        border: 1px solid #cbd5e1 !important;
+        box-shadow: none !important;
+        backdrop-filter: none !important;
+        break-inside: avoid;
+      }
+
+      .text-gradient {
+        background: none !important;
+        -webkit-text-fill-color: #0284c7 !important;
+        color: #0284c7 !important;
+      }
+
+      .is-hidden {
+        display: block !important;
+      }
+
+      .exp-layout {
+        grid-template-columns: 1fr !important;
+      }
+
+      .skills-grid,
+      .flagship-grid,
+      .cert-grid,
+      .publications-grid {
+        grid-template-columns: repeat(2, 1fr) !important;
+        gap: 8pt !important;
+      }
+
+      .kpi-grid {
+        grid-template-columns: repeat(4, 1fr) !important;
+        gap: 8pt !important;
+        margin-top: 8pt !important;
+      }
+
+      .skill-progress-track,
+      .skill-progress-fill,
+      .badge,
+      .tag-chip {
+        -webkit-print-color-adjust: exact;
+        print-color-adjust: exact;
+      }
+
+      .text-secondary,
+      .hero-bio,
+      .exp-bullets,
+      .pub-citation {
+        color: #1e293b !important;
+      }
+    }
+  </style>
+</head>
+<body>
+  <!-- Fixed Subtle Network-Topology Background Canvas (z-index: 0, pointer-events: none) -->
+  <canvas id="network-canvas" aria-hidden="true"></canvas>
+
+  <!-- =====================================================================
+       STICKY GLASSMORPHISM HEADER
+       ===================================================================== -->
+  <header class="site-header">
+    <div class="reading-progress-track" aria-hidden="true">
+      <div class="reading-progress-bar" id="reading-progress"></div>
+    </div>
+
+    <div class="container header-inner">
+      <!-- Brand: 32px Mini Circular Avatar + SkyKuo -->
+      <a href="#about" class="brand-link" aria-label="回到首頁 SkyKuo">
+        <div class="nav-mini-avatar" aria-hidden="true">
+          <div class="avatar-crop-box synced-avatar-box">
+            <img
+              src="S__336470020_0.jpg"
+              alt="SkyKuo"
+              class="avatar-crop-img synced-avatar-img"
+              onerror="this.parentElement.classList.add('is-fallback')"
+            />
+            <svg class="avatar-fallback-svg" viewBox="0 0 120 120" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="SK 預設頭像">
+              <defs>
+                <linearGradient id="skGradNav" x1="0%" y1="0%" x2="100%" y2="100%">
+                  <stop offset="0%" stop-color="#0ea5e9" />
+                  <stop offset="100%" stop-color="#6366f1" />
+                </linearGradient>
+              </defs>
+              <rect width="120" height="120" fill="url(#skGradNav)" />
+              <text x="50%" y="54%" dominant-baseline="middle" text-anchor="middle" fill="#ffffff" font-family="ui-monospace, sans-serif" font-weight="800" font-size="44">SK</text>
+            </svg>
+          </div>
+        </div>
+        <span class="brand-name">SkyKuo</span>
+      </a>
+
+      <!-- Desktop Navigation -->
+      <nav class="desktop-nav" aria-label="主要導覽選單">
+        <a href="#about" class="nav-link active" data-nav="about">關於我</a>
+        <a href="#experience" class="nav-link" data-nav="experience">學經歷</a>
+        <a href="#skills" class="nav-link" data-nav="skills">技能矩陣</a>
+        <a href="#certs" class="nav-link" data-nav="certs">專業證照</a>
+        <a href="#research" class="nav-link" data-nav="research">研究與論文</a>
+        <a href="#contact" class="nav-link" data-nav="contact">聯絡我</a>
+      </nav>
+
+      <!-- Header Actions -->
+      <div class="header-actions">
+        <button type="button" class="icon-btn desktop-print-btn" onclick="window.print()" aria-label="列印或匯出 A4 PDF">
+          <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" aria-hidden="true">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M6 9V4h12v5M6 18H4a2 2 0 01-2-2v-5a2 2 0 012-2h16a2 2 0 012 2v5a2 2 0 01-2 2h-2M6 14h12v7H6v-7z" />
+          </svg>
+          <span>列印 / 匯出 PDF</span>
+        </button>
+
+        <button type="button" class="icon-btn" id="theme-toggle" aria-label="切換深色或淺色主題" title="切換深色 / 淺色模式">
+          <svg class="icon-sun" width="19" height="19" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" aria-hidden="true">
+            <circle cx="12" cy="12" r="4" />
+            <path stroke-linecap="round" d="M12 2v2m0 16v2M4.93 4.93l1.41 1.41m11.32 11.32l1.41 1.41M2 12h2m16 0h2M4.93 19.07l1.41-1.41m11.32-11.32l1.41-1.41" />
+          </svg>
+          <svg class="icon-moon" width="19" height="19" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" aria-hidden="true">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M21 12.79A9 9 0 1111.21 3a7 7 0 009.79 9.79z" />
+          </svg>
+        </button>
+
+        <button
+          type="button"
+          class="icon-btn hamburger-btn"
+          id="mobile-menu-btn"
+          aria-label="開啟行動版導覽選單"
+          aria-expanded="false"
+          aria-controls="mobile-drawer"
+        >
+          <span class="hamburger-bar bar-1"></span>
+          <span class="hamburger-bar bar-2"></span>
+          <span class="hamburger-bar bar-3"></span>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <!-- Mobile Drawer Backdrop & Slide-Over Navigation -->
+  <div class="drawer-backdrop" id="drawer-backdrop" aria-hidden="true"></div>
+  <aside class="mobile-drawer" id="mobile-drawer" aria-label="行動版導覽抽屜" aria-hidden="true">
+    <div class="drawer-header">
+      <span class="brand-name">SkyKuo</span>
+      <button type="button" class="icon-btn" id="mobile-close-btn" aria-label="關閉選單">
+        <svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="2.2" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
+        </svg>
+      </button>
+    </div>
+
+    <nav class="drawer-nav">
+      <a href="#about" class="drawer-link"><span>關於我與簡介</span><span class="mono" style="opacity:.55;font-size:.76rem;">01</span></a>
+      <a href="#experience" class="drawer-link"><span>學經歷與教學</span><span class="mono" style="opacity:.55;font-size:.76rem;">02</span></a>
+      <a href="#skills" class="drawer-link"><span>核心技能矩陣</span><span class="mono" style="opacity:.55;font-size:.76rem;">03</span></a>
+      <a href="#certs" class="drawer-link"><span>20+ 專業證照</span><span class="mono" style="opacity:.55;font-size:.76rem;">04</span></a>
+      <a href="#research" class="drawer-link"><span>研究計畫與論文</span><span class="mono" style="opacity:.55;font-size:.76rem;">05</span></a>
+      <a href="#contact" class="drawer-link"><span>聯絡我</span><span class="mono" style="opacity:.55;font-size:.76rem;">06</span></a>
+    </nav>
+
+    <div class="drawer-footer">
+      <button type="button" class="btn btn-secondary" id="drawer-edit-avatar-btn" style="width:100%;">
+        <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M3 9a2 2 0 012-2h.93a2 2 0 001.664-.89l.812-1.22A2 2 0 0110.07 4h3.86a2 2 0 011.664.89l.812 1.22A2 2 0 0018.07 7H19a2 2 0 012 2v9a2 2 0 01-2 2H5a2 2 0 01-2-2V9z" />
+          <circle cx="12" cy="13" r="3" />
+        </svg>
+        <span>頭像微調工作台</span>
+      </button>
+      <button type="button" class="btn btn-primary" id="drawer-print-btn" style="width:100%;">
+        <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M6 9V4h12v5M6 18H4a2 2 0 01-2-2v-5a2 2 0 012-2h16a2 2 0 012 2v5a2 2 0 01-2 2h-2M6 14h12v7H6v-7z" />
+        </svg>
+        <span>列印 / 匯出 PDF</span>
+      </button>
+    </div>
+  </aside>
+
+  <!-- =====================================================================
+       MAIN CONTENT LANDMARK (z-index: 1 — IMMEDIATELY VISIBLE AT OPACITY 1)
+       ===================================================================== -->
+  <main>
+    <!-- Print-Only Executive A4 Header -->
+    <div class="container">
+      <div class="print-header">
+        <div class="print-header-left">
+          <div class="print-avatar">
+            <div class="avatar-crop-box synced-avatar-box">
+              <img
+                src="S__336470020_0.jpg"
+                alt="SkyKuo"
+                class="avatar-crop-img synced-avatar-img"
+                onerror="this.parentElement.classList.add('is-fallback')"
+              />
+              <svg class="avatar-fallback-svg" viewBox="0 0 120 120" xmlns="http://www.w3.org/2000/svg">
+                <defs>
+                  <linearGradient id="skGradPrint" x1="0%" y1="0%" x2="100%" y2="100%">
+                    <stop offset="0%" stop-color="#0284c7" />
+                    <stop offset="100%" stop-color="#4f46e5" />
+                  </linearGradient>
+                </defs>
+                <rect width="120" height="120" fill="url(#skGradPrint)" />
+                <text x="50%" y="54%" dominant-baseline="middle" text-anchor="middle" fill="#ffffff" font-family="sans-serif" font-weight="800" font-size="42">SK</text>
+              </svg>
+            </div>
+          </div>
+          <div>
+            <h1 style="margin:0;font-size:18pt;font-weight:900;color:#0f172a;">SkyKuo <span class="mono" style="font-size:10pt;font-weight:600;color:#0284c7;">@SkyKuo</span></h1>
+            <p style="margin:2pt 0 0;font-size:9.2pt;font-weight:700;color:#334155;">「有難度，才有挑戰的價值」｜中孚科技 技術副理・企業網路與資安架構師</p>
+            <p style="margin:1.5pt 0 0;font-size:8.5pt;color:#475569;">Palo Alto NGFW · Cisco CCNP Enterprise / Security · 國立臺中科技大學講師 · 國立中正大學資管暨醫資碩士班</p>
+          </div>
+        </div>
+        <div class="mono" style="text-align:right;font-size:8.2pt;color:#334155;line-height:1.6;">
+          <div>bluesky830727@gmail.com</div>
+          <div>0903-221-255</div>
+          <div>台中市大雅區 / 台北市，台灣</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ===================================================================
+         SECTION 1: HERO / ABOUT (#about)
+         =================================================================== -->
+    <section class="hero-section" id="about">
+      <div class="container">
+        <div class="hero-grid">
+          <!-- Left Column: Circular Avatar + SkyKuo + Typewriter + Bio + CTAs -->
+          <div>
+            <div class="hero-identity-row">
+              <!-- Circular Personal Avatar directly to the left of SkyKuo -->
+              <div class="hero-avatar-wrap">
+                <button
+                  type="button"
+                  class="hero-avatar-trigger"
+                  id="hero-avatar-btn"
+                  aria-label="點擊檢視 SkyKuo 完整原圖照片"
+                  title="點擊檢視完整原圖"
+                >
+                  <div class="hero-avatar-inner">
+                    <div class="avatar-crop-box synced-avatar-box">
+                      <img
+                        src="S__336470020_0.jpg"
+                        alt="SkyKuo"
+                        class="avatar-crop-img synced-avatar-img"
+                        onerror="this.parentElement.classList.add('is-fallback')"
+                      />
+                      <svg class="avatar-fallback-svg" viewBox="0 0 120 120" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="SK 漸層頭像">
+                        <defs>
+                          <linearGradient id="skGradHero" x1="0%" y1="0%" x2="100%" y2="100%">
+                            <stop offset="0%" stop-color="#38bdf8" />
+                            <stop offset="55%" stop-color="#6366f1" />
+                            <stop offset="100%" stop-color="#10b981" />
+                          </linearGradient>
+                        </defs>
+                        <rect width="120" height="120" fill="url(#skGradHero)" />
+                        <text x="50%" y="54%" dominant-baseline="middle" text-anchor="middle" fill="#ffffff" font-family="ui-monospace, sans-serif" font-weight="800" font-size="42">SK</text>
+                      </svg>
+                    </div>
+                  </div>
+                  <span class="hero-avatar-hover-hint" aria-hidden="true">
+                    <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.2" viewBox="0 0 24 24">
+                      <circle cx="11" cy="11" r="7" />
+                      <path stroke-linecap="round" d="M21 21l-4.35-4.35M11 8v6M8 11h6" />
+                    </svg>
+                    <span>檢視原圖</span>
+                  </span>
+                </button>
+
+                <!-- Online Status Pulse Dot -->
+                <span class="avatar-status-dot" title="Online · 開放技術與專案交流" aria-hidden="true">
+                  <span class="avatar-status-core"></span>
+                </span>
+
+                <!-- Camera Button: Opens Avatar Workbench -->
+                <button
+                  type="button"
+                  class="avatar-edit-btn"
+                  id="open-avatar-editor-btn"
+                  title="頭像微調工作台（更換照片 / 縮放焦點）"
+                  aria-label="開啟頭像微調工作台"
+                >
+                  <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.1" viewBox="0 0 24 24" aria-hidden="true">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M3 9a2 2 0 012-2h.93a2 2 0 001.664-.89l.812-1.22A2 2 0 0110.07 4h3.86a2 2 0 011.664.89l.812 1.22A2 2 0 0018.07 7H19a2 2 0 012 2v9a2 2 0 01-2 2H5a2 2 0 01-2-2V9z" />
+                    <circle cx="12" cy="13" r="3" />
+                  </svg>
+                </button>
+              </div>
+
+              <!-- Name, Handle & Motto -->
+              <div class="hero-name-block">
+                <h1 class="hero-name"><span class="text-gradient">SkyKuo</span></h1>
+                <div class="hero-handle-row">
+                  <span class="handle-chip">@SkyKuo</span>
+                  <span class="motto-badge">
+                    <span class="motto-dot" aria-hidden="true"></span>
+                    <span>有難度，才有挑戰的價值</span>
+                  </span>
+                </div>
+              </div>
+            </div>
+
+            <!-- Dynamic Typewriter Subtitle -->
+            <div class="typewriter-row" aria-live="polite">
+              <span class="typewriter-prompt" aria-hidden="true">&gt;_</span>
+              <span id="typewriter-text">中孚科技 技術副理</span>
+              <span class="typewriter-cursor no-print" aria-hidden="true"></span>
+            </div>
+
+            <!-- Concise Intro Paragraph -->
+            <p class="hero-bio">
+              專注於企業網路架構與 <strong>Python / Java 網路自動化</strong>，具備政府、金融、電信與大型企業專案實戰經驗，致力以程式化思維提升基礎設施維運效率。
+            </p>
+
+            <!-- Primary CTAs -->
+            <div class="hero-cta-group">
+              <a href="#contact" class="btn btn-primary">
+                <span>聯絡我</span>
+                <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.2" viewBox="0 0 24 24" aria-hidden="true">
+                  <path stroke-linecap="round" stroke-linejoin="round" d="M13 7l5 5m0 0l-5 5m5-5H6" />
+                </svg>
+              </a>
+              <button type="button" class="btn btn-secondary" onclick="window.print()">
+                <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" aria-hidden="true">
+                  <path stroke-linecap="round" stroke-linejoin="round" d="M6 9V4h12v5M6 18H4a2 2 0 01-2-2v-5a2 2 0 012-2h16a2 2 0 012 2v5a2 2 0 01-2 2h-2M6 14h12v7H6v-7z" />
+                </svg>
+                <span>列印 / 匯出 PDF</span>
+              </button>
+              <a href="#certs" class="btn btn-ghost">
+                <span>檢視 20+ 證照</span>
+              </a>
+            </div>
+          </div>
+
+          <!-- Right Column: Core Expertise 6-Axis Radar Card & Flagship Cert Pills -->
+          <div>
+            <div class="glass-card competency-card" aria-label="核心專長雷達圖與旗艦認證">
+              <div class="competency-header">
+                <h2 class="competency-title">核心專長雷達圖 · <span class="mono" style="color:var(--accent-cyan);font-size:0.82rem;">Core Expertise</span></h2>
+                <span class="badge badge-cyan">點選節點檢視詳情</span>
+              </div>
+
+              <!-- Statically Rendered 6-Axis SVG Radar Chart (viewBox="0 0 420 340") -->
+              <div class="radar-stage">
+                <svg
+                  id="competency-radar-svg"
+                  class="radar-svg"
+                  viewBox="0 0 420 340"
+                  role="img"
+                  aria-label="SkyKuo 六大核心專長雷達圖"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <!-- Concentric Hexagonal Grid Rings (25%, 50%, 75%, 100%) -->
+                  <g fill="none" stroke="var(--radar-grid)" stroke-width="1">
+                    <polygon points="210,148 229.1,159 229.1,181 210,192 190.9,181 190.9,159" stroke-dasharray="3 3" />
+                    <polygon points="210,126 248.1,148 248.1,192 210,214 171.9,192 171.9,148" stroke-dasharray="3 3" />
+                    <polygon points="210,104 267.2,137 267.2,203 210,236 152.8,203 152.8,137" stroke-dasharray="3 3" />
+                    <polygon points="210,82 286.2,126 286.2,214 210,258 133.8,214 133.8,126" stroke-width="1.35" />
+                  </g>
+
+                  <!-- 6 Radial Axis Spokes -->
+                  <g stroke="var(--radar-axis)" stroke-width="1">
+                    <line x1="210" y1="170" x2="210" y2="82" />
+                    <line x1="210" y1="170" x2="286.2" y2="126" />
+                    <line x1="210" y1="170" x2="286.2" y2="214" />
+                    <line x1="210" y1="170" x2="210" y2="258" />
+                    <line x1="210" y1="170" x2="133.8" y2="214" />
+                    <line x1="210" y1="170" x2="133.8" y2="126" />
+                  </g>
+
+                  <!-- Data Value Polygon (96%, 60%, 90%, 94%, 86%, 88%) -->
+                  <polygon
+                    class="radar-polygon"
+                    points="210,85.5 255.7,143.6 278.6,209.6 210,252.7 144.5,207.8 142.9,131.3"
+                  />
+
+                  <!-- Interactive Node 0: 企業網路架構 (96%) -->
+                  <g
+                    class="radar-node is-active"
+                    tabindex="0"
+                    role="button"
+                    data-radar-idx="0"
+                    data-title="企業網路架構"
+                    data-score="96%"
+                    data-desc="多廠牌 Cisco / Juniper 園區與總部骨幹建置維運"
+                    aria-label="企業網路架構 96%"
+                  >
+                    <circle cx="210" cy="85.5" r="22" fill="transparent" />
+                    <circle class="radar-halo" cx="210" cy="85.5" r="14" />
+                    <circle class="radar-dot" cx="210" cy="85.5" r="5.5" />
+                    <text class="radar-label" x="210" y="46" text-anchor="middle">企業網路架構</text>
+                    <text class="radar-score" x="210" y="62" text-anchor="middle">96%</text>
+                  </g>
+
+                  <!-- Interactive Node 1: 資安防禦規劃 (60%) -->
+                  <g
+                    class="radar-node"
+                    tabindex="0"
+                    role="button"
+                    data-radar-idx="1"
+                    data-title="資安防禦規劃"
+                    data-score="60%"
+                    data-desc="Palo Alto / Fortinet / Cisco ISE 零信任與防火牆架構"
+                    aria-label="資安防禦規劃 60%"
+                  >
+                    <circle cx="255.7" cy="143.6" r="22" fill="transparent" />
+                    <circle class="radar-halo" cx="255.7" cy="143.6" r="13" />
+                    <circle class="radar-dot" cx="255.7" cy="143.6" r="4.8" />
+                    <text class="radar-label" x="300" y="121" text-anchor="start">資安防禦規劃</text>
+                    <text class="radar-score" x="300" y="137" text-anchor="start">60%</text>
+                  </g>
+
+                  <!-- Interactive Node 2: 網路自動化開發 (90%) -->
+                  <g
+                    class="radar-node"
+                    tabindex="0"
+                    role="button"
+                    data-radar-idx="2"
+                    data-title="網路自動化開發"
+                    data-score="90%"
+                    data-desc="Python / Java 自動化部署腳本與維運流程優化"
+                    aria-label="網路自動化開發 90%"
+                  >
+                    <circle cx="278.6" cy="209.6" r="22" fill="transparent" />
+                    <circle class="radar-halo" cx="278.6" cy="209.6" r="13" />
+                    <circle class="radar-dot" cx="278.6" cy="209.6" r="4.8" />
+                    <text class="radar-label" x="300" y="214" text-anchor="start">網路自動化開發</text>
+                    <text class="radar-score" x="300" y="230" text-anchor="start">90%</text>
+                  </g>
+
+                  <!-- Interactive Node 3: SI 系統整合 (94%) -->
+                  <g
+                    class="radar-node"
+                    tabindex="0"
+                    role="button"
+                    data-radar-idx="3"
+                    data-title="SI 系統整合"
+                    data-score="94%"
+                    data-desc="政府、銀行、ISP 與大專院校大型專案交付經驗"
+                    aria-label="SI 系統整合 94%"
+                  >
+                    <circle cx="210" cy="252.7" r="22" fill="transparent" />
+                    <circle class="radar-halo" cx="210" cy="252.7" r="13" />
+                    <circle class="radar-dot" cx="210" cy="252.7" r="4.8" />
+                    <text class="radar-label" x="210" y="284" text-anchor="middle">SI 系統整合</text>
+                    <text class="radar-score" x="210" y="300" text-anchor="middle">94%</text>
+                  </g>
+
+                  <!-- Interactive Node 4: 大數據與研究 (86%) -->
+                  <g
+                    class="radar-node"
+                    tabindex="0"
+                    role="button"
+                    data-radar-idx="4"
+                    data-title="大數據與研究"
+                    data-score="86%"
+                    data-desc="機器學習、資料探勘與國際研討會論文發表"
+                    aria-label="大數據與研究 86%"
+                  >
+                    <circle cx="144.5" cy="207.8" r="22" fill="transparent" />
+                    <circle class="radar-halo" cx="144.5" cy="207.8" r="13" />
+                    <circle class="radar-dot" cx="144.5" cy="207.8" r="4.8" />
+                    <text class="radar-label" x="120" y="214" text-anchor="end">大數據與研究</text>
+                    <text class="radar-score" x="120" y="230" text-anchor="end">86%</text>
+                  </g>
+
+                  <!-- Interactive Node 5: 產學教學顧問 (88%) -->
+                  <g
+                    class="radar-node"
+                    tabindex="0"
+                    role="button"
+                    data-radar-idx="5"
+                    data-title="產學教學顧問"
+                    data-score="88%"
+                    data-desc="臺中科大講師與淡江助教之實務教學與技術傳承"
+                    aria-label="產學教學顧問 88%"
+                  >
+                    <circle cx="142.9" cy="131.3" r="22" fill="transparent" />
+                    <circle class="radar-halo" cx="142.9" cy="131.3" r="13" />
+                    <circle class="radar-dot" cx="142.9" cy="131.3" r="4.8" />
+                    <text class="radar-label" x="120" y="121" text-anchor="end">產學教學顧問</text>
+                    <text class="radar-score" x="120" y="137" text-anchor="end">88%</text>
+                  </g>
+                </svg>
+              </div>
+
+              <!-- Live Insight Callout Box -->
+              <div class="radar-callout" aria-live="polite">
+                <span class="radar-callout-dot" aria-hidden="true"></span>
+                <p class="radar-callout-text" id="radar-callout-text">
+                  <strong>企業網路架構（96%）</strong>：多廠牌 Cisco / Juniper 園區與總部骨幹建置維運
+                </p>
+              </div>
+
+              <!-- 4 Clickable Flagship Certification Quick Pills -->
+              <div class="radar-cert-pills" aria-label="旗艦認證快速連結">
+                <a href="#certs" class="radar-cert-pill">
+                  <span>Palo Alto NGFW</span>
+                  <svg width="13" height="13" fill="none" stroke="currentColor" stroke-width="2.2" viewBox="0 0 24 24" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7" /></svg>
+                </a>
+                <a href="#certs" class="radar-cert-pill">
+                  <span>CCNP Enterprise</span>
+                  <svg width="13" height="13" fill="none" stroke="currentColor" stroke-width="2.2" viewBox="0 0 24 24" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7" /></svg>
+                </a>
+                <a href="#certs" class="radar-cert-pill">
+                  <span>CCNP Security</span>
+                  <svg width="13" height="13" fill="none" stroke="currentColor" stroke-width="2.2" viewBox="0 0 24 24" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7" /></svg>
+                </a>
+                <a href="#certs" class="radar-cert-pill">
+                  <span>Fire Jumper Elite</span>
+                  <svg width="13" height="13" fill="none" stroke="currentColor" stroke-width="2.2" viewBox="0 0 24 24" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7" /></svg>
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- 4 Compact KPI Stat Cards -->
+        <div class="kpi-grid">
+          <article class="glass-card interactive kpi-card">
+            <div class="kpi-value text-gradient mono">20+</div>
+            <div class="kpi-title">專業與國際證照</div>
+            <div class="kpi-sub">Palo Alto、Cisco CCNP 雙軌、Oracle、Microsoft 與 TQC+</div>
+          </article>
+
+          <article class="glass-card interactive kpi-card">
+            <div class="kpi-value text-gradient mono">6 項</div>
+            <div class="kpi-title">產學教學經歷</div>
+            <div class="kpi-sub">跨足 SI、面板龍頭總部、電信專案與大專院校授課</div>
+          </article>
+
+          <article class="glass-card interactive kpi-card">
+            <div class="kpi-value text-gradient mono">2 篇</div>
+            <div class="kpi-title">國際研討會論文</div>
+            <div class="kpi-sub">發表於 IEEE CyberSciTech 2018 與 IETAC 2016</div>
+          </article>
+
+          <article class="glass-card interactive kpi-card">
+            <div class="kpi-value text-gradient mono">第 1 名</div>
+            <div class="kpi-title">班級畢業 (1.79%)</div>
+            <div class="kpi-sub">僑光科大資科系 1 / 56 · 淡江資工碩士總平均 90.00</div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===================================================================
+         SECTION 2: EXPERIENCE & EDUCATION (#experience)
+         =================================================================== -->
+    <section class="section" id="experience">
+      <div class="container">
+        <div class="section-head split">
+          <div>
+            <span class="section-kicker">01 / EXPERIENCE &amp; EDUCATION</span>
+            <h2 class="section-title">工作經歷、教學與學歷背景</h2>
+          </div>
+          <p class="section-desc">涵蓋系統整合、集團基礎設施、電信資安、大專授課與資訊工程／資訊管理碩士訓練。</p>
+        </div>
+
+        <!-- Interactive Filter Tabs -->
+        <div class="filter-scroll" role="tablist" aria-label="學經歷檢視切換">
+          <button type="button" role="tab" aria-selected="true" class="filter-pill exp-tab-btn is-active" data-exp-mode="all">全部檢視</button>
+          <button type="button" role="tab" aria-selected="false" class="filter-pill exp-tab-btn" data-exp-mode="work">工作與教學經歷 (6)</button>
+          <button type="button" role="tab" aria-selected="false" class="filter-pill exp-tab-btn" data-exp-mode="edu">學歷背景 (3)</button>
+        </div>
+
+        <div class="exp-layout mode-all" id="exp-layout">
+          <!-- Work & Teaching Experience (6 items) -->
+          <div class="exp-column" id="col-work">
+            <h3 class="exp-col-heading">
+              <span class="icon-box icon-cyan" aria-hidden="true">
+                <svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" d="M21 13.255A23.931 23.931 0 0112 15c-3.183 0-6.22-.62-9-1.745M16 6V4a2 2 0 00-2-2h-4a2 2 0 00-2 2v2m4 6h.01M5 20h14a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
+                </svg>
+              </span>
+              <span>工作與教學經歷</span>
+            </h3>
+
+            <div class="timeline-stack">
+              <!-- 1. 中孚科技 -->
+              <article class="timeline-item">
+                <span class="timeline-dot" aria-hidden="true"></span>
+                <div class="glass-card interactive exp-card">
+                  <div class="exp-card-top">
+                    <h4 class="exp-org">中孚科技</h4>
+                    <span class="badge badge-cyan">Enterprise SI &amp; Automation</span>
+                  </div>
+                  <div class="exp-role">技術副理</div>
+                  <ul class="exp-bullets">
+                    <li><strong>政府機關</strong>：Security 建置維護。</li>
+                    <li><strong>學校</strong>：有線／無線及 Security 建置維護。</li>
+                    <li><strong>銀行</strong>：有線及 Security 建置維護。</li>
+                    <li>透過程式設計完成<strong>網路自動化</strong>，簡化及優化作業程序。</li>
+                  </ul>
+                </div>
+              </article>
+
+              <!-- 2. 友達光電 -->
+              <article class="timeline-item">
+                <span class="timeline-dot indigo" aria-hidden="true"></span>
+                <div class="glass-card interactive exp-card">
+                  <div class="exp-card-top">
+                    <h4 class="exp-org">友達光電</h4>
+                    <span class="badge badge-indigo">Global HQ Infrastructure</span>
+                  </div>
+                  <div class="exp-role">高級工程師</div>
+                  <ul class="exp-bullets">
+                    <li>總部 <strong>ATC 網路</strong>規劃、維護及建置。</li>
+                    <li>集團總 <strong>Infrastructure</strong> 規劃、建置及調整。</li>
+                    <li>集團視訊系統評估及建置。</li>
+                  </ul>
+                </div>
+              </article>
+
+              <!-- 3. 華電聯網股份有限公司 -->
+              <article class="timeline-item">
+                <span class="timeline-dot emerald" aria-hidden="true"></span>
+                <div class="glass-card interactive exp-card">
+                  <div class="exp-card-top">
+                    <h4 class="exp-org">華電聯網股份有限公司</h4>
+                    <span class="badge badge-emerald">Telecom ISP &amp; Gov</span>
+                  </div>
+                  <div class="exp-role">高級工程師</div>
+                  <ul class="exp-bullets">
+                    <li>一、二類電信（ISP）及政府機關有線／無線與防火牆建置維運。</li>
+                    <li>全台各園區網路建置、維運與年度歲修支援。</li>
+                  </ul>
+                </div>
+              </article>
+
+              <!-- 4. 晉泰科技股份有限公司 -->
+              <article class="timeline-item">
+                <span class="timeline-dot" aria-hidden="true"></span>
+                <div class="glass-card interactive exp-card">
+                  <div class="exp-card-top">
+                    <h4 class="exp-org">晉泰科技股份有限公司</h4>
+                    <span class="badge badge-cyan">Enterprise Campus</span>
+                  </div>
+                  <div class="exp-role">網路工程師</div>
+                  <ul class="exp-bullets">
+                    <li>園區企業有線／無線網路設備建置與維運。</li>
+                    <li>針對客戶網路架構進行規劃、建置及調整。</li>
+                  </ul>
+                </div>
+              </article>
+
+              <!-- 5. 國立臺中科技大學 -->
+              <article class="timeline-item">
+                <span class="timeline-dot amber" aria-hidden="true"></span>
+                <div class="glass-card interactive exp-card">
+                  <div class="exp-card-top">
+                    <h4 class="exp-org">國立臺中科技大學</h4>
+                    <span class="badge badge-amber">University Lecturer</span>
+                  </div>
+                  <div class="exp-role">講師</div>
+                  <ul class="exp-bullets">
+                    <li>教授 <strong>Linux 與網路管理、Python 程式設計、大數據分析</strong>及網路相關課程。</li>
+                  </ul>
+                </div>
+              </article>
+
+              <!-- 6. 淡江大學 -->
+              <article class="timeline-item">
+                <span class="timeline-dot indigo" aria-hidden="true"></span>
+                <div class="glass-card interactive exp-card">
+                  <div class="exp-card-top">
+                    <h4 class="exp-org">淡江大學</h4>
+                    <span class="badge badge-indigo">Teaching Assistant</span>
+                  </div>
+                  <div class="exp-role">大學暨研究所助教</div>
+                  <ul class="exp-bullets">
+                    <li>教授 <strong>Java 程式設計、網頁設計與大數據分析</strong>課程。</li>
+                    <li>處理院辦及系辦相關學術交流研討會。</li>
+                  </ul>
+                </div>
+              </article>
+            </div>
+          </div>
+
+          <!-- Education Background (3 items) -->
+          <div class="exp-column" id="col-edu">
+            <h3 class="exp-col-heading">
+              <span class="icon-box icon-indigo" aria-hidden="true">
+                <svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" d="M12 14l9-5-9-5-9 5 9 5z" />
+                  <path stroke-linecap="round" stroke-linejoin="round" d="M12 14l6.16-3.422a12.083 12.083 0 01.665 6.479A11.952 11.952 0 0012 20.055a11.952 11.952 0 00-6.824-2.998 12.078 12.078 0 01.665-6.479L12 14z" />
+                </svg>
+              </span>
+              <span>學歷背景</span>
+            </h3>
+
+            <div class="timeline-stack">
+              <!-- 1. 國立中正大學 -->
+              <article class="timeline-item">
+                <span class="timeline-dot" aria-hidden="true"></span>
+                <div class="glass-card interactive exp-card">
+                  <div class="exp-card-top">
+                    <h4 class="exp-org">國立中正大學</h4>
+                    <span class="badge badge-cyan">研究所進修</span>
+                  </div>
+                  <div class="exp-role">資訊管理學系暨研究所（含醫療資訊管理碩士班）</div>
+                  <ul class="exp-bullets">
+                    <li>聚焦多領域網路架構資安比較與中小企業網路自動化專案成本優化研究。</li>
+                  </ul>
+                </div>
+              </article>
+
+              <!-- 2. 淡江大學 -->
+              <article class="timeline-item">
+                <span class="timeline-dot indigo" aria-hidden="true"></span>
+                <div class="glass-card interactive exp-card">
+                  <div class="exp-card-top">
+                    <h4 class="exp-org">淡江大學</h4>
+                    <span class="badge badge-indigo">2016 – 2018</span>
+                  </div>
+                  <div class="exp-role">資訊工程研究所 碩士</div>
+                  <div class="edu-metric-bar">
+                    <span class="badge badge-emerald">課程平均 89.00</span>
+                    <span class="badge badge-cyan">總平均 90.00</span>
+                  </div>
+                  <div class="tag-row">
+                    <span class="tag-chip">雲端運算與虛擬化</span>
+                    <span class="tag-chip">大數據分析</span>
+                    <span class="tag-chip">機器學習</span>
+                    <span class="tag-chip">物聯網通訊與路由協定</span>
+                  </div>
+                </div>
+              </article>
+
+              <!-- 3. 僑光科技大學 -->
+              <article class="timeline-item">
+                <span class="timeline-dot amber" aria-hidden="true"></span>
+                <div class="glass-card interactive exp-card">
+                  <div class="exp-card-top">
+                    <h4 class="exp-org">僑光科技大學</h4>
+                    <span class="badge badge-amber">全班第 1 名畢業</span>
+                  </div>
+                  <div class="exp-role">資訊科技系 學士</div>
+                  <div class="edu-metric-bar">
+                    <span class="badge badge-amber">班級排名第 1 名 / 56 人（前 1.79%）</span>
+                    <span class="badge badge-emerald">學業平均 86.46</span>
+                  </div>
+                  <ul class="exp-bullets">
+                    <li>紮實奠定程式設計、資料結構、資料庫系統、作業系統與電腦網路核心基礎。</li>
+                  </ul>
+                </div>
+              </article>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===================================================================
+         SECTION 3: SKILLS MATRIX (#skills) — STATICALLY RENDERED & FILTERABLE
+         =================================================================== -->
+    <section class="section" id="skills">
+      <div class="container">
+        <div class="section-head split">
+          <div>
+            <span class="section-kicker">02 / SKILLS MATRIX</span>
+            <h2 class="section-title">核心技能矩陣</h2>
+          </div>
+          <p class="section-desc">多廠牌企業網路與次世代資安設備實戰，搭配 Python / Java 自動化開發與數據系統管理。</p>
+        </div>
+
+        <div class="filter-scroll" role="tablist" aria-label="技能分類篩選">
+          <button type="button" role="tab" aria-selected="true" class="filter-pill skill-filter-btn is-active" data-skill-filter="all">全部</button>
+          <button type="button" role="tab" aria-selected="false" class="filter-pill skill-filter-btn" data-skill-filter="network">企業網路</button>
+          <button type="button" role="tab" aria-selected="false" class="filter-pill skill-filter-btn" data-skill-filter="security">資安防護</button>
+          <button type="button" role="tab" aria-selected="false" class="filter-pill skill-filter-btn" data-skill-filter="automation">程式與自動化</button>
+          <button type="button" role="tab" aria-selected="false" class="filter-pill skill-filter-btn" data-skill-filter="data">數據與系統</button>
+        </div>
+
+        <div class="skills-grid" id="skills-grid">
+          <!-- 1. Cisco Enterprise & Security -->
+          <article class="glass-card interactive skill-card" data-skill-cat="network security">
+            <div>
+              <div class="skill-top">
+                <span class="badge badge-cyan">企業網路 / 資安防護</span>
+                <span class="mono" style="font-size:0.78rem;font-weight:700;color:var(--accent-cyan);">96%</span>
+              </div>
+              <h3 class="skill-name">Cisco Enterprise &amp; Security</h3>
+              <p class="skill-sub">企業級有線／無線核心網路建置、ISE 零信任存取控管、PI 集中管理與 Firepower 威脅防禦。</p>
+            </div>
+            <div>
+              <div class="skill-progress-track" role="progressbar" aria-valuenow="96" aria-valuemin="0" aria-valuemax="100">
+                <div class="skill-progress-fill" style="width:96%;"></div>
+              </div>
+              <div class="tag-row">
+                <span class="tag-chip">Router</span>
+                <span class="tag-chip">Switch</span>
+                <span class="tag-chip">Wireless</span>
+                <span class="tag-chip">ISE</span>
+                <span class="tag-chip">PI</span>
+                <span class="tag-chip">Catalyst</span>
+                <span class="tag-chip">Firepower</span>
+              </div>
+            </div>
+          </article>
+
+          <!-- 2. Palo Alto Networks -->
+          <article class="glass-card interactive skill-card" data-skill-cat="security">
+            <div>
+              <div class="skill-top">
+                <span class="badge badge-amber">資安防護</span>
+                <span class="mono" style="font-size:0.78rem;font-weight:700;color:var(--accent-cyan);">95%</span>
+              </div>
+              <h3 class="skill-name">Palo Alto Networks</h3>
+              <p class="skill-sub">次世代防火牆安全架構規劃、政策優化與政府／金融單位高可用資安維運。</p>
+            </div>
+            <div>
+              <div class="skill-progress-track" role="progressbar" aria-valuenow="95" aria-valuemin="0" aria-valuemax="100">
+                <div class="skill-progress-fill" style="width:95%;"></div>
+              </div>
+              <div class="tag-row">
+                <span class="tag-chip">Next-Generation Firewall (NGFW)</span>
+                <span class="tag-chip">Security Policy</span>
+                <span class="tag-chip">HA Architecture</span>
+              </div>
+            </div>
+          </article>
+
+          <!-- 3. Juniper Networks -->
+          <article class="glass-card interactive skill-card" data-skill-cat="network security">
+            <div>
+              <div class="skill-top">
+                <span class="badge badge-indigo">企業網路</span>
+                <span class="mono" style="font-size:0.78rem;font-weight:700;color:var(--accent-cyan);">89%</span>
+              </div>
+              <h3 class="skill-name">Juniper Networks</h3>
+              <p class="skill-sub">電信 ISP 骨幹路由、企業核心交換與邊界防火牆跨廠牌整合建置與維運。</p>
+            </div>
+            <div>
+              <div class="skill-progress-track" role="progressbar" aria-valuenow="89" aria-valuemin="0" aria-valuemax="100">
+                <div class="skill-progress-fill" style="width:89%;"></div>
+              </div>
+              <div class="tag-row">
+                <span class="tag-chip">Router</span>
+                <span class="tag-chip">Switch</span>
+                <span class="tag-chip">Firewall</span>
+              </div>
+            </div>
+          </article>
+
+          <!-- 4. Fortinet Security Fabric -->
+          <article class="glass-card interactive skill-card" data-skill-cat="security network">
+            <div>
+              <div class="skill-top">
+                <span class="badge badge-rose">資安防護</span>
+                <span class="mono" style="font-size:0.78rem;font-weight:700;color:var(--accent-cyan);">90%</span>
+              </div>
+              <h3 class="skill-name">Fortinet Security Fabric</h3>
+              <p class="skill-sub">校園與企業整合式防火牆、交換器與無線網路安全聯防架構建置與維運。</p>
+            </div>
+            <div>
+              <div class="skill-progress-track" role="progressbar" aria-valuenow="90" aria-valuemin="0" aria-valuemax="100">
+                <div class="skill-progress-fill" style="width:90%;"></div>
+              </div>
+              <div class="tag-row">
+                <span class="tag-chip">Switch</span>
+                <span class="tag-chip">Wireless</span>
+                <span class="tag-chip">Firewall</span>
+              </div>
+            </div>
+          </article>
+
+          <!-- 5. Programming & Network Automation -->
+          <article class="glass-card interactive skill-card" data-skill-cat="automation">
+            <div>
+              <div class="skill-top">
+                <span class="badge badge-emerald">程式與自動化</span>
+                <span class="mono" style="font-size:0.78rem;font-weight:700;color:var(--accent-cyan);">91%</span>
+              </div>
+              <h3 class="skill-name">Programming &amp; Network Automation</h3>
+              <p class="skill-sub">運用程式開發打造自動化部署與設定稽核工具，大幅減少人工配置誤差並優化 SI 專案效率。</p>
+            </div>
+            <div>
+              <div class="skill-progress-track" role="progressbar" aria-valuenow="91" aria-valuemin="0" aria-valuemax="100">
+                <div class="skill-progress-fill" style="width:91%;"></div>
+              </div>
+              <div class="tag-row">
+                <span class="tag-chip">Python</span>
+                <span class="tag-chip">Java</span>
+                <span class="tag-chip">自動化部署腳本</span>
+                <span class="tag-chip">網頁設計</span>
+              </div>
+            </div>
+          </article>
+
+          <!-- 6. Data Science & Linux Systems -->
+          <article class="glass-card interactive skill-card" data-skill-cat="data">
+            <div>
+              <div class="skill-top">
+                <span class="badge badge-cyan">數據與系統</span>
+                <span class="mono" style="font-size:0.78rem;font-weight:700;color:var(--accent-cyan);">88%</span>
+              </div>
+              <h3 class="skill-name">Data Science &amp; Linux Systems</h3>
+              <p class="skill-sub">結合資工碩士研究與大專授課經驗，熟悉大數據分析流程與專業級 Linux 系統及網路管理。</p>
+            </div>
+            <div>
+              <div class="skill-progress-track" role="progressbar" aria-valuenow="88" aria-valuemin="0" aria-valuemax="100">
+                <div class="skill-progress-fill" style="width:88%;"></div>
+              </div>
+              <div class="tag-row">
+                <span class="tag-chip">Data Science</span>
+                <span class="tag-chip">大數據分析</span>
+                <span class="tag-chip">Linux 系統與網路管理</span>
+              </div>
+            </div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===================================================================
+         SECTION 4: CERTIFICATIONS (#certs) — 4 FLAGSHIP + 17 FILTERABLE CERTS
+         =================================================================== -->
+    <section class="section" id="certs">
+      <div class="container">
+        <div class="section-head split">
+          <div>
+            <span class="section-kicker">03 / PROFESSIONAL CREDENTIALS</span>
+            <h2 class="section-title">20+ 國際與專業證照</h2>
+          </div>
+          <p class="section-desc">涵蓋 Palo Alto 次世代防火牆、Cisco CCNP 企業與資安雙軌、程式語言、Linux 與辦公設計專業認證。</p>
+        </div>
+
+        <!-- Top 4 Flagship Certification Highlight Cards -->
+        <div class="flagship-label">
+          <svg width="16" height="16" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+            <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z" />
+          </svg>
+          <span>Flagship Tier · 核心旗艦級認證</span>
+        </div>
+
+        <div class="flagship-grid">
+          <!-- Flagship 1 -->
+          <div class="flagship-wrap">
+            <article class="flagship-card">
+              <div>
+                <div style="display:flex;align-items:center;justify-content:space-between;gap:0.5rem;">
+                  <span class="flagship-vendor">Palo Alto Networks</span>
+                  <svg width="18" height="18" fill="none" stroke="var(--accent-amber)" stroke-width="2" viewBox="0 0 24 24" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" /></svg>
+                </div>
+                <h3 class="flagship-title">Palo Alto Networks Certified Next-Generation Firewall Engineer</h3>
+              </div>
+              <div><span class="badge badge-amber">Expires Jul 23, 2027</span></div>
+            </article>
+          </div>
+
+          <!-- Flagship 2 -->
+          <div class="flagship-wrap">
+            <article class="flagship-card">
+              <div>
+                <div style="display:flex;align-items:center;justify-content:space-between;gap:0.5rem;">
+                  <span class="flagship-vendor">Cisco Systems</span>
+                  <svg width="18" height="18" fill="none" stroke="var(--accent-cyan)" stroke-width="2" viewBox="0 0 24 24" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" /></svg>
+                </div>
+                <h3 class="flagship-title">Cisco CCNP Enterprise</h3>
+              </div>
+              <div><span class="badge badge-cyan">Expires May 1, 2028</span></div>
+            </article>
+          </div>
+
+          <!-- Flagship 3 -->
+          <div class="flagship-wrap">
+            <article class="flagship-card">
+              <div>
+                <div style="display:flex;align-items:center;justify-content:space-between;gap:0.5rem;">
+                  <span class="flagship-vendor">Cisco Systems</span>
+                  <svg width="18" height="18" fill="none" stroke="var(--accent-indigo)" stroke-width="2" viewBox="0 0 24 24" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" /></svg>
+                </div>
+                <h3 class="flagship-title">Cisco CCNP Security (Security Core &amp; Firepower Specialist)</h3>
+              </div>
+              <div><span class="badge badge-indigo">Expires May 1, 2028</span></div>
+            </article>
+          </div>
+
+          <!-- Flagship 4 -->
+          <div class="flagship-wrap">
+            <article class="flagship-card">
+              <div>
+                <div style="display:flex;align-items:center;justify-content:space-between;gap:0.5rem;">
+                  <span class="flagship-vendor">Cisco Systems</span>
+                  <svg width="18" height="18" fill="none" stroke="var(--accent-emerald)" stroke-width="2" viewBox="0 0 24 24" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" /></svg>
+                </div>
+                <h3 class="flagship-title">Cisco Fire Jumper Elite - Sales Representative</h3>
+              </div>
+              <div><span class="badge badge-emerald">Expires Mar 26, 2027</span></div>
+            </article>
+          </div>
+        </div>
+
+        <!-- Filter Tabs for Additional 17 Certifications -->
+        <div class="filter-scroll" role="tablist" aria-label="其他專業證照分類篩選">
+          <button type="button" role="tab" aria-selected="true" class="filter-pill cert-filter-btn is-active" data-cert-filter="all">全部 (17)</button>
+          <button type="button" role="tab" aria-selected="false" class="filter-pill cert-filter-btn" data-cert-filter="netsec">網路與資安 (7)</button>
+          <button type="button" role="tab" aria-selected="false" class="filter-pill cert-filter-btn" data-cert-filter="devsys">程式與系統 (5)</button>
+          <button type="button" role="tab" aria-selected="false" class="filter-pill cert-filter-btn" data-cert-filter="office">辦公與設計 (5)</button>
+        </div>
+
+        <!-- 17 Additional Certifications (Statically Rendered) -->
+        <div class="cert-grid" id="cert-grid">
+          <!-- 網路與資安 (7) -->
+          <article class="glass-card interactive cert-card" data-cert-cat="netsec">
+            <div><span class="badge badge-cyan">網路與資安</span><h4 class="cert-title">Cisco Certified Specialist - Enterprise Core</h4></div>
+            <div class="cert-meta"><span>Cisco</span><span>Expires May 1, 2028</span></div>
+          </article>
+          <article class="glass-card interactive cert-card" data-cert-cat="netsec">
+            <div><span class="badge badge-cyan">網路與資安</span><h4 class="cert-title">Cisco Certified Specialist - Security Core</h4></div>
+            <div class="cert-meta"><span>Cisco</span><span>Expires May 1, 2028</span></div>
+          </article>
+          <article class="glass-card interactive cert-card" data-cert-cat="netsec">
+            <div><span class="badge badge-cyan">網路與資安</span><h4 class="cert-title">Cisco Certified Specialist - Network Security Firepower</h4></div>
+            <div class="cert-meta"><span>Cisco</span><span>Expires May 1, 2028</span></div>
+          </article>
+          <article class="glass-card interactive cert-card" data-cert-cat="netsec">
+            <div><span class="badge badge-cyan">網路與資安</span><h4 class="cert-title">Cisco CCNA</h4></div>
+            <div class="cert-meta"><span>Cisco</span><span>Expires May 1, 2028</span></div>
+          </article>
+          <article class="glass-card interactive cert-card" data-cert-cat="netsec">
+            <div><span class="badge badge-indigo">網路與資安</span><h4 class="cert-title">ICDL IT Security</h4></div>
+            <div class="cert-meta"><span>ICDL</span><span>Certified</span></div>
+          </article>
+          <article class="glass-card interactive cert-card" data-cert-cat="netsec">
+            <div><span class="badge badge-indigo">網路與資安</span><h4 class="cert-title">MTA: Security Fundamentals</h4></div>
+            <div class="cert-meta"><span>Microsoft</span><span>Certified 2017</span></div>
+          </article>
+          <article class="glass-card interactive cert-card" data-cert-cat="netsec">
+            <div><span class="badge badge-indigo">網路與資安</span><h4 class="cert-title">MTA: Networking Fundamentals</h4></div>
+            <div class="cert-meta"><span>Microsoft</span><span>Certified 2017</span></div>
+          </article>
+
+          <!-- 程式與系統 (5) -->
+          <article class="glass-card interactive cert-card" data-cert-cat="devsys">
+            <div><span class="badge badge-emerald">程式與系統</span><h4 class="cert-title">Oracle Certified Associate, Java SE 7 Programmer</h4></div>
+            <div class="cert-meta"><span>Oracle</span><span>Issued Nov 8, 2016</span></div>
+          </article>
+          <article class="glass-card interactive cert-card" data-cert-cat="devsys">
+            <div><span class="badge badge-emerald">程式與系統</span><h4 class="cert-title">ICDL Python Computing</h4></div>
+            <div class="cert-meta"><span>ICDL</span><span>Certified</span></div>
+          </article>
+          <article class="glass-card interactive cert-card" data-cert-cat="devsys">
+            <div><span class="badge badge-emerald">程式與系統</span><h4 class="cert-title">TQC+ Python 3 專業級</h4></div>
+            <div class="cert-meta"><span>TQC+</span><span>Professional</span></div>
+          </article>
+          <article class="glass-card interactive cert-card" data-cert-cat="devsys">
+            <div><span class="badge badge-emerald">程式與系統</span><h4 class="cert-title">TQC Linux 系統管理 - 專業級 (V2)</h4></div>
+            <div class="cert-meta"><span>TQC</span><span>Professional</span></div>
+          </article>
+          <article class="glass-card interactive cert-card" data-cert-cat="devsys">
+            <div><span class="badge badge-emerald">程式與系統</span><h4 class="cert-title">MTA: Introduction to Programming Using Python</h4></div>
+            <div class="cert-meta"><span>Microsoft</span><span>Certified 2021</span></div>
+          </article>
+
+          <!-- 辦公與設計 (5) -->
+          <article class="glass-card interactive cert-card" data-cert-cat="office">
+            <div><span class="badge badge-amber">辦公與設計</span><h4 class="cert-title">Microsoft Office Specialist: Excel Expert (Office 2019)</h4></div>
+            <div class="cert-meta"><span>Microsoft</span><span>Issued Nov 28, 2021</span></div>
+          </article>
+          <article class="glass-card interactive cert-card" data-cert-cat="office">
+            <div><span class="badge badge-amber">辦公與設計</span><h4 class="cert-title">Microsoft Office Specialist: Word Expert (Office 2019)</h4></div>
+            <div class="cert-meta"><span>Microsoft</span><span>Issued Nov 21, 2021</span></div>
+          </article>
+          <article class="glass-card interactive cert-card" data-cert-cat="office">
+            <div><span class="badge badge-amber">辦公與設計</span><h4 class="cert-title">Microsoft Office Specialist: PowerPoint Associate (Office 2019)</h4></div>
+            <div class="cert-meta"><span>Microsoft</span><span>Issued Nov 20, 2021</span></div>
+          </article>
+          <article class="glass-card interactive cert-card" data-cert-cat="office">
+            <div><span class="badge badge-amber">辦公與設計</span><h4 class="cert-title">Microsoft Office Specialist: Outlook Associate (Office 2019)</h4></div>
+            <div class="cert-meta"><span>Microsoft</span><span>Issued Nov 7, 2021</span></div>
+          </article>
+          <article class="glass-card interactive cert-card" data-cert-cat="office">
+            <div><span class="badge badge-rose">辦公與設計</span><h4 class="cert-title">Adobe Certified Associate in Visual Communication Using Adobe Photoshop</h4></div>
+            <div class="cert-meta"><span>Adobe</span><span>Issued Dec 19, 2017</span></div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===================================================================
+         SECTION 5: RESEARCH & PUBLICATIONS (#research)
+         =================================================================== -->
+    <section class="section" id="research">
+      <div class="container">
+        <div class="section-head split">
+          <div>
+            <span class="section-kicker">04 / RESEARCH &amp; PUBLICATIONS</span>
+            <h2 class="section-title">研究計畫與學術論文</h2>
+          </div>
+          <p class="section-desc">從系統整合商（SI）實務視角切入，以程式自動化優化中小企業網路建置與專案人力成本。</p>
+        </div>
+
+        <!-- Featured Research Plan Card + Inline Responsive SVG SI Workflow Diagram -->
+        <div class="glass-card research-card">
+          <div class="research-top-grid">
+            <div>
+              <div style="display:flex;flex-wrap:wrap;gap:0.45rem;margin-bottom:0.75rem;">
+                <span class="badge badge-cyan">國立中正大學 研究計畫</span>
+                <span class="badge badge-indigo">SI Infrastructure Optimization</span>
+              </div>
+              <h3 style="margin:0 0 0.75rem;font-size:clamp(1.22rem,2.4vw,1.56rem);font-weight:900;line-height:1.35;">
+                《中小企業網路自動化暨專案成本優化》
+              </h3>
+              <p style="margin:0 0 1rem;font-size:0.92rem;color:var(--text-secondary);line-height:1.78;">
+                針對台灣企業 Infrastructure 環境長期面臨的人力短缺與維運成本瓶頸，分別從系統整合商（SI）與甲方企業雙重視角，結合 <strong>Programming 軟體開發與網路自動化部屬</strong>，縮短跨客戶專案交付時程、降低工程師重複作業壓力，並提出具跨產業推廣價值的最佳化部署方案。
+              </p>
+
+              <div style="margin-bottom:1.15rem;">
+                <div class="mono" style="font-size:0.74rem;font-weight:700;color:var(--accent-cyan);margin-bottom:0.45rem;">RESEARCH DIRECTIONS · 核心研究方向</div>
+                <div class="tag-row">
+                  <span class="badge badge-cyan">(一) 多領域網路架構資安比較</span>
+                  <span class="badge badge-emerald">(二) 網路自動化暨企業效率提升</span>
+                </div>
+              </div>
+
+              <button type="button" class="btn btn-primary research-modal-btn" id="open-research-modal-btn">
+                <span>研究架構詳情</span>
+                <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.2" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" d="M13 7l5 5m0 0l-5 5m5-5H6" />
+                </svg>
+              </button>
+            </div>
+
+            <!-- Inline Responsive SVG SI Workflow Diagram (Company A & B <-> Pre-sales, SE, AE) -->
+            <div class="svg-diagram-box">
+              <svg viewBox="0 0 760 360" width="100%" height="auto" role="img" aria-labelledby="svg-wf-title svg-wf-desc" xmlns="http://www.w3.org/2000/svg">
+                <title id="svg-wf-title">SI Infrastructure 工作流程圖</title>
+                <desc id="svg-wf-desc">呈現 A Company 與 B Company 透過 Pre-sales、SE 與 AE 執行 POC、建置、維運、架構調整與新增需求的協作架構。</desc>
+
+                <!-- Company Headers -->
+                <rect x="305" y="10" width="150" height="28" rx="8" fill="var(--svg-node-a-fill)" stroke="var(--svg-node-a-stroke)" stroke-width="1.5" />
+                <text x="380" y="29" text-anchor="middle" fill="var(--svg-text)" font-size="13" font-weight="700" font-family="ui-monospace, sans-serif">A Company</text>
+
+                <rect x="305" y="322" width="150" height="28" rx="8" fill="var(--svg-node-b-fill)" stroke="var(--svg-node-b-stroke)" stroke-width="1.5" />
+                <text x="380" y="341" text-anchor="middle" fill="var(--svg-text)" font-size="13" font-weight="700" font-family="ui-monospace, sans-serif">B Company</text>
+
+                <!-- Connection Lines -->
+                <g stroke="var(--svg-line)" stroke-width="1.75" fill="none" stroke-linecap="round">
+                  <!-- Pre-sales -->
+                  <line x1="170" y1="154" x2="88" y2="104" />
+                  <line x1="170" y1="154" x2="234" y2="104" />
+                  <line x1="170" y1="206" x2="88" y2="256" />
+                  <!-- SE -->
+                  <line x1="380" y1="154" x2="234" y2="104" />
+                  <line x1="380" y1="154" x2="526" y2="104" />
+                  <line x1="380" y1="206" x2="380" y2="256" />
+                  <!-- AE -->
+                  <line x1="590" y1="154" x2="380" y2="104" />
+                  <line x1="590" y1="154" x2="526" y2="104" />
+                  <line x1="590" y1="154" x2="672" y2="104" />
+                  <line x1="590" y1="206" x2="88" y2="256" />
+                  <line x1="590" y1="206" x2="234" y2="256" />
+                  <line x1="590" y1="206" x2="380" y2="256" />
+                  <line x1="590" y1="206" x2="526" y2="256" />
+                  <line x1="590" y1="206" x2="672" y2="256" />
+                </g>
+
+                <!-- A Company 5 Stages -->
+                <g font-family="sans-serif" font-size="13" font-weight="700" text-anchor="middle">
+                  <circle cx="88" cy="76" r="30" fill="var(--svg-node-a-fill)" stroke="var(--svg-node-a-stroke)" stroke-width="1.8" />
+                  <text x="88" y="81" fill="var(--svg-text)">POC</text>
+
+                  <circle cx="234" cy="76" r="30" fill="var(--svg-node-a-fill)" stroke="var(--svg-node-a-stroke)" stroke-width="1.8" />
+                  <text x="234" y="81" fill="var(--svg-text)">建置</text>
+
+                  <circle cx="380" cy="76" r="30" fill="var(--svg-node-a-fill)" stroke="var(--svg-node-a-stroke)" stroke-width="1.8" />
+                  <text x="380" y="81" fill="var(--svg-text)">維運</text>
+
+                  <circle cx="526" cy="76" r="30" fill="var(--svg-node-a-fill)" stroke="var(--svg-node-a-stroke)" stroke-width="1.8" />
+                  <text x="526" y="81" fill="var(--svg-text)">架構調整</text>
+
+                  <circle cx="672" cy="76" r="30" fill="var(--svg-node-a-fill)" stroke="var(--svg-node-a-stroke)" stroke-width="1.8" />
+                  <text x="672" y="81" fill="var(--svg-text)">新增需求</text>
+                </g>
+
+                <!-- SI Roles -->
+                <g font-family="ui-monospace, sans-serif" font-size="13" font-weight="700" text-anchor="middle">
+                  <rect x="108" y="154" width="124" height="52" rx="14" fill="var(--svg-role-fill)" stroke="var(--svg-role-stroke)" stroke-width="2" />
+                  <text x="170" y="177" fill="var(--svg-text)">Pre-sales</text>
+                  <text x="170" y="195" fill="var(--svg-muted)" font-size="10.5" font-family="sans-serif">架構顧問 / POC</text>
+
+                  <rect x="318" y="154" width="124" height="52" rx="14" fill="var(--svg-role-fill)" stroke="var(--svg-role-stroke)" stroke-width="2" />
+                  <text x="380" y="177" fill="var(--svg-text)">SE</text>
+                  <text x="380" y="195" fill="var(--svg-muted)" font-size="10.5" font-family="sans-serif">建置 / 系統整合</text>
+
+                  <rect x="528" y="154" width="124" height="52" rx="14" fill="var(--svg-role-fill)" stroke="var(--svg-role-stroke)" stroke-width="2" />
+                  <text x="590" y="177" fill="var(--svg-text)">AE</text>
+                  <text x="590" y="195" fill="var(--svg-muted)" font-size="10.5" font-family="sans-serif">維運 / 需求擴充</text>
+                </g>
+
+                <!-- B Company 5 Stages -->
+                <g font-family="sans-serif" font-size="13" font-weight="700" text-anchor="middle">
+                  <circle cx="88" cy="284" r="30" fill="var(--svg-node-b-fill)" stroke="var(--svg-node-b-stroke)" stroke-width="1.8" />
+                  <text x="88" y="289" fill="var(--svg-text)">POC</text>
+
+                  <circle cx="234" cy="284" r="30" fill="var(--svg-node-b-fill)" stroke="var(--svg-node-b-stroke)" stroke-width="1.8" />
+                  <text x="234" y="289" fill="var(--svg-text)">建置</text>
+
+                  <circle cx="380" cy="284" r="30" fill="var(--svg-node-b-fill)" stroke="var(--svg-node-b-stroke)" stroke-width="1.8" />
+                  <text x="380" y="289" fill="var(--svg-text)">維運</text>
+
+                  <circle cx="526" cy="284" r="30" fill="var(--svg-node-b-fill)" stroke="var(--svg-node-b-stroke)" stroke-width="1.8" />
+                  <text x="526" y="289" fill="var(--svg-text)">架構調整</text>
+
+                  <circle cx="672" cy="284" r="30" fill="var(--svg-node-b-fill)" stroke="var(--svg-node-b-stroke)" stroke-width="1.8" />
+                  <text x="672" y="289" fill="var(--svg-text)">新增需求</text>
+                </g>
+              </svg>
+
+              <div class="svg-diagram-caption">
+                <span class="mono">Figure 1. SI Infrastructure 多客戶專案工作流程</span>
+                <span class="badge badge-emerald">自動化成本優化模型</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- 2 Published Academic Papers -->
+        <div class="section-head" style="margin-bottom:1rem;">
+          <span class="section-kicker">PUBLISHED PAPERS · 國際研討會論文</span>
+        </div>
+
+        <div class="publications-grid">
+          <article class="glass-card interactive pub-card">
+            <div>
+              <div style="display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:0.5rem;">
+                <span class="badge badge-cyan">IEEE CyberSciTech 2018</span>
+                <span class="mono" style="font-size:0.74rem;color:var(--text-muted);">Big Data Analytics</span>
+              </div>
+              <p class="pub-citation">
+                Chih-Cheih Hung, <strong>Chun-Yu Kuo</strong>, Hui-Huang Hsu and Yian Chen, <em>"Identifying Niche Singers in Online Music Streaming Services,"</em> in Proc. 4th Intl Conf on Big Data Intelligence and Computing and Cyber Science and Technology Congress (<strong>CyberSciTech</strong>), 2018.
+              </p>
+            </div>
+            <div>
+              <button
+                type="button"
+                class="btn btn-secondary pub-copy-btn copy-trigger"
+                style="min-height:44px;padding:0.45rem 0.95rem;font-size:0.82rem;"
+                data-copy='Chih-Cheih Hung, Chun-Yu Kuo, Hui-Huang Hsu and Yian Chen, "Identifying Niche Singers in Online Music Streaming Services," in Proc. 4th Intl Conf on Big Data Intelligence and Computing and Cyber Science and Technology Congress (CyberSciTech), 2018.'
+                data-copy-label="CyberSciTech 2018 論文引用"
+              >
+                <svg width="15" height="15" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                  <rect x="9" y="9" width="13" height="13" rx="2" ry="2" />
+                  <path d="M5 15H4a2 2 0 01-2-2V4a2 2 0 012-2h9a2 2 0 012 2v1" />
+                </svg>
+                <span>複製引用格式</span>
+              </button>
+            </div>
+          </article>
+
+          <article class="glass-card interactive pub-card">
+            <div>
+              <div style="display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:0.5rem;">
+                <span class="badge badge-indigo">IETAC 2016 · Taichung</span>
+                <span class="mono" style="font-size:0.74rem;color:var(--text-muted);">Java Mobile App</span>
+              </div>
+              <p class="pub-citation">
+                Anthony Y. Chang, <strong>Kuo Chun-Yu</strong>, Zhang Hong Zhuang, <em>"Develop of Interactive Smart Phone APPs Using Java,"</em> in Proc. 9th Information Education and Technological Applications Conference (<strong>IETAC 2016</strong>), Taichung, 2016.
+              </p>
+            </div>
+            <div>
+              <button
+                type="button"
+                class="btn btn-secondary pub-copy-btn copy-trigger"
+                style="min-height:44px;padding:0.45rem 0.95rem;font-size:0.82rem;"
+                data-copy='Anthony Y. Chang, Kuo Chun-Yu, Zhang Hong Zhuang, "Develop of Interactive Smart Phone APPs Using Java," in Proc. 9th Information Education and Technological Applications Conference (IETAC 2016), Taichung, 2016.'
+                data-copy-label="IETAC 2016 論文引用"
+              >
+                <svg width="15" height="15" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                  <rect x="9" y="9" width="13" height="13" rx="2" ry="2" />
+                  <path d="M5 15H4a2 2 0 01-2-2V4a2 2 0 012-2h9a2 2 0 012 2v1" />
+                </svg>
+                <span>複製引用格式</span>
+              </button>
+            </div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===================================================================
+         SECTION 6: CONTACT (#contact)
+         =================================================================== -->
+    <section class="section" id="contact">
+      <div class="container">
+        <div class="section-head">
+          <span class="section-kicker">05 / CONTACT</span>
+          <h2 class="section-title">聯絡我與技術交流</h2>
+          <p class="section-desc">歡迎針對企業網路資安架構、Python 網路自動化、專案合作或大專講座隨時聯繫。</p>
+        </div>
+
+        <div class="contact-grid">
+          <!-- Click-to-Copy Contact Cards -->
+          <div class="connect-stack">
+            <div class="glass-card interactive connect-card">
+              <a href="mailto:bluesky830727@gmail.com" class="connect-left" aria-label="寄信至 bluesky830727@gmail.com">
+                <div class="icon-box icon-cyan">
+                  <svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
+                  </svg>
+                </div>
+                <div style="min-width:0;">
+                  <div class="connect-label">Email</div>
+                  <div class="connect-value mono">bluesky830727@gmail.com</div>
+                </div>
+              </a>
+              <div class="connect-actions">
+                <button type="button" class="icon-btn copy-trigger" data-copy="bluesky830727@gmail.com" data-copy-label="電子信箱" aria-label="複製電子信箱">
+                  <svg width="15" height="15" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><rect x="9" y="9" width="13" height="13" rx="2" /><path d="M5 15H4a2 2 0 01-2-2V4a2 2 0 012-2h9a2 2 0 012 2v1" /></svg>
+                  <span>複製</span>
+                </button>
+              </div>
+            </div>
+
+            <div class="glass-card interactive connect-card">
+              <a href="tel:0903221255" class="connect-left" aria-label="撥打電話 0903-221-255">
+                <div class="icon-box icon-emerald">
+                  <svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z" />
+                  </svg>
+                </div>
+                <div style="min-width:0;">
+                  <div class="connect-label">Phone</div>
+                  <div class="connect-value mono">0903-221-255</div>
+                </div>
+              </a>
+              <div class="connect-actions">
+                <button type="button" class="icon-btn copy-trigger" data-copy="0903-221-255" data-copy-label="聯絡電話" aria-label="複製聯絡電話">
+                  <svg width="15" height="15" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><rect x="9" y="9" width="13" height="13" rx="2" /><path d="M5 15H4a2 2 0 01-2-2V4a2 2 0 012-2h9a2 2 0 012 2v1" /></svg>
+                  <span>複製</span>
+                </button>
+              </div>
+            </div>
+
+            <div class="glass-card interactive connect-card">
+              <div class="connect-left">
+                <div class="icon-box icon-indigo">
+                  <svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
+                  </svg>
+                </div>
+                <div style="min-width:0;">
+                  <div class="connect-label">Location</div>
+                  <div class="connect-value">台中市大雅區 / 台北市，台灣</div>
+                </div>
+              </div>
+              <div class="connect-actions">
+                <button type="button" class="icon-btn copy-trigger" data-copy="台中市大雅區 / 台北市，台灣" data-copy-label="所在地區" aria-label="複製所在地區">
+                  <svg width="15" height="15" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><rect x="9" y="9" width="13" height="13" rx="2" /><path d="M5 15H4a2 2 0 01-2-2V4a2 2 0 012-2h9a2 2 0 012 2v1" /></svg>
+                  <span>複製</span>
+                </button>
+              </div>
+            </div>
+          </div>
+
+          <!-- Validated Contact Form -->
+          <div class="contact-form-panel">
+            <div class="glass-card contact-form-card">
+              <form id="contact-form" novalidate>
+                <div class="form-grid-2">
+                  <div class="form-group">
+                    <label for="contact-name" class="form-label">您的稱呼 <span style="color:var(--accent-rose);">*</span></label>
+                    <input id="contact-name" type="text" class="form-input" placeholder="例如：Alex / 陳先生" required />
+                    <div id="error-name" class="field-error"></div>
+                  </div>
+                  <div class="form-group">
+                    <label for="contact-email" class="form-label">回覆信箱 <span style="color:var(--accent-rose);">*</span></label>
+                    <input id="contact-email" type="email" class="form-input" placeholder="name@example.com" required />
+                    <div id="error-email" class="field-error"></div>
+                  </div>
+                </div>
+
+                <div class="form-group">
+                  <label for="contact-topic" class="form-label">交流主題</label>
+                  <select id="contact-topic" class="form-select">
+                    <option value="企業網路與資安架構諮詢">企業網路與資安架構諮詢（Cisco / Palo Alto / Juniper / Fortinet）</option>
+                    <option value="Python 網路自動化與專案優化">Python 網路自動化與專案優化合作</option>
+                    <option value="課程授課與技術演講邀約">課程授課、企業內訓或技術演講邀約</option>
+                    <option value="學術研究與其他交流">學術研究與其他合作交流</option>
+                  </select>
+                </div>
+
+                <div class="form-group">
+                  <label for="contact-message" class="form-label">訊息內容 <span style="color:var(--accent-rose);">*</span></label>
+                  <textarea id="contact-message" class="form-textarea" placeholder="請簡述想討論的架構需求、自動化構想或合作方向..." required></textarea>
+                  <div id="error-message" class="field-error"></div>
+                </div>
+
+                <div class="form-actions-row">
+                  <button type="submit" class="btn btn-primary">
+                    <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                      <path stroke-linecap="round" stroke-linejoin="round" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
+                    </svg>
+                    <span>開啟郵件草稿寄送</span>
+                  </button>
+                  <button type="button" id="copy-form-msg-btn" class="btn btn-secondary">
+                    <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                      <rect x="9" y="9" width="13" height="13" rx="2" />
+                      <path d="M5 15H4a2 2 0 01-2-2V4a2 2 0 012-2h9a2 2 0 012 2v1" />
+                    </svg>
+                    <span>複製格式化訊息</span>
+                  </button>
+                </div>
+                <p class="mono" style="margin:0.75rem 0 0;font-size:0.72rem;color:var(--text-muted);">
+                  驗證通過後將帶入收件人 bluesky830727@gmail.com，或可一鍵複製格式化訊息寄出。
+                </p>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- =====================================================================
+       FOOTER
+       ===================================================================== -->
+  <footer class="site-footer">
+    <div class="container footer-inner">
+      <div class="mono" style="font-size:0.83rem;color:var(--text-muted);">
+        © 2026 SkyKuo (@SkyKuo). 「有難度，才有挑戰的價值」
+      </div>
+      <div class="no-print" style="display:flex;flex-wrap:wrap;justify-content:center;align-items:center;gap:1rem;font-size:0.84rem;">
+        <a href="#about" style="color:var(--text-muted);">關於我</a>
+        <a href="#experience" style="color:var(--text-muted);">學經歷</a>
+        <a href="#skills" style="color:var(--text-muted);">技能矩陣</a>
+        <a href="#certs" style="color:var(--text-muted);">專業證照</a>
+        <a href="#research" style="color:var(--text-muted);">研究與論文</a>
+      </div>
+    </div>
+  </footer>
+
+  <!-- =====================================================================
+       MODAL 1: RESEARCH ARCHITECTURE DETAIL MODAL
+       ===================================================================== -->
+  <div class="modal-overlay" id="research-modal" role="dialog" aria-modal="true" aria-labelledby="rm-title">
+    <div class="modal-dialog">
+      <div class="modal-header">
+        <div>
+          <span class="badge badge-cyan" style="margin-bottom:0.4rem;">國立中正大學 · 研究計畫詳情</span>
+          <h3 id="rm-title" style="margin:0;font-size:1.18rem;font-weight:800;line-height:1.35;">中小企業網路自動化暨專案成本優化</h3>
+        </div>
+        <button type="button" class="icon-btn" id="rm-close-btn" aria-label="關閉研究詳情視窗">
+          <svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2.2" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
+          </svg>
+        </button>
+      </div>
+
+      <div class="modal-body" style="font-size:0.9rem;line-height:1.72;">
+        <div>
+          <div class="mono" style="font-size:.74rem;font-weight:700;color:var(--accent-cyan);margin-bottom:.35rem;">01. 研究背景與動機</div>
+          <p style="margin:0;color:var(--text-secondary);">
+            隨著社會結構變遷與 AI 自動化演進，「人力成本」已成為台灣企業不可忽視的核心課題。在多數台灣中小企業的 Infrastructure 環境中，真正能立刻創造商業價值的並非遙不可及的高深技術，而是結合程式設計（Programming）與網路自動化、務實落地的基礎設施部署與維運流程。
+          </p>
+        </div>
+
+        <div>
+          <div class="mono" style="font-size:.74rem;font-weight:700;color:var(--accent-indigo);margin-bottom:.4rem;">02. 研究目的</div>
+          <ul class="exp-bullets">
+            <li>協助甲方企業與乙方系統整合商（SI）找出縮減成本與提升效率之關鍵節點，在最短時間達成最大專案效益。</li>
+            <li>舒緩工程師面對多客戶重複建置、架構調整與維運的工作壓力，並將標準化運作模式推廣至跨產業合作。</li>
+          </ul>
+        </div>
+
+        <div>
+          <div class="mono" style="font-size:.74rem;font-weight:700;color:var(--accent-amber);margin-bottom:.4rem;">03. 研究範圍</div>
+          <ul class="exp-bullets">
+            <li>盤點 SI 團隊（Pre-sales、SE、AE）服務多客戶（Company A / B）於 POC、建置、維運、架構調整與新增需求各階段投入之時間與技術成本。</li>
+            <li>訪談 Infrastructure 領域專家並結合數據分析，評估自動化部署對於人力配置、政策回饋與企業決策的實務影響。</li>
+          </ul>
+        </div>
+
+        <div style="padding:1rem;border-radius:14px;border:1px solid var(--border-strong);background:var(--glow-cyan);">
+          <div class="mono" style="font-size:.74rem;font-weight:700;color:var(--accent-emerald);margin-bottom:.4rem;">04. 預期成果</div>
+          <ul class="exp-bullets" style="color:var(--text-primary);">
+            <li>將學術研究方法與 SI 產業實務深度連結，產出可複製之最佳化自動化部署參考藍圖。</li>
+            <li>有效降低人力與時間成本，提升整體專案交付效率並帶動企業營運競爭力。</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" id="rm-copy-btn">複製研究摘要</button>
+        <button type="button" class="btn btn-primary" id="rm-done-btn">關閉視窗</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- =====================================================================
+       MODAL 2: FULL-RESOLUTION AVATAR LIGHTBOX
+       ===================================================================== -->
+  <div class="modal-overlay" id="lightbox-modal" role="dialog" aria-modal="true" aria-labelledby="lightbox-caption">
+    <div class="lightbox-panel">
+      <div style="width:100%;display:flex;align-items:center;justify-content:space-between;gap:1rem;">
+        <span id="lightbox-caption" style="color:#f8fafc;font-weight:700;font-size:0.95rem;">SkyKuo — 個人完整原圖照片</span>
+        <button type="button" class="icon-btn" id="lightbox-close-btn" style="background:rgba(15,23,42,0.88);color:#f8fafc;border-color:rgba(148,163,184,0.35);" aria-label="關閉照片檢視">
+          <svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="2.2" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
+          </svg>
+        </button>
+      </div>
+
+      <div class="lightbox-img-frame" id="lightbox-frame">
+        <img
+          src="S__336470020_0.jpg"
+          alt="SkyKuo"
+          class="lightbox-img"
+          id="lightbox-img"
+          onerror="this.parentElement.classList.add('is-fallback')"
+        />
+        <svg class="lightbox-fallback" viewBox="0 0 320 320" xmlns="http://www.w3.org/2000/svg">
+          <defs>
+            <linearGradient id="skGradLightbox" x1="0%" y1="0%" x2="100%" y2="100%">
+              <stop offset="0%" stop-color="#0ea5e9" />
+              <stop offset="100%" stop-color="#6366f1" />
+            </linearGradient>
+          </defs>
+          <rect width="320" height="320" fill="url(#skGradLightbox)" />
+          <text x="50%" y="46%" dominant-baseline="middle" text-anchor="middle" fill="#ffffff" font-family="ui-monospace, sans-serif" font-weight="800" font-size="94">SK</text>
+          <text x="50%" y="70%" dominant-baseline="middle" text-anchor="middle" fill="rgba(255,255,255,0.88)" font-family="sans-serif" font-size="13">將 S__336470020_0.jpg 置於同目錄或上傳照片</text>
+        </svg>
+      </div>
+
+      <div>
+        <button type="button" class="btn btn-secondary" id="lightbox-open-editor-btn" style="background:rgba(15,23,42,0.92);color:#f8fafc;border-color:rgba(56,189,248,0.45);">
+          <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M12 6V4m0 2a2 2 0 100 4m0-4a2 2 0 110 4m-6 8a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4m6 6v10m6-2a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4" />
+          </svg>
+          <span>開啟頭像微調工作台</span>
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- =====================================================================
+       MODAL 3: AVATAR WORKBENCH (UPLOAD, LIVE SLIDERS, COPY CSS, RESET)
+       ===================================================================== -->
+  <div class="modal-overlay" id="avatar-editor-modal" role="dialog" aria-modal="true" aria-labelledby="ae-title">
+    <div class="modal-dialog compact">
+      <div class="modal-header">
+        <div>
+          <span class="badge badge-cyan" style="margin-bottom:0.35rem;">Avatar Workbench</span>
+          <h3 id="ae-title" style="margin:0;font-size:1.12rem;font-weight:800;">頭像微調工作台</h3>
+        </div>
+        <button type="button" class="icon-btn" id="ae-close-btn" aria-label="關閉頭像微調工作台">
+          <svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2.2" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
+          </svg>
+        </button>
+      </div>
+
+      <div class="modal-body">
+        <div class="editor-preview-stage">
+          <div class="editor-avatar-preview">
+            <div class="hero-avatar-inner">
+              <div class="avatar-crop-box synced-avatar-box">
+                <img
+                  src="S__336470020_0.jpg"
+                  alt="SkyKuo 頭像預覽"
+                  class="avatar-crop-img synced-avatar-img"
+                  onerror="this.parentElement.classList.add('is-fallback')"
+                />
+                <svg class="avatar-fallback-svg" viewBox="0 0 120 120" xmlns="http://www.w3.org/2000/svg">
+                  <defs>
+                    <linearGradient id="skGradEditor" x1="0%" y1="0%" x2="100%" y2="100%">
+                      <stop offset="0%" stop-color="#38bdf8" />
+                      <stop offset="100%" stop-color="#6366f1" />
+                    </linearGradient>
+                  </defs>
+                  <rect width="120" height="120" fill="url(#skGradEditor)" />
+                  <text x="50%" y="54%" dominant-baseline="middle" text-anchor="middle" fill="#ffffff" font-family="ui-monospace, sans-serif" font-weight="800" font-size="42">SK</text>
+                </svg>
+              </div>
+            </div>
+          </div>
+          <span class="mono" style="font-size:0.74rem;color:var(--text-muted);">自動邊界鉗制零白邊 · 即時同步至首頁、導覽列與 A4 列印版</span>
+        </div>
+
+        <div class="upload-dropzone">
+          <div style="font-size:0.84rem;">
+            <strong style="display:block;">上傳本機個人照片</strong>
+            <span style="font-size:0.76rem;color:var(--text-muted);">支援 JPG / PNG / WebP（自動壓縮預覽）</span>
+          </div>
+          <label for="avatar-file-input" class="btn btn-secondary" style="min-height:44px;padding:0.45rem 0.95rem;font-size:0.82rem;cursor:pointer;">
+            <span>選擇照片</span>
+            <input type="file" id="avatar-file-input" accept="image/*" class="sr-only" />
+          </label>
+        </div>
+
+        <div class="slider-group">
+          <div class="slider-row">
+            <div class="slider-head">
+              <label for="slider-scale">縮放倍率 (Zoom)</label>
+              <span class="mono" id="val-scale" style="color:var(--accent-cyan);">1.85x</span>
+            </div>
+            <input type="range" id="slider-scale" class="slider-input" min="1.0" max="3.0" step="0.05" value="1.85" />
+          </div>
+
+          <div class="slider-row">
+            <div class="slider-head">
+              <label for="slider-x">水平焦點 (X)</label>
+              <span class="mono" id="val-x" style="color:var(--accent-cyan);">58%</span>
+            </div>
+            <input type="range" id="slider-x" class="slider-input" min="0" max="100" step="1" value="58" />
+          </div>
+
+          <div class="slider-row">
+            <div class="slider-head">
+              <label for="slider-y">垂直焦點 (Y)</label>
+              <span class="mono" id="val-y" style="color:var(--accent-cyan);">14%</span>
+            </div>
+            <input type="range" id="slider-y" class="slider-input" min="0" max="100" step="1" value="14" />
+          </div>
+        </div>
+      </div>
+
+      <div class="modal-footer" style="justify-content:space-between;">
+        <button type="button" class="btn btn-ghost" id="ae-reset-btn" style="font-size:0.82rem;padding:0.5rem 0.9rem;">重設預設值</button>
+        <div style="display:flex;flex-wrap:wrap;gap:0.5rem;">
+          <button type="button" class="btn btn-secondary" id="ae-copy-css-btn" style="font-size:0.82rem;padding:0.5rem 0.95rem;">複製 CSS</button>
+          <button type="button" class="btn btn-primary" id="ae-done-btn" style="font-size:0.82rem;padding:0.5rem 1.05rem;">完成套用</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Floating Back-to-Top & Toast Stack -->
+  <button type="button" class="back-to-top" id="back-to-top" aria-label="回到頂端" title="回到頂端">
+    <svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="2.2" viewBox="0 0 24 24">
+      <path stroke-linecap="round" stroke-linejoin="round" d="M5 15l7-7 7 7" />
+    </svg>
+  </button>
+
+  <div class="toast-stack" id="toast-stack" aria-live="polite" aria-atomic="true"></div>
+
+  <!-- =====================================================================
+       RESILIENT VANILLA JS (SANDBOX-SAFE STORAGE + ISOLATED TRY/CATCH MODULES)
+       ===================================================================== -->
+  <script>
+    (function () {
+      'use strict';
+
+      /* -------------------------------------------------------------------
+         1. SAFE STORAGE HELPERS (NEVER CRASHES IN SANDBOXED IFRAMES)
+         ------------------------------------------------------------------- */
+      function safeGet(key) {
+        try {
+          return window.localStorage.getItem(key);
+        } catch (e) {
+          return null;
+        }
+      }
+
+      function safeSet(key, value) {
+        try {
+          window.localStorage.setItem(key, value);
+          return true;
+        } catch (e) {
+          return false;
+        }
+      }
+
+      function safeRemove(key) {
+        try {
+          window.localStorage.removeItem(key);
+        } catch (e) {
+          // Ignore storage restrictions
+        }
+      }
+
+      const STORAGE_KEYS = {
+        theme: 'skykuo-theme',
+        avatarConfig: 'skykuo-avatar-config',
+        avatarImage: 'skykuo-avatar-dataurl'
+      };
+
+      const DEFAULT_AVATAR = {
+        src: 'S__336470020_0.jpg',
+        scale: 1.85,
+        x: 58,
+        y: 14
+      };
+
+      const prefersReducedMotion =
+        typeof window.matchMedia === 'function' &&
+        window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+      /* -------------------------------------------------------------------
+         2. ACCESSIBLE TOAST & IFRAME-SAFE CLIPBOARD COPY
+         ------------------------------------------------------------------- */
+      function showToast(message, isError) {
+        try {
+          const stack = document.getElementById('toast-stack');
+          if (!stack) return;
+          const item = document.createElement('div');
+          item.className = 'toast-item' + (isError ? ' is-error' : '');
+          const dot = document.createElement('span');
+          dot.style.cssText = 'width:8px;height:8px;border-radius:50%;flex-shrink:0;background:' + (isError ? '#fb7185' : '#34d399') + ';';
+          const textSpan = document.createElement('span');
+          textSpan.textContent = message;
+          item.appendChild(dot);
+          item.appendChild(textSpan);
+          stack.appendChild(item);
+          setTimeout(function () {
+            if (item.parentNode) item.parentNode.removeChild(item);
+          }, 2800);
+        } catch (e) {}
+      }
+
+      function copyText(text, label) {
+        try {
+          const el = document.createElement('textarea');
+          el.value = text;
+          el.setAttribute('readonly', '');
+          el.style.cssText = 'position:fixed;top:-9999px;left:-9999px;';
+          document.body.appendChild(el);
+          el.select();
+          el.setSelectionRange(0, el.value.length);
+          const ok = document.execCommand('copy');
+          document.body.removeChild(el);
+          if (ok) {
+            showToast('已複製' + (label ? '「' + label + '」' : '') + '至剪貼簿！', false);
+          } else {
+            showToast('複製失敗，請手動選取內容複製', true);
+          }
+        } catch (e) {
+          showToast('複製失敗，請手動選取內容複製', true);
+        }
+      }
+
+      /* -------------------------------------------------------------------
+         3. MODULE: DARK / LIGHT THEME TOGGLE
+         ------------------------------------------------------------------- */
+      try {
+        const rootEl = document.documentElement;
+        const savedTheme = safeGet(STORAGE_KEYS.theme);
+        if (savedTheme === 'light') {
+          rootEl.classList.remove('dark');
+          rootEl.classList.add('light');
+        } else {
+          rootEl.classList.add('dark');
+          rootEl.classList.remove('light');
+        }
+
+        const themeBtn = document.getElementById('theme-toggle');
+        if (themeBtn) {
+          themeBtn.addEventListener('click', function () {
+            const isDark = rootEl.classList.contains('dark');
+            if (isDark) {
+              rootEl.classList.remove('dark');
+              rootEl.classList.add('light');
+              safeSet(STORAGE_KEYS.theme, 'light');
+              showToast('已切換至明亮閱讀模式', false);
+            } else {
+              rootEl.classList.add('dark');
+              rootEl.classList.remove('light');
+              safeSet(STORAGE_KEYS.theme, 'dark');
+              showToast('已切換至深色科技模式', false);
+            }
+          });
+        }
+      } catch (e) {}
+
+      /* -------------------------------------------------------------------
+         4. MODULE: AVATAR FRAMING, UPLOAD & WORKBENCH SYNC
+         ------------------------------------------------------------------- */
+      const avatarState = {
+        src: DEFAULT_AVATAR.src,
+        scale: DEFAULT_AVATAR.scale,
+        x: DEFAULT_AVATAR.x,
+        y: DEFAULT_AVATAR.y
+      };
+
+      try {
+        const rootEl = document.documentElement;
+        const syncedImgs = document.querySelectorAll('.synced-avatar-img');
+        const syncedBoxes = document.querySelectorAll('.synced-avatar-box');
+        const lightboxImg = document.getElementById('lightbox-img');
+        const lightboxFrame = document.getElementById('lightbox-frame');
+        const sliderScale = document.getElementById('slider-scale');
+        const sliderX = document.getElementById('slider-x');
+        const sliderY = document.getElementById('slider-y');
+        const valScale = document.getElementById('val-scale');
+        const valX = document.getElementById('val-x');
+        const valY = document.getElementById('val-y');
+        const fileInput = document.getElementById('avatar-file-input');
+
+        // Ensure already-broken images before JS load also trigger fallback cleanly
+        syncedImgs.forEach(function (img, idx) {
+          const box = syncedBoxes[idx];
+          if (!box) return;
+          img.addEventListener('error', function () { box.classList.add('is-fallback'); });
+          img.addEventListener('load', function () { box.classList.remove('is-fallback'); });
+          if (img.complete && img.naturalWidth === 0) box.classList.add('is-fallback');
+        });
+        if (lightboxImg && lightboxFrame) {
+          lightboxImg.addEventListener('error', function () { lightboxFrame.classList.add('is-fallback'); });
+          lightboxImg.addEventListener('load', function () { lightboxFrame.classList.remove('is-fallback'); });
+          if (lightboxImg.complete && lightboxImg.naturalWidth === 0) lightboxFrame.classList.add('is-fallback');
+        }
+
+        // Mathematically clamped cover transform so edges never show white gaps
+        function applyAvatarFraming(scale, x, y, persist) {
+          const s = Math.max(1.0, Math.min(3.0, Number(scale) || DEFAULT_AVATAR.scale));
+          const fx = Math.max(0, Math.min(100, Number(x) || 0));
+          const fy = Math.max(0, Math.min(100, Number(y) || 0));
+
+          const minOffset = 100 - 100 * s;
+          const clampedTx = Math.min(0, Math.max(minOffset, 50 - fx * s));
+          const clampedTy = Math.min(0, Math.max(minOffset, 50 - fy * s));
+
+          avatarState.scale = s;
+          avatarState.x = fx;
+          avatarState.y = fy;
+
+          rootEl.style.setProperty('--avatar-scale', String(s));
+          rootEl.style.setProperty('--avatar-x', fx + '%');
+          rootEl.style.setProperty('--avatar-y', fy + '%');
+          rootEl.style.setProperty('--avatar-tx', clampedTx.toFixed(3) + '%');
+          rootEl.style.setProperty('--avatar-ty', clampedTy.toFixed(3) + '%');
+
+          if (sliderScale) sliderScale.value = String(s);
+          if (sliderX) sliderX.value = String(fx);
+          if (sliderY) sliderY.value = String(fy);
+          if (valScale) valScale.textContent = s.toFixed(2) + 'x';
+          if (valX) valX.textContent = Math.round(fx) + '%';
+          if (valY) valY.textContent = Math.round(fy) + '%';
+
+          if (persist) {
+            safeSet(STORAGE_KEYS.avatarConfig, JSON.stringify({ scale: s, x: fx, y: fy }));
+          }
+        }
+
+        function applyAvatarSource(src, persist) {
+          avatarState.src = src;
+          syncedImgs.forEach(function (img, idx) {
+            if (syncedBoxes[idx]) syncedBoxes[idx].classList.remove('is-fallback');
+            img.src = src;
+          });
+          if (lightboxImg && lightboxFrame) {
+            lightboxFrame.classList.remove('is-fallback');
+            lightboxImg.src = src;
+          }
+          if (persist) {
+            if (src === DEFAULT_AVATAR.src) {
+              safeRemove(STORAGE_KEYS.avatarImage);
+            } else {
+              safeSet(STORAGE_KEYS.avatarImage, src);
+            }
+          }
+        }
+
+        // Restore saved framing & uploaded photo if available
+        const savedCfg = safeGet(STORAGE_KEYS.avatarConfig);
+        if (savedCfg) {
+          try {
+            const cfg = JSON.parse(savedCfg);
+            applyAvatarFraming(cfg.scale, cfg.x, cfg.y, false);
+          } catch (err) {
+            applyAvatarFraming(DEFAULT_AVATAR.scale, DEFAULT_AVATAR.x, DEFAULT_AVATAR.y, false);
+          }
+        } else {
+          applyAvatarFraming(DEFAULT_AVATAR.scale, DEFAULT_AVATAR.x, DEFAULT_AVATAR.y, false);
+        }
+
+        const savedImg = safeGet(STORAGE_KEYS.avatarImage);
+        if (savedImg) applyAvatarSource(savedImg, false);
+
+        [sliderScale, sliderX, sliderY].forEach(function (slider) {
+          if (!slider) return;
+          slider.addEventListener('input', function () {
+            applyAvatarFraming(
+              sliderScale ? sliderScale.value : DEFAULT_AVATAR.scale,
+              sliderX ? sliderX.value : DEFAULT_AVATAR.x,
+              sliderY ? sliderY.value : DEFAULT_AVATAR.y,
+              true
+            );
+          });
+        });
+
+        // Local photo upload with automatic Canvas compression
+        if (fileInput) {
+          fileInput.addEventListener('change', function (e) {
+            const file = e.target.files && e.target.files[0];
+            if (!file) return;
+            if (!file.type.startsWith('image/')) {
+              showToast('請選擇有效的圖片檔案（JPG / PNG / WebP）', true);
+              fileInput.value = '';
+              return;
+            }
+            const reader = new FileReader();
+            reader.onload = function (ev) {
+              const rawUrl = ev.target.result;
+              const img = new Image();
+              img.onload = function () {
+                const maxDim = 900;
+                let w = img.width;
+                let h = img.height;
+                if (w > maxDim || h > maxDim || file.size > 380 * 1024) {
+                  if (w > h && w > maxDim) {
+                    h = Math.round((h * maxDim) / w);
+                    w = maxDim;
+                  } else if (h >= w && h > maxDim) {
+                    w = Math.round((w * maxDim) / h);
+                    h = maxDim;
+                  }
+                  const canvas = document.createElement('canvas');
+                  canvas.width = w;
+                  canvas.height = h;
+                  const ctx = canvas.getContext('2d');
+                  if (ctx) {
+                    ctx.drawImage(img, 0, 0, w, h);
+                    applyAvatarSource(canvas.toDataURL('image/jpeg', 0.85), true);
+                  } else {
+                    applyAvatarSource(rawUrl, true);
+                  }
+                } else {
+                  applyAvatarSource(rawUrl, true);
+                }
+                applyAvatarFraming(1.2, 50, 35, true);
+                showToast('已更新個人頭像並同步至導覽列！', false);
+              };
+              img.onerror = function () {
+                showToast('照片讀取失敗，請更換檔案重試', true);
+              };
+              img.src = rawUrl;
+            };
+            reader.readAsDataURL(file);
+            fileInput.value = '';
+          });
+        }
+
+        const copyCssBtn = document.getElementById('ae-copy-css-btn');
+        if (copyCssBtn) {
+          copyCssBtn.addEventListener('click', function () {
+            const cssText = ':root {\n  --avatar-scale: ' + avatarState.scale.toFixed(2) + ';\n  --avatar-x: ' + Math.round(avatarState.x) + '%;\n  --avatar-y: ' + Math.round(avatarState.y) + '%;\n}';
+            copyText(cssText, '頭像 CSS 參數');
+          });
+        }
+
+        const resetBtn = document.getElementById('ae-reset-btn');
+        if (resetBtn) {
+          resetBtn.addEventListener('click', function () {
+            applyAvatarSource(DEFAULT_AVATAR.src, true);
+            applyAvatarFraming(DEFAULT_AVATAR.scale, DEFAULT_AVATAR.x, DEFAULT_AVATAR.y, true);
+            showToast('已恢復預設照片與構圖參數', false);
+          });
+        }
+      } catch (e) {}
+
+      /* -------------------------------------------------------------------
+         5. MODULE: MODALS & MOBILE DRAWER
+         ------------------------------------------------------------------- */
+      try {
+        const researchModal = document.getElementById('research-modal');
+        const lightboxModal = document.getElementById('lightbox-modal');
+        const avatarEditorModal = document.getElementById('avatar-editor-modal');
+        const modals = [researchModal, lightboxModal, avatarEditorModal].filter(Boolean);
+
+        function openModal(target) {
+          if (!target) return;
+          modals.forEach(function (m) { m.classList.remove('is-open'); });
+          target.classList.add('is-open');
+          document.body.style.overflow = 'hidden';
+        }
+
+        function closeAllModals() {
+          modals.forEach(function (m) { m.classList.remove('is-open'); });
+          document.body.style.overflow = '';
+        }
+
+        modals.forEach(function (m) {
+          m.addEventListener('click', function (e) {
+            if (e.target === m) closeAllModals();
+          });
+        });
+
+        const heroAvatarBtn = document.getElementById('hero-avatar-btn');
+        if (heroAvatarBtn) heroAvatarBtn.addEventListener('click', function () { openModal(lightboxModal); });
+
+        const openEditorBtn = document.getElementById('open-avatar-editor-btn');
+        if (openEditorBtn) openEditorBtn.addEventListener('click', function () { openModal(avatarEditorModal); });
+
+        const lightboxClose = document.getElementById('lightbox-close-btn');
+        if (lightboxClose) lightboxClose.addEventListener('click', closeAllModals);
+
+        const lightboxEdit = document.getElementById('lightbox-open-editor-btn');
+        if (lightboxEdit) lightboxEdit.addEventListener('click', function () { openModal(avatarEditorModal); });
+
+        const aeClose = document.getElementById('ae-close-btn');
+        if (aeClose) aeClose.addEventListener('click', closeAllModals);
+
+        const aeDone = document.getElementById('ae-done-btn');
+        if (aeDone) {
+          aeDone.addEventListener('click', function () {
+            closeAllModals();
+            showToast('頭像設定已套用！', false);
+          });
+        }
+
+        const openResearchBtn = document.getElementById('open-research-modal-btn');
+        if (openResearchBtn) openResearchBtn.addEventListener('click', function () { openModal(researchModal); });
+
+        const rmClose = document.getElementById('rm-close-btn');
+        if (rmClose) rmClose.addEventListener('click', closeAllModals);
+
+        const rmDone = document.getElementById('rm-done-btn');
+        if (rmDone) rmDone.addEventListener('click', closeAllModals);
+
+        const rmCopy = document.getElementById('rm-copy-btn');
+        if (rmCopy) {
+          rmCopy.addEventListener('click', function () {
+            copyText(
+              '【中小企業網路自動化暨專案成本優化】從系統整合商（SI）與企業雙重視角，整合程式設計與網路自動化流程（POC、建置、維運、架構調整與新增需求），有效縮減專案人力與時間成本並提升跨產業運作效率。',
+              '研究計畫摘要'
+            );
+          });
+        }
+
+        // Mobile Slide-Over Drawer
+        const menuBtn = document.getElementById('mobile-menu-btn');
+        const drawer = document.getElementById('mobile-drawer');
+        const backdrop = document.getElementById('drawer-backdrop');
+        const closeBtn = document.getElementById('mobile-close-btn');
+
+        function openDrawer() {
+          if (!drawer || !backdrop || !menuBtn) return;
+          drawer.classList.add('is-open');
+          backdrop.classList.add('is-open');
+          menuBtn.classList.add('is-open');
+          menuBtn.setAttribute('aria-expanded', 'true');
+          drawer.setAttribute('aria-hidden', 'false');
+          document.body.style.overflow = 'hidden';
+        }
+
+        function closeDrawer() {
+          if (!drawer || !backdrop || !menuBtn) return;
+          drawer.classList.remove('is-open');
+          backdrop.classList.remove('is-open');
+          menuBtn.classList.remove('is-open');
+          menuBtn.setAttribute('aria-expanded', 'false');
+          drawer.setAttribute('aria-hidden', 'true');
+          document.body.style.overflow = '';
+        }
+
+        if (menuBtn) {
+          menuBtn.addEventListener('click', function () {
+            if (drawer && drawer.classList.contains('is-open')) closeDrawer();
+            else openDrawer();
+          });
+        }
+        if (closeBtn) closeBtn.addEventListener('click', closeDrawer);
+        if (backdrop) backdrop.addEventListener('click', closeDrawer);
+        document.querySelectorAll('.drawer-link').forEach(function (link) {
+          link.addEventListener('click', closeDrawer);
+        });
+
+        const drawerEditAvatar = document.getElementById('drawer-edit-avatar-btn');
+        if (drawerEditAvatar) {
+          drawerEditAvatar.addEventListener('click', function () {
+            closeDrawer();
+            setTimeout(function () { openModal(avatarEditorModal); }, 160);
+          });
+        }
+
+        const drawerPrint = document.getElementById('drawer-print-btn');
+        if (drawerPrint) {
+          drawerPrint.addEventListener('click', function () {
+            closeDrawer();
+            setTimeout(function () { window.print(); }, 220);
+          });
+        }
+
+        document.addEventListener('keydown', function (e) {
+          if (e.key === 'Escape') {
+            closeAllModals();
+            if (drawer && drawer.classList.contains('is-open')) closeDrawer();
+          }
+        });
+      } catch (e) {}
+
+      /* -------------------------------------------------------------------
+         6. MODULE: INTERACTIVE 6-AXIS RADAR CHART SELECTION
+         ------------------------------------------------------------------- */
+      try {
+        const radarNodes = document.querySelectorAll('.radar-node');
+        const calloutEl = document.getElementById('radar-callout-text');
+
+        function selectRadarNode(targetNode) {
+          if (!targetNode || !calloutEl) return;
+          radarNodes.forEach(function (node) {
+            const active = node === targetNode;
+            node.classList.toggle('is-active', active);
+            const dot = node.querySelector('.radar-dot');
+            const halo = node.querySelector('.radar-halo');
+            if (dot) dot.setAttribute('r', active ? '5.5' : '4.8');
+            if (halo) halo.setAttribute('r', active ? '14' : '13');
+          });
+          const title = targetNode.getAttribute('data-title') || '';
+          const score = targetNode.getAttribute('data-score') || '';
+          const desc = targetNode.getAttribute('data-desc') || '';
+          calloutEl.innerHTML = '<strong>' + title + '（' + score + '）</strong>：' + desc;
+        }
+
+        radarNodes.forEach(function (node) {
+          node.addEventListener('mouseenter', function () { selectRadarNode(node); });
+          node.addEventListener('click', function () { selectRadarNode(node); });
+          node.addEventListener('focus', function () { selectRadarNode(node); });
+          node.addEventListener('keydown', function (e) {
+            if (e.key === 'Enter' || e.key === ' ') {
+              e.preventDefault();
+              selectRadarNode(node);
+            }
+          });
+        });
+      } catch (e) {}
+
+      /* -------------------------------------------------------------------
+         7. MODULE: DYNAMIC TYPEWRITER ROLES
+         ------------------------------------------------------------------- */
+      try {
+        const typewriterEl = document.getElementById('typewriter-text');
+        const roles = [
+          '中孚科技 技術副理',
+          '企業網路與資安架構師',
+          '網路自動化開發工程師',
+          '國立臺中科技大學 兼任講師'
+        ];
+
+        if (typewriterEl && !prefersReducedMotion) {
+          let roleIdx = 0;
+          let charIdx = roles[0].length;
+          let deleting = false;
+
+          function tick() {
+            const current = roles[roleIdx];
+            charIdx += deleting ? -1 : 1;
+            typewriterEl.textContent = current.slice(0, charIdx);
+
+            let wait = deleting ? 42 : 78;
+            if (!deleting && charIdx === current.length) {
+              deleting = true;
+              wait = 2200;
+            } else if (deleting && charIdx === 0) {
+              deleting = false;
+              roleIdx = (roleIdx + 1) % roles.length;
+              wait = 320;
+            }
+            setTimeout(tick, wait);
+          }
+
+          setTimeout(function () {
+            deleting = true;
+            tick();
+          }, 2000);
+        }
+      } catch (e) {}
+
+      /* -------------------------------------------------------------------
+         8. MODULE: EXPERIENCE, SKILLS & CERTIFICATIONS FILTERING
+         ------------------------------------------------------------------- */
+      try {
+        // Experience & Education Tabs
+        const expBtns = document.querySelectorAll('.exp-tab-btn');
+        const expLayout = document.getElementById('exp-layout');
+        const colWork = document.getElementById('col-work');
+        const colEdu = document.getElementById('col-edu');
+
+        expBtns.forEach(function (btn) {
+          btn.addEventListener('click', function () {
+            const mode = btn.getAttribute('data-exp-mode') || 'all';
+            expBtns.forEach(function (b) {
+              const active = b === btn;
+              b.classList.toggle('is-active', active);
+              b.setAttribute('aria-selected', active ? 'true' : 'false');
+            });
+            if (expLayout) expLayout.classList.toggle('mode-all', mode === 'all');
+            if (colWork) colWork.classList.toggle('is-hidden', mode === 'edu');
+            if (colEdu) colEdu.classList.toggle('is-hidden', mode === 'work');
+          });
+        });
+
+        // Skills Matrix Filter
+        const skillBtns = document.querySelectorAll('.skill-filter-btn');
+        const skillCards = document.querySelectorAll('#skills-grid .skill-card');
+
+        skillBtns.forEach(function (btn) {
+          btn.addEventListener('click', function () {
+            const filter = btn.getAttribute('data-skill-filter') || 'all';
+            skillBtns.forEach(function (b) {
+              const active = b === btn;
+              b.classList.toggle('is-active', active);
+              b.setAttribute('aria-selected', active ? 'true' : 'false');
+            });
+            skillCards.forEach(function (card) {
+              const cats = (card.getAttribute('data-skill-cat') || '').split(' ');
+              const show = filter === 'all' || cats.indexOf(filter) !== -1;
+              card.classList.toggle('is-hidden', !show);
+            });
+          });
+        });
+
+        // Certifications Filter
+        const certBtns = document.querySelectorAll('.cert-filter-btn');
+        const certCards = document.querySelectorAll('#cert-grid .cert-card');
+
+        certBtns.forEach(function (btn) {
+          btn.addEventListener('click', function () {
+            const filter = btn.getAttribute('data-cert-filter') || 'all';
+            certBtns.forEach(function (b) {
+              const active = b === btn;
+              b.classList.toggle('is-active', active);
+              b.setAttribute('aria-selected', active ? 'true' : 'false');
+            });
+            certCards.forEach(function (card) {
+              const cat = card.getAttribute('data-cert-cat') || '';
+              const show = filter === 'all' || cat === filter;
+              card.classList.toggle('is-hidden', !show);
+            });
+          });
+        });
+      } catch (e) {}
+
+      /* -------------------------------------------------------------------
+         9. MODULE: COPY TRIGGERS & VALIDATED CONTACT FORM
+         ------------------------------------------------------------------- */
+      try {
+        document.querySelectorAll('.copy-trigger').forEach(function (btn) {
+          btn.addEventListener('click', function () {
+            copyText(btn.getAttribute('data-copy') || '', btn.getAttribute('data-copy-label') || '');
+          });
+        });
+
+        const contactForm = document.getElementById('contact-form');
+        const copyFormBtn = document.getElementById('copy-form-msg-btn');
+
+        function setFieldError(id, msg) {
+          const input = document.getElementById('contact-' + id);
+          const err = document.getElementById('error-' + id);
+          if (!input || !err) return;
+          if (msg) {
+            err.textContent = msg;
+            err.classList.add('is-visible');
+            input.classList.add('is-error');
+          } else {
+            err.textContent = '';
+            err.classList.remove('is-visible');
+            input.classList.remove('is-error');
+          }
+        }
+
+        function validateForm() {
+          const nameEl = document.getElementById('contact-name');
+          const emailEl = document.getElementById('contact-email');
+          const topicEl = document.getElementById('contact-topic');
+          const msgEl = document.getElementById('contact-message');
+          if (!nameEl || !emailEl || !topicEl || !msgEl) return null;
+
+          const name = nameEl.value.trim();
+          const email = emailEl.value.trim();
+          const topic = topicEl.value;
+          const message = msgEl.value.trim();
+
+          let hasErr = false;
+          if (name.length < 2) {
+            setFieldError('name', '請輸入至少 2 個字的稱呼。');
+            hasErr = true;
+          } else {
+            setFieldError('name', '');
+          }
+
+          if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+            setFieldError('email', '請輸入有效的電子信箱格式。');
+            hasErr = true;
+          } else {
+            setFieldError('email', '');
+          }
+
+          if (message.length < 6) {
+            setFieldError('message', '請輸入至少 6 個字的訊息內容。');
+            hasErr = true;
+          } else {
+            setFieldError('message', '');
+          }
+
+          if (hasErr) {
+            showToast('請檢查並修正表單紅字欄位', true);
+            return null;
+          }
+          return { name: name, email: email, topic: topic, message: message };
+        }
+
+        if (contactForm) {
+          contactForm.addEventListener('submit', function (e) {
+            e.preventDefault();
+            const data = validateForm();
+            if (!data) return;
+            const subject = '[SkyKuo 履歷網站交流] ' + data.topic + ' - ' + data.name;
+            const body =
+              '您好 SkyKuo：\n\n寄件人：' + data.name +
+              '\n回覆信箱：' + data.email +
+              '\n交流主題：' + data.topic +
+              '\n\n訊息內容：\n' + data.message;
+            const url = 'mailto:bluesky830727@gmail.com?subject=' + encodeURIComponent(subject) + '&body=' + encodeURIComponent(body);
+            showToast('正在開啟預設郵件程式草稿...', false);
+            window.location.href = url;
+          });
+        }
+
+        if (copyFormBtn) {
+          copyFormBtn.addEventListener('click', function () {
+            const data = validateForm();
+            if (!data) return;
+            const formatted =
+              '收件人：bluesky830727@gmail.com\n主旨：[SkyKuo 履歷網站交流] ' +
+              data.topic + ' - ' + data.name + '\n\n寄件人：' + data.name +
+              ' (' + data.email + ')\n內容：\n' + data.message;
+            copyText(formatted, '格式化交流訊息');
+          });
+        }
+      } catch (e) {}
+
+      /* -------------------------------------------------------------------
+         10. MODULE: SCROLL PROGRESS, SCROLLSPY & BACK-TO-TOP
+         ------------------------------------------------------------------- */
+      try {
+        const progressBar = document.getElementById('reading-progress');
+        const backToTopBtn = document.getElementById('back-to-top');
+        const navLinks = document.querySelectorAll('.nav-link');
+        const spySections = ['about', 'experience', 'skills', 'certs', 'research', 'contact']
+          .map(function (id) { return document.getElementById(id); })
+          .filter(Boolean);
+
+        function onScroll() {
+          const y = window.scrollY || document.documentElement.scrollTop || 0;
+          const maxScroll = document.documentElement.scrollHeight - window.innerHeight;
+          if (progressBar) {
+            const pct = maxScroll > 0 ? Math.min((y / maxScroll) * 100, 100) : 0;
+            progressBar.style.width = pct + '%';
+          }
+          if (backToTopBtn) {
+            backToTopBtn.classList.toggle('is-visible', y > 360);
+          }
+
+          let activeId = 'about';
+          for (let i = 0; i < spySections.length; i++) {
+            if (y + 150 >= spySections[i].offsetTop) {
+              activeId = spySections[i].id;
+            }
+          }
+          navLinks.forEach(function (link) {
+            link.classList.toggle('active', link.getAttribute('data-nav') === activeId);
+          });
+        }
+
+        window.addEventListener('scroll', onScroll, { passive: true });
+        onScroll();
+
+        if (backToTopBtn) {
+          backToTopBtn.addEventListener('click', function () {
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+          });
+        }
+      } catch (e) {}
+
+      /* -------------------------------------------------------------------
+         11. MODULE: SUBTLE NETWORK TOPOLOGY BACKGROUND CANVAS
+         ------------------------------------------------------------------- */
+      try {
+        const canvas = document.getElementById('network-canvas');
+        if (canvas && !prefersReducedMotion) {
+          const ctx = canvas.getContext('2d');
+          if (ctx) {
+            let width = 0;
+            let height = 0;
+            let nodes = [];
+            const pointer = { x: -9999, y: -9999 };
+
+            function resizeCanvas() {
+              width = window.innerWidth;
+              height = window.innerHeight;
+              canvas.width = width;
+              canvas.height = height;
+              const isMobile = width < 768;
+              const count = isMobile ? 22 : 46;
+              nodes = [];
+              for (let i = 0; i < count; i++) {
+                nodes.push({
+                  x: Math.random() * width,
+                  y: Math.random() * height,
+                  vx: (Math.random() - 0.5) * 0.38,
+                  vy: (Math.random() - 0.5) * 0.38,
+                  r: Math.random() * 1.6 + 1.1
+                });
+              }
+            }
+
+            resizeCanvas();
+            window.addEventListener('resize', resizeCanvas, { passive: true });
+            window.addEventListener('mousemove', function (e) {
+              pointer.x = e.clientX;
+              pointer.y = e.clientY;
+            }, { passive: true });
+
+            function draw() {
+              ctx.clearRect(0, 0, width, height);
+              const isDark = document.documentElement.classList.contains('dark');
+              const dotColor = isDark ? 'rgba(56, 189, 248, 0.36)' : 'rgba(2, 132, 199, 0.24)';
+              const linkDist = width < 768 ? 105 : 145;
+
+              for (let i = 0; i < nodes.length; i++) {
+                const n = nodes[i];
+                n.x += n.vx;
+                n.y += n.vy;
+                if (n.x < 0 || n.x > width) n.vx *= -1;
+                if (n.y < 0 || n.y > height) n.vy *= -1;
+
+                ctx.beginPath();
+                ctx.arc(n.x, n.y, n.r, 0, Math.PI * 2);
+                ctx.fillStyle = dotColor;
+                ctx.fill();
+
+                for (let j = i + 1; j < nodes.length; j++) {
+                  const m = nodes[j];
+                  const dx = n.x - m.x;
+                  const dy = n.y - m.y;
+                  const dist = Math.hypot(dx, dy);
+                  if (dist < linkDist) {
+                    const alpha = (1 - dist / linkDist) * (isDark ? 0.16 : 0.1);
+                    ctx.beginPath();
+                    ctx.moveTo(n.x, n.y);
+                    ctx.lineTo(m.x, m.y);
+                    ctx.strokeStyle = isDark
+                      ? 'rgba(129, 140, 248, ' + alpha.toFixed(3) + ')'
+                      : 'rgba(79, 70, 229, ' + alpha.toFixed(3) + ')';
+                    ctx.lineWidth = 1;
+                    ctx.stroke();
+                  }
+                }
+
+                const pdx = n.x - pointer.x;
+                const pdy = n.y - pointer.y;
+                const pDist = Math.hypot(pdx, pdy);
+                if (pDist < 150) {
+                  const pAlpha = (1 - pDist / 150) * (isDark ? 0.26 : 0.18);
+                  ctx.beginPath();
+                  ctx.moveTo(n.x, n.y);
+                  ctx.lineTo(pointer.x, pointer.y);
+                  ctx.strokeStyle = 'rgba(56, 189, 248, ' + pAlpha.toFixed(3) + ')';
+                  ctx.lineWidth = 1;
+                  ctx.stroke();
+                }
+              }
+
+              window.requestAnimationFrame(draw);
+            }
+
+            window.requestAnimationFrame(draw);
+          }
+        }
+      } catch (e) {}
+    })();
+  </script>
+</body>
+</html>
