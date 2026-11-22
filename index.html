@@ -543,21 +543,71 @@
       flex-shrink: 0;
     }
 
-    .icon-btn {
-      min-width: 44px;
-      min-height: 44px;
-      padding: 0 0.65rem;
+    /* Language Switcher Tab Group (ZH / EN / JA) */
+    .lang-switcher {
+      display: inline-flex;
+      align-items: center;
+      padding: 3px;
       border-radius: var(--radius-sm);
       border: 1px solid var(--border-subtle);
       background: var(--bg-chip);
-      color: var(--text-primary);
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      gap: 0.4rem;
+      gap: 2px;
+      flex-shrink: 0;
+    }
+
+    .lang-btn {
+      min-height: 36px;
+      padding: 0 0.5rem;
+      border-radius: 7px;
+      font-size: 0.75rem;
+      font-weight: 700;
+      color: var(--text-secondary);
+      white-space: nowrap;
+      transition: background-color 0.2s ease, color 0.2s ease, box-shadow 0.2s ease;
+    }
+
+    @media (min-width: 480px) {
+      .lang-btn {
+        min-height: 38px;
+        padding: 0 0.65rem;
+        font-size: 0.78rem;
+      }
+    }
+
+    .lang-btn:hover {
+      color: var(--accent-cyan);
+    }
+
+    .lang-btn.is-active {
+      background: linear-gradient(135deg, #0ea5e9 0%, #6366f1 100%);
+      color: #ffffff;
+      box-shadow: 0 4px 12px -4px rgba(14, 165, 233, 0.55);
+    }
+
+    .drawer-lang-switcher {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 0.35rem;
+      padding: 0.75rem 1rem 0;
+    }
+
+    .drawer-lang-switcher .lang-btn {
+      min-height: 44px;
+      border: 1px solid var(--border-subtle);
+      background: var(--bg-chip);
       font-size: 0.82rem;
-      font-weight: 600;
-      transition: border-color 0.2s ease, color 0.2s ease;
+    }
+
+    .drawer-lang-switcher .lang-btn.is-active {
+      border-color: transparent;
+    }
+
+    @media (max-width: 400px) {
+      .header-inner { gap: 0.35rem; }
+      .brand-name { font-size: 0.9rem; }
+      .header-actions { gap: 0.3rem; }
+      .icon-btn { min-width: 38px; min-height: 38px; padding: 0 0.45rem; }
+      .lang-btn { min-height: 32px; padding: 0 0.38rem; font-size: 0.7rem; }
     }
 
     .icon-btn:hover {
@@ -971,7 +1021,7 @@
 
     .radar-label {
       fill: var(--text-secondary);
-      font-size: 12px;
+      font-size: 11.5px;
       font-weight: 700;
       font-family: var(--font-sans);
       transition: fill 0.2s ease;
@@ -1997,6 +2047,7 @@
 
       .no-print,
       .site-header,
+      .lang-switcher,
       .mobile-drawer,
       .drawer-backdrop,
       .modal-overlay,
@@ -2160,21 +2211,28 @@
 
       <!-- Desktop Navigation -->
       <nav class="desktop-nav" aria-label="主要導覽選單">
-        <a href="#about" class="nav-link active" data-nav="about">關於我</a>
-        <a href="#experience" class="nav-link" data-nav="experience">學經歷</a>
-        <a href="#skills" class="nav-link" data-nav="skills">技能矩陣</a>
-        <a href="#certs" class="nav-link" data-nav="certs">專業證照</a>
-        <a href="#research" class="nav-link" data-nav="research">研究與論文</a>
-        <a href="#contact" class="nav-link" data-nav="contact">聯絡我</a>
+        <a href="#about" class="nav-link active" data-nav="about" data-i18n="nav.about">關於我</a>
+        <a href="#experience" class="nav-link" data-nav="experience" data-i18n="nav.experience">學經歷</a>
+        <a href="#skills" class="nav-link" data-nav="skills" data-i18n="nav.skills">技能矩陣</a>
+        <a href="#certs" class="nav-link" data-nav="certs" data-i18n="nav.certs">專業證照</a>
+        <a href="#research" class="nav-link" data-nav="research" data-i18n="nav.research">研究與論文</a>
+        <a href="#contact" class="nav-link" data-nav="contact" data-i18n="nav.contact">聯絡我</a>
       </nav>
 
       <!-- Header Actions -->
       <div class="header-actions">
+        <!-- Multi-Language Tabs (ZH / EN / JA) -->
+        <div class="lang-switcher" role="tablist" aria-label="語言切換 / Language Switcher">
+          <button type="button" role="tab" class="lang-btn is-active" data-lang="zh" aria-selected="true">中文</button>
+          <button type="button" role="tab" class="lang-btn" data-lang="en" aria-selected="false">EN</button>
+          <button type="button" role="tab" class="lang-btn" data-lang="ja" aria-selected="false">日本語</button>
+        </div>
+
         <button type="button" class="icon-btn desktop-print-btn" onclick="window.print()" aria-label="列印或匯出 A4 PDF">
           <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" aria-hidden="true">
             <path stroke-linecap="round" stroke-linejoin="round" d="M6 9V4h12v5M6 18H4a2 2 0 01-2-2v-5a2 2 0 012-2h16a2 2 0 012 2v5a2 2 0 01-2 2h-2M6 14h12v7H6v-7z" />
           </svg>
-          <span>列印 / 匯出 PDF</span>
+          <span data-i18n="action.print">列印 / 匯出 PDF</span>
         </button>
 
         <button type="button" class="icon-btn" id="theme-toggle" aria-label="切換深色或淺色主題" title="切換深色 / 淺色模式">
@@ -2215,13 +2273,20 @@
       </button>
     </div>
 
+    <!-- Mobile Drawer Language Tabs -->
+    <div class="drawer-lang-switcher" role="tablist" aria-label="行動版語言切換">
+      <button type="button" role="tab" class="lang-btn is-active" data-lang="zh" aria-selected="true">繁體中文</button>
+      <button type="button" role="tab" class="lang-btn" data-lang="en" aria-selected="false">English</button>
+      <button type="button" role="tab" class="lang-btn" data-lang="ja" aria-selected="false">日本語</button>
+    </div>
+
     <nav class="drawer-nav">
-      <a href="#about" class="drawer-link"><span>關於我與簡介</span><span class="mono" style="opacity:.55;font-size:.76rem;">01</span></a>
-      <a href="#experience" class="drawer-link"><span>學經歷與教學</span><span class="mono" style="opacity:.55;font-size:.76rem;">02</span></a>
-      <a href="#skills" class="drawer-link"><span>核心技能矩陣</span><span class="mono" style="opacity:.55;font-size:.76rem;">03</span></a>
-      <a href="#certs" class="drawer-link"><span>20+ 專業證照</span><span class="mono" style="opacity:.55;font-size:.76rem;">04</span></a>
-      <a href="#research" class="drawer-link"><span>研究計畫與論文</span><span class="mono" style="opacity:.55;font-size:.76rem;">05</span></a>
-      <a href="#contact" class="drawer-link"><span>聯絡我</span><span class="mono" style="opacity:.55;font-size:.76rem;">06</span></a>
+      <a href="#about" class="drawer-link"><span data-i18n="drawer.about">關於我與簡介</span><span class="mono" style="opacity:.55;font-size:.76rem;">01</span></a>
+      <a href="#experience" class="drawer-link"><span data-i18n="drawer.experience">學經歷與教學</span><span class="mono" style="opacity:.55;font-size:.76rem;">02</span></a>
+      <a href="#skills" class="drawer-link"><span data-i18n="drawer.skills">核心技能矩陣</span><span class="mono" style="opacity:.55;font-size:.76rem;">03</span></a>
+      <a href="#certs" class="drawer-link"><span data-i18n="drawer.certs">20+ 專業證照</span><span class="mono" style="opacity:.55;font-size:.76rem;">04</span></a>
+      <a href="#research" class="drawer-link"><span data-i18n="drawer.research">研究計畫與論文</span><span class="mono" style="opacity:.55;font-size:.76rem;">05</span></a>
+      <a href="#contact" class="drawer-link"><span data-i18n="drawer.contact">聯絡我</span><span class="mono" style="opacity:.55;font-size:.76rem;">06</span></a>
     </nav>
 
     <div class="drawer-footer">
@@ -2230,13 +2295,13 @@
           <path stroke-linecap="round" stroke-linejoin="round" d="M3 9a2 2 0 012-2h.93a2 2 0 001.664-.89l.812-1.22A2 2 0 0110.07 4h3.86a2 2 0 011.664.89l.812 1.22A2 2 0 0018.07 7H19a2 2 0 012 2v9a2 2 0 01-2 2H5a2 2 0 01-2-2V9z" />
           <circle cx="12" cy="13" r="3" />
         </svg>
-        <span>頭像微調工作台</span>
+        <span data-i18n="action.avatarWorkbench">頭像微調工作台</span>
       </button>
       <button type="button" class="btn btn-primary" id="drawer-print-btn" style="width:100%;">
         <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
           <path stroke-linecap="round" stroke-linejoin="round" d="M6 9V4h12v5M6 18H4a2 2 0 01-2-2v-5a2 2 0 012-2h16a2 2 0 012 2v5a2 2 0 01-2 2h-2M6 14h12v7H6v-7z" />
         </svg>
-        <span>列印 / 匯出 PDF</span>
+        <span data-i18n="action.print">列印 / 匯出 PDF</span>
       </button>
     </div>
   </aside>
@@ -2271,14 +2336,14 @@
           </div>
           <div>
             <h1 style="margin:0;font-size:18pt;font-weight:900;color:#0f172a;">SkyKuo <span class="mono" style="font-size:10pt;font-weight:600;color:#0284c7;">@SkyKuo</span></h1>
-            <p style="margin:2pt 0 0;font-size:9.2pt;font-weight:700;color:#334155;">「有難度，才有挑戰的價值」｜中孚科技 技術副理・企業網路與資安架構師</p>
-            <p style="margin:1.5pt 0 0;font-size:8.5pt;color:#475569;">Palo Alto NGFW · Cisco CCNP Enterprise / Security · 國立臺中科技大學講師 · 國立中正大學資管暨醫資碩士班</p>
+            <p style="margin:2pt 0 0;font-size:9.2pt;font-weight:700;color:#334155;" data-i18n="print.subtitle">「有難度，才有挑戰的價值」｜中孚科技 技術副理・企業網路與資安架構師</p>
+            <p style="margin:1.5pt 0 0;font-size:8.5pt;color:#475569;" data-i18n="print.creds">Palo Alto NGFW · Cisco CCNP Enterprise / Security · 國立臺中科技大學講師 · 國立中正大學資管暨醫資碩士班</p>
           </div>
         </div>
         <div class="mono" style="text-align:right;font-size:8.2pt;color:#334155;line-height:1.6;">
           <div>bluesky830727@gmail.com</div>
           <div>0903-221-255</div>
-          <div>台中市大雅區 / 台北市，台灣</div>
+          <div data-i18n="contact.locationValue">台中市大雅區 / 台北市，台灣</div>
         </div>
       </div>
     </div>
@@ -2327,7 +2392,7 @@
                       <circle cx="11" cy="11" r="7" />
                       <path stroke-linecap="round" d="M21 21l-4.35-4.35M11 8v6M8 11h6" />
                     </svg>
-                    <span>檢視原圖</span>
+                    <span data-i18n="avatar.viewFull">檢視原圖</span>
                   </span>
                 </button>
 
@@ -2358,9 +2423,51 @@
                   <span class="handle-chip">@SkyKuo</span>
                   <span class="motto-badge">
                     <span class="motto-dot" aria-hidden="true"></span>
-                    <span>有難度，才有挑戰的價值</span>
+                    <span data-i18n="hero.motto">有難度，才有挑戰的價值</span>
                   </span>
                 </div>
+              </div>
+            </div>
+
+            <!-- Dynamic Typewriter Subtitle -->
+            <div class="typewriter-row" aria-live="polite">
+              <span class="typewriter-prompt" aria-hidden="true">&gt;_</span>
+              <span id="typewriter-text">中孚科技 技術副理</span>
+              <span class="typewriter-cursor no-print" aria-hidden="true"></span>
+            </div>
+
+            <!-- Concise Intro Paragraph -->
+            <p class="hero-bio" data-i18n-html="hero.bio">
+              專注於企業網路架構與 <strong>Python / Java 網路自動化</strong>，具備政府、金融、電信與大型企業專案實戰經驗，致力以程式化思維提升基礎設施維運效率。
+            </p>
+
+            <!-- Primary CTAs -->
+            <div class="hero-cta-group">
+              <a href="#contact" class="btn btn-primary">
+                <span data-i18n="hero.ctaContact">聯絡我</span>
+                <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.2" viewBox="0 0 24 24" aria-hidden="true">
+                  <path stroke-linecap="round" stroke-linejoin="round" d="M13 7l5 5m0 0l-5 5m5-5H6" />
+                </svg>
+              </a>
+              <button type="button" class="btn btn-secondary" onclick="window.print()">
+                <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" aria-hidden="true">
+                  <path stroke-linecap="round" stroke-linejoin="round" d="M6 9V4h12v5M6 18H4a2 2 0 01-2-2v-5a2 2 0 012-2h16a2 2 0 012 2v5a2 2 0 01-2 2h-2M6 14h12v7H6v-7z" />
+                </svg>
+                <span data-i18n="action.print">列印 / 匯出 PDF</span>
+              </button>
+              <a href="#certs" class="btn btn-ghost">
+                <span data-i18n="hero.ctaCerts">檢視 20+ 證照</span>
+              </a>
+            </div>
+          </div>
+
+          <!-- Right Column: Core Expertise 6-Axis Radar Card & Flagship Cert Pills -->
+          <div>
+            <div class="glass-card competency-card" aria-label="核心專長雷達圖與旗艦認證">
+              <div class="competency-header">
+                <h2 class="competency-title"><span data-i18n="radar.title">核心專長雷達圖</span> · <span class="mono" style="color:var(--accent-cyan);font-size:0.82rem;">Core Expertise</span></h2>
+                <span class="badge badge-cyan" data-i18n="radar.hint">點選節點檢視詳情</span>
+              </div>
               </div>
             </div>
 
@@ -2452,7 +2559,7 @@
                     <circle cx="210" cy="85.5" r="22" fill="transparent" />
                     <circle class="radar-halo" cx="210" cy="85.5" r="14" />
                     <circle class="radar-dot" cx="210" cy="85.5" r="5.5" />
-                    <text class="radar-label" x="210" y="46" text-anchor="middle">企業網路架構</text>
+                    <text id="radar-label-0" class="radar-label" x="210" y="46" text-anchor="middle">企業網路架構</text>
                     <text class="radar-score" x="210" y="62" text-anchor="middle">96%</text>
                   </g>
 
@@ -2470,7 +2577,7 @@
                     <circle cx="255.7" cy="143.6" r="22" fill="transparent" />
                     <circle class="radar-halo" cx="255.7" cy="143.6" r="13" />
                     <circle class="radar-dot" cx="255.7" cy="143.6" r="4.8" />
-                    <text class="radar-label" x="300" y="121" text-anchor="start">資安防禦規劃</text>
+                    <text id="radar-label-1" class="radar-label" x="300" y="121" text-anchor="start">資安防禦規劃</text>
                     <text class="radar-score" x="300" y="137" text-anchor="start">60%</text>
                   </g>
 
@@ -2488,7 +2595,7 @@
                     <circle cx="278.6" cy="209.6" r="22" fill="transparent" />
                     <circle class="radar-halo" cx="278.6" cy="209.6" r="13" />
                     <circle class="radar-dot" cx="278.6" cy="209.6" r="4.8" />
-                    <text class="radar-label" x="300" y="214" text-anchor="start">網路自動化開發</text>
+                    <text id="radar-label-2" class="radar-label" x="300" y="214" text-anchor="start">網路自動化開發</text>
                     <text class="radar-score" x="300" y="230" text-anchor="start">90%</text>
                   </g>
 
@@ -2506,7 +2613,7 @@
                     <circle cx="210" cy="252.7" r="22" fill="transparent" />
                     <circle class="radar-halo" cx="210" cy="252.7" r="13" />
                     <circle class="radar-dot" cx="210" cy="252.7" r="4.8" />
-                    <text class="radar-label" x="210" y="284" text-anchor="middle">SI 系統整合</text>
+                    <text id="radar-label-3" class="radar-label" x="210" y="284" text-anchor="middle">SI 系統整合</text>
                     <text class="radar-score" x="210" y="300" text-anchor="middle">94%</text>
                   </g>
 
@@ -2524,7 +2631,7 @@
                     <circle cx="144.5" cy="207.8" r="22" fill="transparent" />
                     <circle class="radar-halo" cx="144.5" cy="207.8" r="13" />
                     <circle class="radar-dot" cx="144.5" cy="207.8" r="4.8" />
-                    <text class="radar-label" x="120" y="214" text-anchor="end">大數據與研究</text>
+                    <text id="radar-label-4" class="radar-label" x="120" y="214" text-anchor="end">大數據與研究</text>
                     <text class="radar-score" x="120" y="230" text-anchor="end">86%</text>
                   </g>
 
@@ -2542,7 +2649,7 @@
                     <circle cx="142.9" cy="131.3" r="22" fill="transparent" />
                     <circle class="radar-halo" cx="142.9" cy="131.3" r="13" />
                     <circle class="radar-dot" cx="142.9" cy="131.3" r="4.8" />
-                    <text class="radar-label" x="120" y="121" text-anchor="end">產學教學顧問</text>
+                    <text id="radar-label-5" class="radar-label" x="120" y="121" text-anchor="end">產學教學顧問</text>
                     <text class="radar-score" x="120" y="137" text-anchor="end">88%</text>
                   </g>
                 </svg>
@@ -2583,27 +2690,419 @@
         <div class="kpi-grid">
           <article class="glass-card interactive kpi-card">
             <div class="kpi-value text-gradient mono">20+</div>
-            <div class="kpi-title">專業與國際證照</div>
-            <div class="kpi-sub">Palo Alto、Cisco CCNP 雙軌、Oracle、Microsoft 與 TQC+</div>
+            <div class="kpi-title" data-i18n="kpi.0.title">專業與國際證照</div>
+            <div class="kpi-sub" data-i18n="kpi.0.sub">Palo Alto、Cisco CCNP 雙軌、Oracle、Microsoft 與 TQC+</div>
           </article>
 
           <article class="glass-card interactive kpi-card">
-            <div class="kpi-value text-gradient mono">6 項</div>
-            <div class="kpi-title">產學教學經歷</div>
-            <div class="kpi-sub">跨足 SI、面板龍頭總部、電信專案與大專院校授課</div>
+            <div class="kpi-value text-gradient mono" data-i18n="kpi.1.val">6 項</div>
+            <div class="kpi-title" data-i18n="kpi.1.title">產學教學經歷</div>
+            <div class="kpi-sub" data-i18n="kpi.1.sub">跨足 SI、面板龍頭總部、電信專案與大專院校授課</div>
           </article>
 
           <article class="glass-card interactive kpi-card">
-            <div class="kpi-value text-gradient mono">2 篇</div>
-            <div class="kpi-title">國際研討會論文</div>
-            <div class="kpi-sub">發表於 IEEE CyberSciTech 2018 與 IETAC 2016</div>
+            <div class="kpi-value text-gradient mono" data-i18n="kpi.2.val">2 篇</div>
+            <div class="kpi-title" data-i18n="kpi.2.title">國際研討會論文</div>
+            <div class="kpi-sub" data-i18n="kpi.2.sub">發表於 IEEE CyberSciTech 2018 與 IETAC 2016</div>
           </article>
 
           <article class="glass-card interactive kpi-card">
-            <div class="kpi-value text-gradient mono">第 1 名</div>
-            <div class="kpi-title">班級畢業 (1.79%)</div>
-            <div class="kpi-sub">僑光科大資科系 1 / 56 · 淡江資工碩士總平均 90.00</div>
+            <div class="kpi-value text-gradient mono" data-i18n="kpi.3.val">第 1 名</div>
+            <div class="kpi-title" data-i18n="kpi.3.title">班級畢業 (1.79%)</div>
+            <div class="kpi-sub" data-i18n="kpi.3.sub">僑光科大資科系 1 / 56 · 淡江資工碩士總平均 90.00</div>
           </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===================================================================
+         SECTION 2: EXPERIENCE & EDUCATION (#experience)
+         =================================================================== -->
+    <section class="section" id="experience">
+      <div class="container">
+        <div class="section-head split">
+          <div>
+            <span class="section-kicker">01 / EXPERIENCE &amp; EDUCATION</span>
+            <h2 class="section-title" data-i18n="exp.title">工作經歷、教學與學歷背景</h2>
+          </div>
+          <p class="section-desc" data-i18n="exp.desc">涵蓋系統整合、集團基礎設施、電信資安、大專授課與資訊工程／資訊管理碩士訓練。</p>
+        </div>
+
+        <!-- Interactive Filter Tabs -->
+        <div class="filter-scroll" role="tablist" aria-label="學經歷檢視切換">
+          <button type="button" role="tab" aria-selected="true" class="filter-pill exp-tab-btn is-active" data-exp-mode="all" data-i18n="exp.tabAll">全部檢視</button>
+          <button type="button" role="tab" aria-selected="false" class="filter-pill exp-tab-btn" data-exp-mode="work" data-i18n="exp.tabWork">工作與教學經歷 (6)</button>
+          <button type="button" role="tab" aria-selected="false" class="filter-pill exp-tab-btn" data-exp-mode="edu" data-i18n="exp.tabEdu">學歷背景 (3)</button>
+        </div>
+
+        <div class="exp-layout mode-all" id="exp-layout">
+          <!-- Work & Teaching Experience (6 items) -->
+          <div class="exp-column" id="col-work">
+            <h3 class="exp-col-heading">
+              <span class="icon-box icon-cyan" aria-hidden="true">
+                <svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" d="M21 13.255A23.931 23.931 0 0112 15c-3.183 0-6.22-.62-9-1.745M16 6V4a2 2 0 00-2-2h-4a2 2 0 00-2 2v2m4 6h.01M5 20h14a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
+                </svg>
+              </span>
+              <span data-i18n="exp.workHeading">工作與教學經歷</span>
+            </h3>
+
+            <div class="timeline-stack">
+              <!-- 1. 中孚科技 -->
+              <article class="timeline-item">
+                <span class="timeline-dot" aria-hidden="true"></span>
+                <div class="glass-card interactive exp-card">
+                  <div class="exp-card-top">
+                    <h4 class="exp-org" data-i18n="work.0.org">中孚科技</h4>
+                    <span class="badge badge-cyan">Enterprise SI &amp; Automation</span>
+                  </div>
+                  <div class="exp-role" data-i18n="work.0.role">技術副理</div>
+                  <ul class="exp-bullets">
+                    <li data-i18n-html="work.0.b0"><strong>政府機關</strong>：Security 建置維護。</li>
+                    <li data-i18n-html="work.0.b1"><strong>學校</strong>：有線／無線及 Security 建置維護。</li>
+                    <li data-i18n-html="work.0.b2"><strong>銀行</strong>：有線及 Security 建置維護。</li>
+                    <li data-i18n-html="work.0.b3">透過程式設計完成<strong>網路自動化</strong>，簡化及優化作業程序。</li>
+                  </ul>
+                </div>
+              </article>
+
+              <!-- 2. 友達光電 -->
+              <article class="timeline-item">
+                <span class="timeline-dot indigo" aria-hidden="true"></span>
+                <div class="glass-card interactive exp-card">
+                  <div class="exp-card-top">
+                    <h4 class="exp-org" data-i18n="work.1.org">友達光電</h4>
+                    <span class="badge badge-indigo">Global HQ Infrastructure</span>
+                  </div>
+                  <div class="exp-role" data-i18n="work.1.role">高級工程師</div>
+                  <ul class="exp-bullets">
+                    <li data-i18n-html="work.1.b0">總部 <strong>ATC 網路</strong>規劃、維護及建置。</li>
+                    <li data-i18n-html="work.1.b1">集團總 <strong>Infrastructure</strong> 規劃、建置及調整。</li>
+                    <li data-i18n-html="work.1.b2">集團視訊系統評估及建置。</li>
+                  </ul>
+                </div>
+              </article>
+
+              <!-- 3. 華電聯網股份有限公司 -->
+              <article class="timeline-item">
+                <span class="timeline-dot emerald" aria-hidden="true"></span>
+                <div class="glass-card interactive exp-card">
+                  <div class="exp-card-top">
+                    <h4 class="exp-org" data-i18n="work.2.org">華電聯網股份有限公司</h4>
+                    <span class="badge badge-emerald">Telecom ISP &amp; Gov</span>
+                  </div>
+                  <div class="exp-role" data-i18n="work.2.role">高級工程師</div>
+                  <ul class="exp-bullets">
+                    <li data-i18n-html="work.2.b0">一、二類電信（ISP）及政府機關有線／無線與防火牆建置維運。</li>
+                    <li data-i18n-html="work.2.b1">全台各園區網路建置、維運與年度歲修支援。</li>
+                  </ul>
+                </div>
+              </article>
+
+              <!-- 4. 晉泰科技股份有限公司 -->
+              <article class="timeline-item">
+                <span class="timeline-dot" aria-hidden="true"></span>
+                <div class="glass-card interactive exp-card">
+                  <div class="exp-card-top">
+                    <h4 class="exp-org" data-i18n="work.3.org">晉泰科技股份有限公司</h4>
+                    <span class="badge badge-cyan">Enterprise Campus</span>
+                  </div>
+                  <div class="exp-role" data-i18n="work.3.role">網路工程師</div>
+                  <ul class="exp-bullets">
+                    <li data-i18n-html="work.3.b0">園區企業有線／無線網路設備建置與維運。</li>
+                    <li data-i18n-html="work.3.b1">針對客戶網路架構進行規劃、建置及調整。</li>
+                  </ul>
+                </div>
+              </article>
+
+              <!-- 5. 國立臺中科技大學 -->
+              <article class="timeline-item">
+                <span class="timeline-dot amber" aria-hidden="true"></span>
+                <div class="glass-card interactive exp-card">
+                  <div class="exp-card-top">
+                    <h4 class="exp-org" data-i18n="work.4.org">國立臺中科技大學</h4>
+                    <span class="badge badge-amber">University Lecturer</span>
+                  </div>
+                  <div class="exp-role" data-i18n="work.4.role">講師</div>
+                  <ul class="exp-bullets">
+                    <li data-i18n-html="work.4.b0">教授 <strong>Linux 與網路管理、Python 程式設計、大數據分析</strong>及網路相關課程。</li>
+                  </ul>
+                </div>
+              </article>
+
+              <!-- 6. 淡江大學 -->
+              <article class="timeline-item">
+                <span class="timeline-dot indigo" aria-hidden="true"></span>
+                <div class="glass-card interactive exp-card">
+                  <div class="exp-card-top">
+                    <h4 class="exp-org" data-i18n="work.5.org">淡江大學</h4>
+                    <span class="badge badge-indigo">Teaching Assistant</span>
+                  </div>
+                  <div class="exp-role" data-i18n="work.5.role">大學暨研究所助教</div>
+                  <ul class="exp-bullets">
+                    <li data-i18n-html="work.5.b0">教授 <strong>Java 程式設計、網頁設計與大數據分析</strong>課程。</li>
+                    <li data-i18n-html="work.5.b1">處理院辦及系辦相關學術交流研討會。</li>
+                  </ul>
+                </div>
+              </article>
+            </div>
+          </div>
+
+          <!-- Education Background (3 items) -->
+          <div class="exp-column" id="col-edu">
+            <h3 class="exp-col-heading">
+              <span class="icon-box icon-indigo" aria-hidden="true">
+                <svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" d="M12 14l9-5-9-5-9 5 9 5z" />
+                  <path stroke-linecap="round" stroke-linejoin="round" d="M12 14l6.16-3.422a12.083 12.083 0 01.665 6.479A11.952 11.952 0 0012 20.055a11.952 11.952 0 00-6.824-2.998 12.078 12.078 0 01.665-6.479L12 14z" />
+                </svg>
+              </span>
+              <span data-i18n="exp.eduHeading">學歷背景</span>
+            </h3>
+
+            <div class="timeline-stack">
+              <!-- 1. 國立中正大學 -->
+              <article class="timeline-item">
+                <span class="timeline-dot" aria-hidden="true"></span>
+                <div class="glass-card interactive exp-card">
+                  <div class="exp-card-top">
+                    <h4 class="exp-org" data-i18n="edu.0.org">國立中正大學</h4>
+                    <span class="badge badge-cyan" data-i18n="edu.0.badge">研究所進修</span>
+                  </div>
+                  <div class="exp-role" data-i18n="edu.0.role">資訊管理學系暨研究所（含醫療資訊管理碩士班）</div>
+                  <ul class="exp-bullets">
+                    <li data-i18n="edu.0.b0">聚焦多領域網路架構資安比較與中小企業網路自動化專案成本優化研究。</li>
+                  </ul>
+                </div>
+              </article>
+
+              <!-- 2. 淡江大學 -->
+              <article class="timeline-item">
+                <span class="timeline-dot indigo" aria-hidden="true"></span>
+                <div class="glass-card interactive exp-card">
+                  <div class="exp-card-top">
+                    <h4 class="exp-org" data-i18n="edu.1.org">淡江大學</h4>
+                    <span class="badge badge-indigo">2016 – 2018</span>
+                  </div>
+                  <div class="exp-role" data-i18n="edu.1.role">資訊工程研究所 碩士</div>
+                  <div class="edu-metric-bar">
+                    <span class="badge badge-emerald" data-i18n="edu.1.m0">課程平均 89.00</span>
+                    <span class="badge badge-cyan" data-i18n="edu.1.m1">總平均 90.00</span>
+                  </div>
+                  <div class="tag-row">
+                    <span class="tag-chip" data-i18n="edu.1.t0">雲端運算與虛擬化</span>
+                    <span class="tag-chip" data-i18n="edu.1.t1">大數據分析</span>
+                    <span class="tag-chip" data-i18n="edu.1.t2">機器學習</span>
+                    <span class="tag-chip" data-i18n="edu.1.t3">物聯網通訊與路由協定</span>
+                  </div>
+                </div>
+              </article>
+
+              <!-- 3. 僑光科技大學 -->
+              <article class="timeline-item">
+                <span class="timeline-dot amber" aria-hidden="true"></span>
+                <div class="glass-card interactive exp-card">
+                  <div class="exp-card-top">
+                    <h4 class="exp-org" data-i18n="edu.2.org">僑光科技大學</h4>
+                    <span class="badge badge-amber" data-i18n="edu.2.badge">全班第 1 名畢業</span>
+                  </div>
+                  <div class="exp-role" data-i18n="edu.2.role">資訊科技系 學士</div>
+                  <div class="edu-metric-bar">
+                    <span class="badge badge-amber" data-i18n="edu.2.m0">班級排名第 1 名 / 56 人（前 1.79%）</span>
+                    <span class="badge badge-emerald" data-i18n="edu.2.m1">學業平均 86.46</span>
+                  </div>
+                  <ul class="exp-bullets">
+                    <li data-i18n="edu.2.b0">紮實奠定程式設計、資料結構、資料庫系統、作業系統與電腦網路核心基礎。</li>
+                  </ul>
+                </div>
+              </article>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===================================================================
+         SECTION 3: SKILLS MATRIX (#skills) — STATICALLY RENDERED & FILTERABLE
+         =================================================================== -->
+    <section class="section" id="skills">
+      <div class="container">
+        <div class="section-head split">
+          <div>
+            <span class="section-kicker">02 / SKILLS MATRIX</span>
+            <h2 class="section-title" data-i18n="skills.title">核心技能矩陣</h2>
+          </div>
+          <p class="section-desc" data-i18n="skills.desc">多廠牌企業網路與次世代資安設備實戰，搭配 Python / Java 自動化開發與數據系統管理。</p>
+        </div>
+
+        <div class="filter-scroll" role="tablist" aria-label="技能分類篩選">
+          <button type="button" role="tab" aria-selected="true" class="filter-pill skill-filter-btn is-active" data-skill-filter="all" data-i18n="skills.tabAll">全部</button>
+          <button type="button" role="tab" aria-selected="false" class="filter-pill skill-filter-btn" data-skill-filter="network" data-i18n="skills.tabNet">企業網路</button>
+          <button type="button" role="tab" aria-selected="false" class="filter-pill skill-filter-btn" data-skill-filter="security" data-i18n="skills.tabSec">資安防護</button>
+          <button type="button" role="tab" aria-selected="false" class="filter-pill skill-filter-btn" data-skill-filter="automation" data-i18n="skills.tabAuto">程式與自動化</button>
+          <button type="button" role="tab" aria-selected="false" class="filter-pill skill-filter-btn" data-skill-filter="data" data-i18n="skills.tabData">數據與系統</button>
+        </div>
+
+        <div class="skills-grid" id="skills-grid">
+          <!-- 1. Cisco Enterprise & Security -->
+          <article class="glass-card interactive skill-card" data-skill-cat="network security">
+            <div>
+              <div class="skill-top">
+                <span class="badge badge-cyan" data-i18n="skills.0.cat">企業網路 / 資安防護</span>
+                <span class="mono" style="font-size:0.78rem;font-weight:700;color:var(--accent-cyan);">96%</span>
+              </div>
+              <h3 class="skill-name">Cisco Enterprise &amp; Security</h3>
+              <p class="skill-sub" data-i18n="skills.0.sub">企業級有線／無線核心網路建置、ISE 零信任存取控管、PI 集中管理與 Firepower 威脅防禦。</p>
+            </div>
+            <div>
+              <div class="skill-progress-track" role="progressbar" aria-valuenow="96" aria-valuemin="0" aria-valuemax="100">
+                <div class="skill-progress-fill" style="width:96%;"></div>
+              </div>
+              <div class="tag-row">
+                <span class="tag-chip">Router</span>
+                <span class="tag-chip">Switch</span>
+                <span class="tag-chip">Wireless</span>
+                <span class="tag-chip">ISE</span>
+                <span class="tag-chip">PI</span>
+                <span class="tag-chip">Catalyst</span>
+                <span class="tag-chip">Firepower</span>
+              </div>
+            </div>
+          </article>
+
+          <!-- 2. Palo Alto Networks -->
+          <article class="glass-card interactive skill-card" data-skill-cat="security">
+            <div>
+              <div class="skill-top">
+                <span class="badge badge-amber" data-i18n="skills.1.cat">資安防護</span>
+                <span class="mono" style="font-size:0.78rem;font-weight:700;color:var(--accent-cyan);">95%</span>
+              </div>
+              <h3 class="skill-name">Palo Alto Networks</h3>
+              <p class="skill-sub" data-i18n="skills.1.sub">次世代防火牆安全架構規劃、政策優化與政府／金融單位高可用資安維運。</p>
+            </div>
+            <div>
+              <div class="skill-progress-track" role="progressbar" aria-valuenow="95" aria-valuemin="0" aria-valuemax="100">
+                <div class="skill-progress-fill" style="width:95%;"></div>
+              </div>
+              <div class="tag-row">
+                <span class="tag-chip">Next-Generation Firewall (NGFW)</span>
+                <span class="tag-chip">Security Policy</span>
+                <span class="tag-chip">HA Architecture</span>
+              </div>
+            </div>
+          </article>
+
+          <!-- 3. Juniper Networks -->
+          <article class="glass-card interactive skill-card" data-skill-cat="network security">
+            <div>
+              <div class="skill-top">
+                <span class="badge badge-indigo" data-i18n="skills.2.cat">企業網路</span>
+                <span class="mono" style="font-size:0.78rem;font-weight:700;color:var(--accent-cyan);">89%</span>
+              </div>
+              <h3 class="skill-name">Juniper Networks</h3>
+              <p class="skill-sub" data-i18n="skills.2.sub">電信 ISP 骨幹路由、企業核心交換與邊界防火牆跨廠牌整合建置與維運。</p>
+            </div>
+            <div>
+              <div class="skill-progress-track" role="progressbar" aria-valuenow="89" aria-valuemin="0" aria-valuemax="100">
+                <div class="skill-progress-fill" style="width:89%;"></div>
+              </div>
+              <div class="tag-row">
+                <span class="tag-chip">Router</span>
+                <span class="tag-chip">Switch</span>
+                <span class="tag-chip">Firewall</span>
+              </div>
+            </div>
+          </article>
+
+          <!-- 4. Fortinet Security Fabric -->
+          <article class="glass-card interactive skill-card" data-skill-cat="security network">
+            <div>
+              <div class="skill-top">
+                <span class="badge badge-rose" data-i18n="skills.3.cat">資安防護</span>
+                <span class="mono" style="font-size:0.78rem;font-weight:700;color:var(--accent-cyan);">90%</span>
+              </div>
+              <h3 class="skill-name">Fortinet Security Fabric</h3>
+              <p class="skill-sub" data-i18n="skills.3.sub">校園與企業整合式防火牆、交換器與無線網路安全聯防架構建置與維運。</p>
+            </div>
+            <div>
+              <div class="skill-progress-track" role="progressbar" aria-valuenow="90" aria-valuemin="0" aria-valuemax="100">
+                <div class="skill-progress-fill" style="width:90%;"></div>
+              </div>
+              <div class="tag-row">
+                <span class="tag-chip">Switch</span>
+                <span class="tag-chip">Wireless</span>
+                <span class="tag-chip">Firewall</span>
+              </div>
+            </div>
+          </article>
+
+          <!-- 5. Programming & Network Automation -->
+          <article class="glass-card interactive skill-card" data-skill-cat="automation">
+            <div>
+              <div class="skill-top">
+                <span class="badge badge-emerald" data-i18n="skills.4.cat">程式與自動化</span>
+                <span class="mono" style="font-size:0.78rem;font-weight:700;color:var(--accent-cyan);">91%</span>
+              </div>
+              <h3 class="skill-name">Programming &amp; Network Automation</h3>
+              <p class="skill-sub" data-i18n="skills.4.sub">運用程式開發打造自動化部署與設定稽核工具，大幅減少人工配置誤差並優化 SI 專案效率。</p>
+            </div>
+            <div>
+              <div class="skill-progress-track" role="progressbar" aria-valuenow="91" aria-valuemin="0" aria-valuemax="100">
+                <div class="skill-progress-fill" style="width:91%;"></div>
+              </div>
+              <div class="tag-row">
+                <span class="tag-chip">Python</span>
+                <span class="tag-chip">Java</span>
+                <span class="tag-chip" data-i18n="skills.4.t2">自動化部署腳本</span>
+                <span class="tag-chip" data-i18n="skills.4.t3">網頁設計</span>
+              </div>
+            </div>
+          </article>
+
+          <!-- 6. Data Science & Linux Systems -->
+          <article class="glass-card interactive skill-card" data-skill-cat="data">
+            <div>
+              <div class="skill-top">
+                <span class="badge badge-cyan" data-i18n="skills.5.cat">數據與系統</span>
+                <span class="mono" style="font-size:0.78rem;font-weight:700;color:var(--accent-cyan);">88%</span>
+              </div>
+              <h3 class="skill-name">Data Science &amp; Linux Systems</h3>
+              <p class="skill-sub" data-i18n="skills.5.sub">結合資工碩士研究與大專授課經驗，熟悉大數據分析流程與專業級 Linux 系統及網路管理。</p>
+            </div>
+            <div>
+              <div class="skill-progress-track" role="progressbar" aria-valuenow="88" aria-valuemin="0" aria-valuemax="100">
+                <div class="skill-progress-fill" style="width:88%;"></div>
+              </div>
+              <div class="tag-row">
+                <span class="tag-chip">Data Science</span>
+                <span class="tag-chip" data-i18n="skills.5.t1">大數據分析</span>
+                <span class="tag-chip" data-i18n="skills.5.t2">Linux 系統與網路管理</span>
+              </div>
+            </div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===================================================================
+         SECTION 4: CERTIFICATIONS (#certs) — 4 FLAGSHIP + 17 FILTERABLE CERTS
+         =================================================================== -->
+    <section class="section" id="certs">
+      <div class="container">
+        <div class="section-head split">
+          <div>
+            <span class="section-kicker">03 / PROFESSIONAL CREDENTIALS</span>
+            <h2 class="section-title" data-i18n="certs.title">20+ 國際與專業證照</h2>
+          </div>
+          <p class="section-desc" data-i18n="certs.desc">涵蓋 Palo Alto 次世代防火牆、Cisco CCNP 企業與資安雙軌、程式語言、Linux 與辦公設計專業認證。</p>
+        </div>
+
+        <!-- Top 4 Flagship Certification Highlight Cards -->
+        <div class="flagship-label">
+          <svg width="16" height="16" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+            <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z" />
+          </svg>
+          <span data-i18n="certs.flagship">Flagship Tier · 核心旗艦級認證</span>
         </div>
       </div>
     </section>
@@ -3058,85 +3557,85 @@
 
         <!-- Filter Tabs for Additional 17 Certifications -->
         <div class="filter-scroll" role="tablist" aria-label="其他專業證照分類篩選">
-          <button type="button" role="tab" aria-selected="true" class="filter-pill cert-filter-btn is-active" data-cert-filter="all">全部 (17)</button>
-          <button type="button" role="tab" aria-selected="false" class="filter-pill cert-filter-btn" data-cert-filter="netsec">網路與資安 (7)</button>
-          <button type="button" role="tab" aria-selected="false" class="filter-pill cert-filter-btn" data-cert-filter="devsys">程式與系統 (5)</button>
-          <button type="button" role="tab" aria-selected="false" class="filter-pill cert-filter-btn" data-cert-filter="office">辦公與設計 (5)</button>
+          <button type="button" role="tab" aria-selected="true" class="filter-pill cert-filter-btn is-active" data-cert-filter="all" data-i18n="certs.tabAll">全部 (17)</button>
+          <button type="button" role="tab" aria-selected="false" class="filter-pill cert-filter-btn" data-cert-filter="netsec" data-i18n="certs.tabNetsec">網路與資安 (7)</button>
+          <button type="button" role="tab" aria-selected="false" class="filter-pill cert-filter-btn" data-cert-filter="devsys" data-i18n="certs.tabDevsys">程式與系統 (5)</button>
+          <button type="button" role="tab" aria-selected="false" class="filter-pill cert-filter-btn" data-cert-filter="office" data-i18n="certs.tabOffice">辦公與設計 (5)</button>
         </div>
 
         <!-- 17 Additional Certifications (Statically Rendered) -->
         <div class="cert-grid" id="cert-grid">
           <!-- 網路與資安 (7) -->
           <article class="glass-card interactive cert-card" data-cert-cat="netsec">
-            <div><span class="badge badge-cyan">網路與資安</span><h4 class="cert-title">Cisco Certified Specialist - Enterprise Core</h4></div>
+            <div><span class="badge badge-cyan" data-i18n="certs.catNetsec">網路與資安</span><h4 class="cert-title">Cisco Certified Specialist - Enterprise Core</h4></div>
             <div class="cert-meta"><span>Cisco</span><span>Expires May 1, 2028</span></div>
           </article>
           <article class="glass-card interactive cert-card" data-cert-cat="netsec">
-            <div><span class="badge badge-cyan">網路與資安</span><h4 class="cert-title">Cisco Certified Specialist - Security Core</h4></div>
+            <div><span class="badge badge-cyan" data-i18n="certs.catNetsec">網路與資安</span><h4 class="cert-title">Cisco Certified Specialist - Security Core</h4></div>
             <div class="cert-meta"><span>Cisco</span><span>Expires May 1, 2028</span></div>
           </article>
           <article class="glass-card interactive cert-card" data-cert-cat="netsec">
-            <div><span class="badge badge-cyan">網路與資安</span><h4 class="cert-title">Cisco Certified Specialist - Network Security Firepower</h4></div>
+            <div><span class="badge badge-cyan" data-i18n="certs.catNetsec">網路與資安</span><h4 class="cert-title">Cisco Certified Specialist - Network Security Firepower</h4></div>
             <div class="cert-meta"><span>Cisco</span><span>Expires May 1, 2028</span></div>
           </article>
           <article class="glass-card interactive cert-card" data-cert-cat="netsec">
-            <div><span class="badge badge-cyan">網路與資安</span><h4 class="cert-title">Cisco CCNA</h4></div>
+            <div><span class="badge badge-cyan" data-i18n="certs.catNetsec">網路與資安</span><h4 class="cert-title">Cisco CCNA</h4></div>
             <div class="cert-meta"><span>Cisco</span><span>Expires May 1, 2028</span></div>
           </article>
           <article class="glass-card interactive cert-card" data-cert-cat="netsec">
-            <div><span class="badge badge-indigo">網路與資安</span><h4 class="cert-title">ICDL IT Security</h4></div>
+            <div><span class="badge badge-indigo" data-i18n="certs.catNetsec">網路與資安</span><h4 class="cert-title">ICDL IT Security</h4></div>
             <div class="cert-meta"><span>ICDL</span><span>Certified</span></div>
           </article>
           <article class="glass-card interactive cert-card" data-cert-cat="netsec">
-            <div><span class="badge badge-indigo">網路與資安</span><h4 class="cert-title">MTA: Security Fundamentals</h4></div>
+            <div><span class="badge badge-indigo" data-i18n="certs.catNetsec">網路與資安</span><h4 class="cert-title">MTA: Security Fundamentals</h4></div>
             <div class="cert-meta"><span>Microsoft</span><span>Certified 2017</span></div>
           </article>
           <article class="glass-card interactive cert-card" data-cert-cat="netsec">
-            <div><span class="badge badge-indigo">網路與資安</span><h4 class="cert-title">MTA: Networking Fundamentals</h4></div>
+            <div><span class="badge badge-indigo" data-i18n="certs.catNetsec">網路與資安</span><h4 class="cert-title">MTA: Networking Fundamentals</h4></div>
             <div class="cert-meta"><span>Microsoft</span><span>Certified 2017</span></div>
           </article>
 
           <!-- 程式與系統 (5) -->
           <article class="glass-card interactive cert-card" data-cert-cat="devsys">
-            <div><span class="badge badge-emerald">程式與系統</span><h4 class="cert-title">Oracle Certified Associate, Java SE 7 Programmer</h4></div>
+            <div><span class="badge badge-emerald" data-i18n="certs.catDevsys">程式與系統</span><h4 class="cert-title">Oracle Certified Associate, Java SE 7 Programmer</h4></div>
             <div class="cert-meta"><span>Oracle</span><span>Issued Nov 8, 2016</span></div>
           </article>
           <article class="glass-card interactive cert-card" data-cert-cat="devsys">
-            <div><span class="badge badge-emerald">程式與系統</span><h4 class="cert-title">ICDL Python Computing</h4></div>
+            <div><span class="badge badge-emerald" data-i18n="certs.catDevsys">程式與系統</span><h4 class="cert-title">ICDL Python Computing</h4></div>
             <div class="cert-meta"><span>ICDL</span><span>Certified</span></div>
           </article>
           <article class="glass-card interactive cert-card" data-cert-cat="devsys">
-            <div><span class="badge badge-emerald">程式與系統</span><h4 class="cert-title">TQC+ Python 3 專業級</h4></div>
+            <div><span class="badge badge-emerald" data-i18n="certs.catDevsys">程式與系統</span><h4 class="cert-title" data-i18n="certs.tqcPy">TQC+ Python 3 專業級</h4></div>
             <div class="cert-meta"><span>TQC+</span><span>Professional</span></div>
           </article>
           <article class="glass-card interactive cert-card" data-cert-cat="devsys">
-            <div><span class="badge badge-emerald">程式與系統</span><h4 class="cert-title">TQC Linux 系統管理 - 專業級 (V2)</h4></div>
+            <div><span class="badge badge-emerald" data-i18n="certs.catDevsys">程式與系統</span><h4 class="cert-title" data-i18n="certs.tqcLinux">TQC Linux 系統管理 - 專業級 (V2)</h4></div>
             <div class="cert-meta"><span>TQC</span><span>Professional</span></div>
           </article>
           <article class="glass-card interactive cert-card" data-cert-cat="devsys">
-            <div><span class="badge badge-emerald">程式與系統</span><h4 class="cert-title">MTA: Introduction to Programming Using Python</h4></div>
+            <div><span class="badge badge-emerald" data-i18n="certs.catDevsys">程式與系統</span><h4 class="cert-title">MTA: Introduction to Programming Using Python</h4></div>
             <div class="cert-meta"><span>Microsoft</span><span>Certified 2021</span></div>
           </article>
 
           <!-- 辦公與設計 (5) -->
           <article class="glass-card interactive cert-card" data-cert-cat="office">
-            <div><span class="badge badge-amber">辦公與設計</span><h4 class="cert-title">Microsoft Office Specialist: Excel Expert (Office 2019)</h4></div>
+            <div><span class="badge badge-amber" data-i18n="certs.catOffice">辦公與設計</span><h4 class="cert-title">Microsoft Office Specialist: Excel Expert (Office 2019)</h4></div>
             <div class="cert-meta"><span>Microsoft</span><span>Issued Nov 28, 2021</span></div>
           </article>
           <article class="glass-card interactive cert-card" data-cert-cat="office">
-            <div><span class="badge badge-amber">辦公與設計</span><h4 class="cert-title">Microsoft Office Specialist: Word Expert (Office 2019)</h4></div>
+            <div><span class="badge badge-amber" data-i18n="certs.catOffice">辦公與設計</span><h4 class="cert-title">Microsoft Office Specialist: Word Expert (Office 2019)</h4></div>
             <div class="cert-meta"><span>Microsoft</span><span>Issued Nov 21, 2021</span></div>
           </article>
           <article class="glass-card interactive cert-card" data-cert-cat="office">
-            <div><span class="badge badge-amber">辦公與設計</span><h4 class="cert-title">Microsoft Office Specialist: PowerPoint Associate (Office 2019)</h4></div>
+            <div><span class="badge badge-amber" data-i18n="certs.catOffice">辦公與設計</span><h4 class="cert-title">Microsoft Office Specialist: PowerPoint Associate (Office 2019)</h4></div>
             <div class="cert-meta"><span>Microsoft</span><span>Issued Nov 20, 2021</span></div>
           </article>
           <article class="glass-card interactive cert-card" data-cert-cat="office">
-            <div><span class="badge badge-amber">辦公與設計</span><h4 class="cert-title">Microsoft Office Specialist: Outlook Associate (Office 2019)</h4></div>
+            <div><span class="badge badge-amber" data-i18n="certs.catOffice">辦公與設計</span><h4 class="cert-title">Microsoft Office Specialist: Outlook Associate (Office 2019)</h4></div>
             <div class="cert-meta"><span>Microsoft</span><span>Issued Nov 7, 2021</span></div>
           </article>
           <article class="glass-card interactive cert-card" data-cert-cat="office">
-            <div><span class="badge badge-rose">辦公與設計</span><h4 class="cert-title">Adobe Certified Associate in Visual Communication Using Adobe Photoshop</h4></div>
+            <div><span class="badge badge-rose" data-i18n="certs.catOffice">辦公與設計</span><h4 class="cert-title">Adobe Certified Associate in Visual Communication Using Adobe Photoshop</h4></div>
             <div class="cert-meta"><span>Adobe</span><span>Issued Dec 19, 2017</span></div>
           </article>
         </div>
@@ -3151,9 +3650,9 @@
         <div class="section-head split">
           <div>
             <span class="section-kicker">04 / RESEARCH &amp; PUBLICATIONS</span>
-            <h2 class="section-title">研究計畫與學術論文</h2>
+            <h2 class="section-title" data-i18n="research.title">研究計畫與學術論文</h2>
           </div>
-          <p class="section-desc">從系統整合商（SI）實務視角切入，以程式自動化優化中小企業網路建置與專案人力成本。</p>
+          <p class="section-desc" data-i18n="research.desc">從系統整合商（SI）實務視角切入，以程式自動化優化中小企業網路建置與專案人力成本。</p>
         </div>
 
         <!-- Featured Research Plan Card + Inline Responsive SVG SI Workflow Diagram -->
@@ -3161,26 +3660,26 @@
           <div class="research-top-grid">
             <div>
               <div style="display:flex;flex-wrap:wrap;gap:0.45rem;margin-bottom:0.75rem;">
-                <span class="badge badge-cyan">國立中正大學 研究計畫</span>
+                <span class="badge badge-cyan" data-i18n="research.planBadge">國立中正大學 研究計畫</span>
                 <span class="badge badge-indigo">SI Infrastructure Optimization</span>
               </div>
-              <h3 style="margin:0 0 0.75rem;font-size:clamp(1.22rem,2.4vw,1.56rem);font-weight:900;line-height:1.35;">
+              <h3 style="margin:0 0 0.75rem;font-size:clamp(1.22rem,2.4vw,1.56rem);font-weight:900;line-height:1.35;" data-i18n="research.planTitle">
                 《中小企業網路自動化暨專案成本優化》
               </h3>
-              <p style="margin:0 0 1rem;font-size:0.92rem;color:var(--text-secondary);line-height:1.78;">
+              <p style="margin:0 0 1rem;font-size:0.92rem;color:var(--text-secondary);line-height:1.78;" data-i18n-html="research.planSummary">
                 針對台灣企業 Infrastructure 環境長期面臨的人力短缺與維運成本瓶頸，分別從系統整合商（SI）與甲方企業雙重視角，結合 <strong>Programming 軟體開發與網路自動化部屬</strong>，縮短跨客戶專案交付時程、降低工程師重複作業壓力，並提出具跨產業推廣價值的最佳化部署方案。
               </p>
 
               <div style="margin-bottom:1.15rem;">
-                <div class="mono" style="font-size:0.74rem;font-weight:700;color:var(--accent-cyan);margin-bottom:0.45rem;">RESEARCH DIRECTIONS · 核心研究方向</div>
+                <div class="mono" style="font-size:0.74rem;font-weight:700;color:var(--accent-cyan);margin-bottom:0.45rem;" data-i18n="research.dirLabel">RESEARCH DIRECTIONS · 核心研究方向</div>
                 <div class="tag-row">
-                  <span class="badge badge-cyan">(一) 多領域網路架構資安比較</span>
-                  <span class="badge badge-emerald">(二) 網路自動化暨企業效率提升</span>
+                  <span class="badge badge-cyan" data-i18n="research.dir0">(一) 多領域網路架構資安比較</span>
+                  <span class="badge badge-emerald" data-i18n="research.dir1">(二) 網路自動化暨企業效率提升</span>
                 </div>
               </div>
 
               <button type="button" class="btn btn-primary research-modal-btn" id="open-research-modal-btn">
-                <span>研究架構詳情</span>
+                <span data-i18n="research.btnDetail">研究架構詳情</span>
                 <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.2" viewBox="0 0 24 24">
                   <path stroke-linecap="round" stroke-linejoin="round" d="M13 7l5 5m0 0l-5 5m5-5H6" />
                 </svg>
@@ -3227,31 +3726,31 @@
                   <text x="88" y="81" fill="var(--svg-text)">POC</text>
 
                   <circle cx="234" cy="76" r="30" fill="var(--svg-node-a-fill)" stroke="var(--svg-node-a-stroke)" stroke-width="1.8" />
-                  <text x="234" y="81" fill="var(--svg-text)">建置</text>
+                  <text id="wf-a-deploy" x="234" y="81" fill="var(--svg-text)">建置</text>
 
                   <circle cx="380" cy="76" r="30" fill="var(--svg-node-a-fill)" stroke="var(--svg-node-a-stroke)" stroke-width="1.8" />
-                  <text x="380" y="81" fill="var(--svg-text)">維運</text>
+                  <text id="wf-a-ops" x="380" y="81" fill="var(--svg-text)">維運</text>
 
                   <circle cx="526" cy="76" r="30" fill="var(--svg-node-a-fill)" stroke="var(--svg-node-a-stroke)" stroke-width="1.8" />
-                  <text x="526" y="81" fill="var(--svg-text)">架構調整</text>
+                  <text id="wf-a-tune" x="526" y="81" fill="var(--svg-text)">架構調整</text>
 
                   <circle cx="672" cy="76" r="30" fill="var(--svg-node-a-fill)" stroke="var(--svg-node-a-stroke)" stroke-width="1.8" />
-                  <text x="672" y="81" fill="var(--svg-text)">新增需求</text>
+                  <text id="wf-a-req" x="672" y="81" fill="var(--svg-text)">新增需求</text>
                 </g>
 
                 <!-- SI Roles -->
                 <g font-family="ui-monospace, sans-serif" font-size="13" font-weight="700" text-anchor="middle">
                   <rect x="108" y="154" width="124" height="52" rx="14" fill="var(--svg-role-fill)" stroke="var(--svg-role-stroke)" stroke-width="2" />
                   <text x="170" y="177" fill="var(--svg-text)">Pre-sales</text>
-                  <text x="170" y="195" fill="var(--svg-muted)" font-size="10.5" font-family="sans-serif">架構顧問 / POC</text>
+                  <text id="wf-role-presales" x="170" y="195" fill="var(--svg-muted)" font-size="10.5" font-family="sans-serif">架構顧問 / POC</text>
 
                   <rect x="318" y="154" width="124" height="52" rx="14" fill="var(--svg-role-fill)" stroke="var(--svg-role-stroke)" stroke-width="2" />
                   <text x="380" y="177" fill="var(--svg-text)">SE</text>
-                  <text x="380" y="195" fill="var(--svg-muted)" font-size="10.5" font-family="sans-serif">建置 / 系統整合</text>
+                  <text id="wf-role-se" x="380" y="195" fill="var(--svg-muted)" font-size="10.5" font-family="sans-serif">建置 / 系統整合</text>
 
                   <rect x="528" y="154" width="124" height="52" rx="14" fill="var(--svg-role-fill)" stroke="var(--svg-role-stroke)" stroke-width="2" />
                   <text x="590" y="177" fill="var(--svg-text)">AE</text>
-                  <text x="590" y="195" fill="var(--svg-muted)" font-size="10.5" font-family="sans-serif">維運 / 需求擴充</text>
+                  <text id="wf-role-ae" x="590" y="195" fill="var(--svg-muted)" font-size="10.5" font-family="sans-serif">維運 / 需求擴充</text>
                 </g>
 
                 <!-- B Company 5 Stages -->
@@ -3260,22 +3759,22 @@
                   <text x="88" y="289" fill="var(--svg-text)">POC</text>
 
                   <circle cx="234" cy="284" r="30" fill="var(--svg-node-b-fill)" stroke="var(--svg-node-b-stroke)" stroke-width="1.8" />
-                  <text x="234" y="289" fill="var(--svg-text)">建置</text>
+                  <text id="wf-b-deploy" x="234" y="289" fill="var(--svg-text)">建置</text>
 
                   <circle cx="380" cy="284" r="30" fill="var(--svg-node-b-fill)" stroke="var(--svg-node-b-stroke)" stroke-width="1.8" />
-                  <text x="380" y="289" fill="var(--svg-text)">維運</text>
+                  <text id="wf-b-ops" x="380" y="289" fill="var(--svg-text)">維運</text>
 
                   <circle cx="526" cy="284" r="30" fill="var(--svg-node-b-fill)" stroke="var(--svg-node-b-stroke)" stroke-width="1.8" />
-                  <text x="526" y="289" fill="var(--svg-text)">架構調整</text>
+                  <text id="wf-b-tune" x="526" y="289" fill="var(--svg-text)">架構調整</text>
 
                   <circle cx="672" cy="284" r="30" fill="var(--svg-node-b-fill)" stroke="var(--svg-node-b-stroke)" stroke-width="1.8" />
-                  <text x="672" y="289" fill="var(--svg-text)">新增需求</text>
+                  <text id="wf-b-req" x="672" y="289" fill="var(--svg-text)">新增需求</text>
                 </g>
               </svg>
 
               <div class="svg-diagram-caption">
-                <span class="mono">Figure 1. SI Infrastructure 多客戶專案工作流程</span>
-                <span class="badge badge-emerald">自動化成本優化模型</span>
+                <span class="mono" data-i18n="research.figCaption">Figure 1. SI Infrastructure 多客戶專案工作流程</span>
+                <span class="badge badge-emerald" data-i18n="research.figBadge">自動化成本優化模型</span>
               </div>
             </div>
           </div>
@@ -3283,7 +3782,7 @@
 
         <!-- 2 Published Academic Papers -->
         <div class="section-head" style="margin-bottom:1rem;">
-          <span class="section-kicker">PUBLISHED PAPERS · 國際研討會論文</span>
+          <span class="section-kicker" data-i18n="research.pubKicker">PUBLISHED PAPERS · 國際研討會論文</span>
         </div>
 
         <div class="publications-grid">
@@ -3303,13 +3802,13 @@
                 class="btn btn-secondary pub-copy-btn copy-trigger"
                 style="min-height:44px;padding:0.45rem 0.95rem;font-size:0.82rem;"
                 data-copy='Chih-Cheih Hung, Chun-Yu Kuo, Hui-Huang Hsu and Yian Chen, "Identifying Niche Singers in Online Music Streaming Services," in Proc. 4th Intl Conf on Big Data Intelligence and Computing and Cyber Science and Technology Congress (CyberSciTech), 2018.'
-                data-copy-label="CyberSciTech 2018 論文引用"
+                data-copy-label="CyberSciTech 2018"
               >
                 <svg width="15" height="15" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
                   <rect x="9" y="9" width="13" height="13" rx="2" ry="2" />
                   <path d="M5 15H4a2 2 0 01-2-2V4a2 2 0 012-2h9a2 2 0 012 2v1" />
                 </svg>
-                <span>複製引用格式</span>
+                <span data-i18n="action.copyCitation">複製引用格式</span>
               </button>
             </div>
           </article>
@@ -3330,13 +3829,13 @@
                 class="btn btn-secondary pub-copy-btn copy-trigger"
                 style="min-height:44px;padding:0.45rem 0.95rem;font-size:0.82rem;"
                 data-copy='Anthony Y. Chang, Kuo Chun-Yu, Zhang Hong Zhuang, "Develop of Interactive Smart Phone APPs Using Java," in Proc. 9th Information Education and Technological Applications Conference (IETAC 2016), Taichung, 2016.'
-                data-copy-label="IETAC 2016 論文引用"
+                data-copy-label="IETAC 2016"
               >
                 <svg width="15" height="15" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
                   <rect x="9" y="9" width="13" height="13" rx="2" ry="2" />
                   <path d="M5 15H4a2 2 0 01-2-2V4a2 2 0 012-2h9a2 2 0 012 2v1" />
                 </svg>
-                <span>複製引用格式</span>
+                <span data-i18n="action.copyCitation">複製引用格式</span>
               </button>
             </div>
           </article>
@@ -3351,8 +3850,8 @@
       <div class="container">
         <div class="section-head">
           <span class="section-kicker">05 / CONTACT</span>
-          <h2 class="section-title">聯絡我與技術交流</h2>
-          <p class="section-desc">歡迎針對企業網路資安架構、Python 網路自動化、專案合作或大專講座隨時聯繫。</p>
+          <h2 class="section-title" data-i18n="contact.title">聯絡我與技術交流</h2>
+          <p class="section-desc" data-i18n="contact.desc">歡迎針對企業網路資安架構、Python 網路自動化、專案合作或大專講座隨時聯繫。</p>
         </div>
 
         <div class="contact-grid">
@@ -3371,9 +3870,9 @@
                 </div>
               </a>
               <div class="connect-actions">
-                <button type="button" class="icon-btn copy-trigger" data-copy="bluesky830727@gmail.com" data-copy-label="電子信箱" aria-label="複製電子信箱">
+                <button type="button" class="icon-btn copy-trigger" data-copy="bluesky830727@gmail.com" data-copy-label="Email" aria-label="複製電子信箱">
                   <svg width="15" height="15" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><rect x="9" y="9" width="13" height="13" rx="2" /><path d="M5 15H4a2 2 0 01-2-2V4a2 2 0 012-2h9a2 2 0 012 2v1" /></svg>
-                  <span>複製</span>
+                  <span data-i18n="action.copy">複製</span>
                 </button>
               </div>
             </div>
@@ -3391,9 +3890,9 @@
                 </div>
               </a>
               <div class="connect-actions">
-                <button type="button" class="icon-btn copy-trigger" data-copy="0903-221-255" data-copy-label="聯絡電話" aria-label="複製聯絡電話">
+                <button type="button" class="icon-btn copy-trigger" data-copy="0903-221-255" data-copy-label="Phone" aria-label="複製聯絡電話">
                   <svg width="15" height="15" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><rect x="9" y="9" width="13" height="13" rx="2" /><path d="M5 15H4a2 2 0 01-2-2V4a2 2 0 012-2h9a2 2 0 012 2v1" /></svg>
-                  <span>複製</span>
+                  <span data-i18n="action.copy">複製</span>
                 </button>
               </div>
             </div>
@@ -3408,13 +3907,13 @@
                 </div>
                 <div style="min-width:0;">
                   <div class="connect-label">Location</div>
-                  <div class="connect-value">台中市大雅區 / 台北市，台灣</div>
+                  <div class="connect-value" data-i18n="contact.locationValue">台中市大雅區 / 台北市，台灣</div>
                 </div>
               </div>
               <div class="connect-actions">
-                <button type="button" class="icon-btn copy-trigger" data-copy="台中市大雅區 / 台北市，台灣" data-copy-label="所在地區" aria-label="複製所在地區">
+                <button type="button" id="copy-location-btn" class="icon-btn copy-trigger" data-copy="台中市大雅區 / 台北市，台灣" data-copy-label="Location" aria-label="複製所在地區">
                   <svg width="15" height="15" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><rect x="9" y="9" width="13" height="13" rx="2" /><path d="M5 15H4a2 2 0 01-2-2V4a2 2 0 012-2h9a2 2 0 012 2v1" /></svg>
-                  <span>複製</span>
+                  <span data-i18n="action.copy">複製</span>
                 </button>
               </div>
             </div>
@@ -3426,30 +3925,30 @@
               <form id="contact-form" novalidate>
                 <div class="form-grid-2">
                   <div class="form-group">
-                    <label for="contact-name" class="form-label">您的稱呼 <span style="color:var(--accent-rose);">*</span></label>
-                    <input id="contact-name" type="text" class="form-input" placeholder="例如：Alex / 陳先生" required />
+                    <label for="contact-name" class="form-label"><span data-i18n="form.nameLabel">您的稱呼</span> <span style="color:var(--accent-rose);">*</span></label>
+                    <input id="contact-name" type="text" class="form-input" placeholder="例如：Alex / 陳先生" data-i18n-placeholder="form.namePh" required />
                     <div id="error-name" class="field-error"></div>
                   </div>
                   <div class="form-group">
-                    <label for="contact-email" class="form-label">回覆信箱 <span style="color:var(--accent-rose);">*</span></label>
+                    <label for="contact-email" class="form-label"><span data-i18n="form.emailLabel">回覆信箱</span> <span style="color:var(--accent-rose);">*</span></label>
                     <input id="contact-email" type="email" class="form-input" placeholder="name@example.com" required />
                     <div id="error-email" class="field-error"></div>
                   </div>
                 </div>
 
                 <div class="form-group">
-                  <label for="contact-topic" class="form-label">交流主題</label>
+                  <label for="contact-topic" class="form-label" data-i18n="form.topicLabel">交流主題</label>
                   <select id="contact-topic" class="form-select">
-                    <option value="企業網路與資安架構諮詢">企業網路與資安架構諮詢（Cisco / Palo Alto / Juniper / Fortinet）</option>
-                    <option value="Python 網路自動化與專案優化">Python 網路自動化與專案優化合作</option>
-                    <option value="課程授課與技術演講邀約">課程授課、企業內訓或技術演講邀約</option>
-                    <option value="學術研究與其他交流">學術研究與其他合作交流</option>
+                    <option value="企業網路與資安架構諮詢" data-i18n="form.opt0">企業網路與資安架構諮詢（Cisco / Palo Alto / Juniper / Fortinet）</option>
+                    <option value="Python 網路自動化與專案優化" data-i18n="form.opt1">Python 網路自動化與專案優化合作</option>
+                    <option value="課程授課與技術演講邀約" data-i18n="form.opt2">課程授課、企業內訓或技術演講邀約</option>
+                    <option value="學術研究與其他交流" data-i18n="form.opt3">學術研究與其他合作交流</option>
                   </select>
                 </div>
 
                 <div class="form-group">
-                  <label for="contact-message" class="form-label">訊息內容 <span style="color:var(--accent-rose);">*</span></label>
-                  <textarea id="contact-message" class="form-textarea" placeholder="請簡述想討論的架構需求、自動化構想或合作方向..." required></textarea>
+                  <label for="contact-message" class="form-label"><span data-i18n="form.msgLabel">訊息內容</span> <span style="color:var(--accent-rose);">*</span></label>
+                  <textarea id="contact-message" class="form-textarea" placeholder="請簡述想討論的架構需求、自動化構想或合作方向..." data-i18n-placeholder="form.msgPh" required></textarea>
                   <div id="error-message" class="field-error"></div>
                 </div>
 
@@ -3458,17 +3957,17 @@
                     <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
                       <path stroke-linecap="round" stroke-linejoin="round" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
                     </svg>
-                    <span>開啟郵件草稿寄送</span>
+                    <span data-i18n="form.submit">開啟郵件草稿寄送</span>
                   </button>
                   <button type="button" id="copy-form-msg-btn" class="btn btn-secondary">
                     <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
                       <rect x="9" y="9" width="13" height="13" rx="2" />
                       <path d="M5 15H4a2 2 0 01-2-2V4a2 2 0 012-2h9a2 2 0 012 2v1" />
                     </svg>
-                    <span>複製格式化訊息</span>
+                    <span data-i18n="form.copyMsg">複製格式化訊息</span>
                   </button>
                 </div>
-                <p class="mono" style="margin:0.75rem 0 0;font-size:0.72rem;color:var(--text-muted);">
+                <p class="mono" style="margin:0.75rem 0 0;font-size:0.72rem;color:var(--text-muted);" data-i18n="form.note">
                   驗證通過後將帶入收件人 bluesky830727@gmail.com，或可一鍵複製格式化訊息寄出。
                 </p>
               </form>
@@ -3484,15 +3983,15 @@
        ===================================================================== -->
   <footer class="site-footer">
     <div class="container footer-inner">
-      <div class="mono" style="font-size:0.83rem;color:var(--text-muted);">
+      <div class="mono" style="font-size:0.83rem;color:var(--text-muted);" data-i18n="footer.copy">
         © 2026 SkyKuo (@SkyKuo). 「有難度，才有挑戰的價值」
       </div>
       <div class="no-print" style="display:flex;flex-wrap:wrap;justify-content:center;align-items:center;gap:1rem;font-size:0.84rem;">
-        <a href="#about" style="color:var(--text-muted);">關於我</a>
-        <a href="#experience" style="color:var(--text-muted);">學經歷</a>
-        <a href="#skills" style="color:var(--text-muted);">技能矩陣</a>
-        <a href="#certs" style="color:var(--text-muted);">專業證照</a>
-        <a href="#research" style="color:var(--text-muted);">研究與論文</a>
+        <a href="#about" style="color:var(--text-muted);" data-i18n="nav.about">關於我</a>
+        <a href="#experience" style="color:var(--text-muted);" data-i18n="nav.experience">學經歷</a>
+        <a href="#skills" style="color:var(--text-muted);" data-i18n="nav.skills">技能矩陣</a>
+        <a href="#certs" style="color:var(--text-muted);" data-i18n="nav.certs">專業證照</a>
+        <a href="#research" style="color:var(--text-muted);" data-i18n="nav.research">研究與論文</a>
       </div>
     </div>
   </footer>
@@ -3504,8 +4003,8 @@
     <div class="modal-dialog">
       <div class="modal-header">
         <div>
-          <span class="badge badge-cyan" style="margin-bottom:0.4rem;">國立中正大學 · 研究計畫詳情</span>
-          <h3 id="rm-title" style="margin:0;font-size:1.18rem;font-weight:800;line-height:1.35;">中小企業網路自動化暨專案成本優化</h3>
+          <span class="badge badge-cyan" style="margin-bottom:0.4rem;" data-i18n="rm.badge">國立中正大學 · 研究計畫詳情</span>
+          <h3 id="rm-title" style="margin:0;font-size:1.18rem;font-weight:800;line-height:1.35;" data-i18n="rm.title">中小企業網路自動化暨專案成本優化</h3>
         </div>
         <button type="button" class="icon-btn" id="rm-close-btn" aria-label="關閉研究詳情視窗">
           <svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2.2" viewBox="0 0 24 24">
@@ -3516,40 +4015,40 @@
 
       <div class="modal-body" style="font-size:0.9rem;line-height:1.72;">
         <div>
-          <div class="mono" style="font-size:.74rem;font-weight:700;color:var(--accent-cyan);margin-bottom:.35rem;">01. 研究背景與動機</div>
-          <p style="margin:0;color:var(--text-secondary);">
+          <div class="mono" style="font-size:.74rem;font-weight:700;color:var(--accent-cyan);margin-bottom:.35rem;" data-i18n="rm.s1Title">01. 研究背景與動機</div>
+          <p style="margin:0;color:var(--text-secondary);" data-i18n="rm.s1Body">
             隨著社會結構變遷與 AI 自動化演進，「人力成本」已成為台灣企業不可忽視的核心課題。在多數台灣中小企業的 Infrastructure 環境中，真正能立刻創造商業價值的並非遙不可及的高深技術，而是結合程式設計（Programming）與網路自動化、務實落地的基礎設施部署與維運流程。
           </p>
         </div>
 
         <div>
-          <div class="mono" style="font-size:.74rem;font-weight:700;color:var(--accent-indigo);margin-bottom:.4rem;">02. 研究目的</div>
+          <div class="mono" style="font-size:.74rem;font-weight:700;color:var(--accent-indigo);margin-bottom:.4rem;" data-i18n="rm.s2Title">02. 研究目的</div>
           <ul class="exp-bullets">
-            <li>協助甲方企業與乙方系統整合商（SI）找出縮減成本與提升效率之關鍵節點，在最短時間達成最大專案效益。</li>
-            <li>舒緩工程師面對多客戶重複建置、架構調整與維運的工作壓力，並將標準化運作模式推廣至跨產業合作。</li>
+            <li data-i18n="rm.s2b0">協助甲方企業與乙方系統整合商（SI）找出縮減成本與提升效率之關鍵節點，在最短時間達成最大專案效益。</li>
+            <li data-i18n="rm.s2b1">舒緩工程師面對多客戶重複建置、架構調整與維運的工作壓力，並將標準化運作模式推廣至跨產業合作。</li>
           </ul>
         </div>
 
         <div>
-          <div class="mono" style="font-size:.74rem;font-weight:700;color:var(--accent-amber);margin-bottom:.4rem;">03. 研究範圍</div>
+          <div class="mono" style="font-size:.74rem;font-weight:700;color:var(--accent-amber);margin-bottom:.4rem;" data-i18n="rm.s3Title">03. 研究範圍</div>
           <ul class="exp-bullets">
-            <li>盤點 SI 團隊（Pre-sales、SE、AE）服務多客戶（Company A / B）於 POC、建置、維運、架構調整與新增需求各階段投入之時間與技術成本。</li>
-            <li>訪談 Infrastructure 領域專家並結合數據分析，評估自動化部署對於人力配置、政策回饋與企業決策的實務影響。</li>
+            <li data-i18n="rm.s3b0">盤點 SI 團隊（Pre-sales、SE、AE）服務多客戶（Company A / B）於 POC、建置、維運、架構調整與新增需求各階段投入之時間與技術成本。</li>
+            <li data-i18n="rm.s3b1">訪談 Infrastructure 領域專家並結合數據分析，評估自動化部署對於人力配置、政策回饋與企業決策的實務影響。</li>
           </ul>
         </div>
 
         <div style="padding:1rem;border-radius:14px;border:1px solid var(--border-strong);background:var(--glow-cyan);">
-          <div class="mono" style="font-size:.74rem;font-weight:700;color:var(--accent-emerald);margin-bottom:.4rem;">04. 預期成果</div>
+          <div class="mono" style="font-size:.74rem;font-weight:700;color:var(--accent-emerald);margin-bottom:.4rem;" data-i18n="rm.s4Title">04. 預期成果</div>
           <ul class="exp-bullets" style="color:var(--text-primary);">
-            <li>將學術研究方法與 SI 產業實務深度連結，產出可複製之最佳化自動化部署參考藍圖。</li>
-            <li>有效降低人力與時間成本，提升整體專案交付效率並帶動企業營運競爭力。</li>
+            <li data-i18n="rm.s4b0">將學術研究方法與 SI 產業實務深度連結，產出可複製之最佳化自動化部署參考藍圖。</li>
+            <li data-i18n="rm.s4b1">有效降低人力與時間成本，提升整體專案交付效率並帶動企業營運競爭力。</li>
           </ul>
         </div>
       </div>
 
       <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" id="rm-copy-btn">複製研究摘要</button>
-        <button type="button" class="btn btn-primary" id="rm-done-btn">關閉視窗</button>
+        <button type="button" class="btn btn-secondary" id="rm-copy-btn" data-i18n="rm.copyBtn">複製研究摘要</button>
+        <button type="button" class="btn btn-primary" id="rm-done-btn" data-i18n="action.close">關閉視窗</button>
       </div>
     </div>
   </div>
@@ -3560,7 +4059,7 @@
   <div class="modal-overlay" id="lightbox-modal" role="dialog" aria-modal="true" aria-labelledby="lightbox-caption">
     <div class="lightbox-panel">
       <div style="width:100%;display:flex;align-items:center;justify-content:space-between;gap:1rem;">
-        <span id="lightbox-caption" style="color:#f8fafc;font-weight:700;font-size:0.95rem;">SkyKuo — 個人完整原圖照片</span>
+        <span id="lightbox-caption" style="color:#f8fafc;font-weight:700;font-size:0.95rem;" data-i18n="lightbox.title">SkyKuo — 個人完整原圖照片</span>
         <button type="button" class="icon-btn" id="lightbox-close-btn" style="background:rgba(15,23,42,0.88);color:#f8fafc;border-color:rgba(148,163,184,0.35);" aria-label="關閉照片檢視">
           <svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="2.2" viewBox="0 0 24 24">
             <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
@@ -3594,7 +4093,7 @@
           <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
             <path stroke-linecap="round" stroke-linejoin="round" d="M12 6V4m0 2a2 2 0 100 4m0-4a2 2 0 110 4m-6 8a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4m6 6v10m6-2a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4" />
           </svg>
-          <span>開啟頭像微調工作台</span>
+          <span data-i18n="action.avatarWorkbench">開啟頭像微調工作台</span>
         </button>
       </div>
     </div>
@@ -3608,7 +4107,7 @@
       <div class="modal-header">
         <div>
           <span class="badge badge-cyan" style="margin-bottom:0.35rem;">Avatar Workbench</span>
-          <h3 id="ae-title" style="margin:0;font-size:1.12rem;font-weight:800;">頭像微調工作台</h3>
+          <h3 id="ae-title" style="margin:0;font-size:1.12rem;font-weight:800;" data-i18n="ae.title">頭像微調工作台</h3>
         </div>
         <button type="button" class="icon-btn" id="ae-close-btn" aria-label="關閉頭像微調工作台">
           <svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2.2" viewBox="0 0 24 24">
@@ -3639,18 +4138,16 @@
                   <text x="50%" y="54%" dominant-baseline="middle" text-anchor="middle" fill="#ffffff" font-family="ui-monospace, sans-serif" font-weight="800" font-size="42">SK</text>
                 </svg>
               </div>
-            </div>
-          </div>
-          <span class="mono" style="font-size:0.74rem;color:var(--text-muted);">自動邊界鉗制零白邊 · 即時同步至首頁、導覽列與 A4 列印版</span>
+          <span class="mono" style="font-size:0.74rem;color:var(--text-muted);" data-i18n="ae.note">自動邊界鉗制零白邊 · 即時同步至首頁、導覽列與 A4 列印版</span>
         </div>
 
         <div class="upload-dropzone">
           <div style="font-size:0.84rem;">
-            <strong style="display:block;">上傳本機個人照片</strong>
-            <span style="font-size:0.76rem;color:var(--text-muted);">支援 JPG / PNG / WebP（自動壓縮預覽）</span>
+            <strong style="display:block;" data-i18n="ae.uploadTitle">上傳本機個人照片</strong>
+            <span style="font-size:0.76rem;color:var(--text-muted);" data-i18n="ae.uploadSub">支援 JPG / PNG / WebP（自動壓縮預覽）</span>
           </div>
           <label for="avatar-file-input" class="btn btn-secondary" style="min-height:44px;padding:0.45rem 0.95rem;font-size:0.82rem;cursor:pointer;">
-            <span>選擇照片</span>
+            <span data-i18n="ae.chooseFile">選擇照片</span>
             <input type="file" id="avatar-file-input" accept="image/*" class="sr-only" />
           </label>
         </div>
@@ -3658,7 +4155,7 @@
         <div class="slider-group">
           <div class="slider-row">
             <div class="slider-head">
-              <label for="slider-scale">縮放倍率 (Zoom)</label>
+              <label for="slider-scale" data-i18n="ae.zoom">縮放倍率 (Zoom)</label>
               <span class="mono" id="val-scale" style="color:var(--accent-cyan);">1.85x</span>
             </div>
             <input type="range" id="slider-scale" class="slider-input" min="1.0" max="3.0" step="0.05" value="1.85" />
@@ -3666,7 +4163,7 @@
 
           <div class="slider-row">
             <div class="slider-head">
-              <label for="slider-x">水平焦點 (X)</label>
+              <label for="slider-x" data-i18n="ae.posX">水平焦點 (X)</label>
               <span class="mono" id="val-x" style="color:var(--accent-cyan);">58%</span>
             </div>
             <input type="range" id="slider-x" class="slider-input" min="0" max="100" step="1" value="58" />
@@ -3674,7 +4171,7 @@
 
           <div class="slider-row">
             <div class="slider-head">
-              <label for="slider-y">垂直焦點 (Y)</label>
+              <label for="slider-y" data-i18n="ae.posY">垂直焦點 (Y)</label>
               <span class="mono" id="val-y" style="color:var(--accent-cyan);">14%</span>
             </div>
             <input type="range" id="slider-y" class="slider-input" min="0" max="100" step="1" value="14" />
@@ -3683,10 +4180,10 @@
       </div>
 
       <div class="modal-footer" style="justify-content:space-between;">
-        <button type="button" class="btn btn-ghost" id="ae-reset-btn" style="font-size:0.82rem;padding:0.5rem 0.9rem;">重設預設值</button>
+        <button type="button" class="btn btn-ghost" id="ae-reset-btn" style="font-size:0.82rem;padding:0.5rem 0.9rem;" data-i18n="ae.reset">重設預設值</button>
         <div style="display:flex;flex-wrap:wrap;gap:0.5rem;">
-          <button type="button" class="btn btn-secondary" id="ae-copy-css-btn" style="font-size:0.82rem;padding:0.5rem 0.95rem;">複製 CSS</button>
-          <button type="button" class="btn btn-primary" id="ae-done-btn" style="font-size:0.82rem;padding:0.5rem 1.05rem;">完成套用</button>
+          <button type="button" class="btn btn-secondary" id="ae-copy-css-btn" style="font-size:0.82rem;padding:0.5rem 0.95rem;" data-i18n="ae.copyCss">複製 CSS</button>
+          <button type="button" class="btn btn-primary" id="ae-done-btn" style="font-size:0.82rem;padding:0.5rem 1.05rem;" data-i18n="ae.done">完成套用</button>
         </div>
       </div>
     </div>
@@ -3738,6 +4235,7 @@
 
       const STORAGE_KEYS = {
         theme: 'skykuo-theme',
+        lang: 'skykuo-lang',
         avatarConfig: 'skykuo-avatar-config',
         avatarImage: 'skykuo-avatar-dataurl'
       };
@@ -3754,25 +4252,435 @@
         window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
       /* -------------------------------------------------------------------
-         2. ACCESSIBLE TOAST & IFRAME-SAFE CLIPBOARD COPY
+         1.5 MULTI-LANGUAGE I18N DICTIONARY (ZH / EN / JA)
          ------------------------------------------------------------------- */
-      function showToast(message, isError) {
-        try {
-          const stack = document.getElementById('toast-stack');
-          if (!stack) return;
-          const item = document.createElement('div');
-          item.className = 'toast-item' + (isError ? ' is-error' : '');
-          const dot = document.createElement('span');
-          dot.style.cssText = 'width:8px;height:8px;border-radius:50%;flex-shrink:0;background:' + (isError ? '#fb7185' : '#34d399') + ';';
-          const textSpan = document.createElement('span');
-          textSpan.textContent = message;
-          item.appendChild(dot);
-          item.appendChild(textSpan);
-          stack.appendChild(item);
-          setTimeout(function () {
-            if (item.parentNode) item.parentNode.removeChild(item);
-          }, 2800);
-        } catch (e) {}
+      const I18N = {
+        zh: {
+          htmlLang: 'zh-Hant',
+          roles: [
+            '中孚科技 技術副理',
+            '企業網路與資安架構師',
+            '網路自動化開發工程師',
+            '國立臺中科技大學 兼任講師'
+          ],
+          radar: [
+            { label: '企業網路架構', title: '企業網路架構', score: '96%', desc: '多廠牌 Cisco / Juniper 園區與總部骨幹建置維運' },
+            { label: '資安防禦規劃', title: '資安防禦規劃', score: '60%', desc: 'Palo Alto / Fortinet / Cisco ISE 零信任與防火牆架構' },
+            { label: '網路自動化開發', title: '網路自動化開發', score: '90%', desc: 'Python / Java 自動化部署腳本與維運流程優化' },
+            { label: 'SI 系統整合', title: 'SI 系統整合', score: '94%', desc: '政府、銀行、ISP 與大專院校大型專案交付經驗' },
+            { label: '大數據與研究', title: '大數據與研究', score: '86%', desc: '機器學習、資料探勘與國際研討會論文發表' },
+            { label: '產學教學顧問', title: '產學教學顧問', score: '88%', desc: '臺中科大講師與淡江助教之實務教學與技術傳承' }
+          ],
+          wf: {
+            deploy: '建置', ops: '維運', tune: '架構調整', req: '新增需求',
+            presales: '架構顧問 / POC', se: '建置 / 系統整合', ae: '維運 / 需求擴充'
+          },
+          text: {
+            'nav.about': '關於我', 'nav.experience': '學經歷', 'nav.skills': '技能矩陣',
+            'nav.certs': '專業證照', 'nav.research': '研究與論文', 'nav.contact': '聯絡我',
+            'drawer.about': '關於我與簡介', 'drawer.experience': '學經歷與教學', 'drawer.skills': '核心技能矩陣',
+            'drawer.certs': '20+ 專業證照', 'drawer.research': '研究計畫與論文', 'drawer.contact': '聯絡我',
+            'action.print': '列印 / 匯出 PDF', 'action.avatarWorkbench': '頭像微調工作台',
+            'action.copy': '複製', 'action.copyCitation': '複製引用格式', 'action.close': '關閉視窗',
+            'print.subtitle': '「有難度，才有挑戰的價值」｜中孚科技 技術副理・企業網路與資安架構師',
+            'print.creds': 'Palo Alto NGFW · Cisco CCNP Enterprise / Security · 國立臺中科技大學講師 · 國立中正大學資管暨醫資碩士班',
+            'avatar.viewFull': '檢視原圖',
+            'hero.motto': '有難度，才有挑戰的價值',
+            'hero.ctaContact': '聯絡我', 'hero.ctaCerts': '檢視 20+ 證照',
+            'radar.title': '核心專長雷達圖', 'radar.hint': '點選節點檢視詳情',
+            'kpi.0.title': '專業與國際證照', 'kpi.0.sub': 'Palo Alto、Cisco CCNP 雙軌、Oracle、Microsoft 與 TQC+',
+            'kpi.1.val': '6 項', 'kpi.1.title': '產學教學經歷', 'kpi.1.sub': '跨足 SI、面板龍頭總部、電信專案與大專院校授課',
+            'kpi.2.val': '2 篇', 'kpi.2.title': '國際研討會論文', 'kpi.2.sub': '發表於 IEEE CyberSciTech 2018 與 IETAC 2016',
+            'kpi.3.val': '第 1 名', 'kpi.3.title': '班級畢業 (1.79%)', 'kpi.3.sub': '僑光科大資科系 1 / 56 · 淡江資工碩士總平均 90.00',
+            'exp.title': '工作經歷、教學與學歷背景', 'exp.desc': '涵蓋系統整合、集團基礎設施、電信資安、大專授課與資訊工程／資訊管理碩士訓練。',
+            'exp.tabAll': '全部檢視', 'exp.tabWork': '工作與教學經歷 (6)', 'exp.tabEdu': '學歷背景 (3)',
+            'exp.workHeading': '工作與教學經歷', 'exp.eduHeading': '學歷背景',
+            'work.0.org': '中孚科技', 'work.0.role': '技術副理',
+            'work.1.org': '友達光電', 'work.1.role': '高級工程師',
+            'work.2.org': '華電聯網股份有限公司', 'work.2.role': '高級工程師',
+            'work.3.org': '晉泰科技股份有限公司', 'work.3.role': '網路工程師',
+            'work.4.org': '國立臺中科技大學', 'work.4.role': '講師',
+            'work.5.org': '淡江大學', 'work.5.role': '大學暨研究所助教',
+            'edu.0.org': '國立中正大學', 'edu.0.badge': '研究所進修', 'edu.0.role': '資訊管理學系暨研究所（含醫療資訊管理碩士班）',
+            'edu.0.b0': '聚焦多領域網路架構資安比較與中小企業網路自動化專案成本優化研究。',
+            'edu.1.org': '淡江大學', 'edu.1.role': '資訊工程研究所 碩士',
+            'edu.1.m0': '課程平均 89.00', 'edu.1.m1': '總平均 90.00',
+            'edu.1.t0': '雲端運算與虛擬化', 'edu.1.t1': '大數據分析', 'edu.1.t2': '機器學習', 'edu.1.t3': '物聯網通訊與路由協定',
+            'edu.2.org': '僑光科技大學', 'edu.2.badge': '全班第 1 名畢業', 'edu.2.role': '資訊科技系 學士',
+            'edu.2.m0': '班級排名第 1 名 / 56 人（前 1.79%）', 'edu.2.m1': '學業平均 86.46',
+            'edu.2.b0': '紮實奠定程式設計、資料結構、資料庫系統、作業系統與電腦網路核心基礎。',
+            'skills.title': '核心技能矩陣', 'skills.desc': '多廠牌企業網路與次世代資安設備實戰，搭配 Python / Java 自動化開發與數據系統管理。',
+            'skills.tabAll': '全部', 'skills.tabNet': '企業網路', 'skills.tabSec': '資安防護', 'skills.tabAuto': '程式與自動化', 'skills.tabData': '數據與系統',
+            'skills.0.cat': '企業網路 / 資安防護', 'skills.0.sub': '企業級有線／無線核心網路建置、ISE 零信任存取控管、PI 集中管理與 Firepower 威脅防禦。',
+            'skills.1.cat': '資安防護', 'skills.1.sub': '次世代防火牆安全架構規劃、政策優化與政府／金融單位高可用資安維運。',
+            'skills.2.cat': '企業網路', 'skills.2.sub': '電信 ISP 骨幹路由、企業核心交換與邊界防火牆跨廠牌整合建置與維運。',
+            'skills.3.cat': '資安防護', 'skills.3.sub': '校園與企業整合式防火牆、交換器與無線網路安全聯防架構建置與維運。',
+            'skills.4.cat': '程式與自動化', 'skills.4.sub': '運用程式開發打造自動化部署與設定稽核工具，大幅減少人工配置誤差並優化 SI 專案效率。',
+            'skills.4.t2': '自動化部署腳本', 'skills.4.t3': '網頁設計',
+            'skills.5.cat': '數據與系統', 'skills.5.sub': '結合資工碩士研究與大專授課經驗，熟悉大數據分析流程與專業級 Linux 系統及網路管理。',
+            'skills.5.t1': '大數據分析', 'skills.5.t2': 'Linux 系統與網路管理',
+            'certs.title': '20+ 國際與專業證照', 'certs.desc': '涵蓋 Palo Alto 次世代防火牆、Cisco CCNP 企業與資安雙軌、程式語言、Linux 與辦公設計專業認證。',
+            'certs.flagship': 'Flagship Tier · 核心旗艦級認證',
+            'certs.tabAll': '全部 (17)', 'certs.tabNetsec': '網路與資安 (7)', 'certs.tabDevsys': '程式與系統 (5)', 'certs.tabOffice': '辦公與設計 (5)',
+            'certs.catNetsec': '網路與資安', 'certs.catDevsys': '程式與系統', 'certs.catOffice': '辦公與設計',
+            'certs.tqcPy': 'TQC+ Python 3 專業級', 'certs.tqcLinux': 'TQC Linux 系統管理 - 專業級 (V2)',
+            'research.title': '研究計畫與學術論文', 'research.desc': '從系統整合商（SI）實務視角切入，以程式自動化優化中小企業網路建置與專案人力成本。',
+            'research.planBadge': '國立中正大學 研究計畫', 'research.planTitle': '《中小企業網路自動化暨專案成本優化》',
+            'research.dirLabel': 'RESEARCH DIRECTIONS · 核心研究方向',
+            'research.dir0': '(一) 多領域網路架構資安比較', 'research.dir1': '(二) 網路自動化暨企業效率提升',
+            'research.btnDetail': '研究架構詳情', 'research.figCaption': 'Figure 1. SI Infrastructure 多客戶專案工作流程',
+            'research.figBadge': '自動化成本優化模型', 'research.pubKicker': 'PUBLISHED PAPERS · 國際研討會論文',
+            'contact.title': '聯絡我與技術交流', 'contact.desc': '歡迎針對企業網路資安架構、Python 網路自動化、專案合作或大專講座隨時聯繫。',
+            'contact.locationValue': '台中市大雅區 / 台北市，台灣',
+            'form.nameLabel': '您的稱呼', 'form.emailLabel': '回覆信箱', 'form.topicLabel': '交流主題', 'form.msgLabel': '訊息內容',
+            'form.opt0': '企業網路與資安架構諮詢（Cisco / Palo Alto / Juniper / Fortinet）',
+            'form.opt1': 'Python 網路自動化與專案優化合作',
+            'form.opt2': '課程授課、企業內訓或技術演講邀約',
+            'form.opt3': '學術研究與其他合作交流',
+            'form.submit': '開啟郵件草稿寄送', 'form.copyMsg': '複製格式化訊息',
+            'form.note': '驗證通過後將帶入收件人 bluesky830727@gmail.com，或可一鍵複製格式化訊息寄出。',
+            'footer.copy': '© 2026 SkyKuo (@SkyKuo). 「有難度，才有挑戰的價值」',
+            'rm.badge': '國立中正大學 · 研究計畫詳情', 'rm.title': '中小企業網路自動化暨專案成本優化',
+            'rm.s1Title': '01. 研究背景與動機',
+            'rm.s1Body': '隨著社會結構變遷與 AI 自動化演進，「人力成本」已成為台灣企業不可忽視的核心課題。在多數台灣中小企業的 Infrastructure 環境中，真正能立刻創造商業價值的並非遙不可及的高深技術，而是結合程式設計（Programming）與網路自動化、務實落地的基礎設施部署與維運流程。',
+            'rm.s2Title': '02. 研究目的',
+            'rm.s2b0': '協助甲方企業與乙方系統整合商（SI）找出縮減成本與提升效率之關鍵節點，在最短時間達成最大專案效益。',
+            'rm.s2b1': '舒緩工程師面對多客戶重複建置、架構調整與維運的工作壓力，並將標準化運作模式推廣至跨產業合作。',
+            'rm.s3Title': '03. 研究範圍',
+            'rm.s3b0': '盤點 SI 團隊（Pre-sales、SE、AE）服務多客戶（Company A / B）於 POC、建置、維運、架構調整與新增需求各階段投入之時間與技術成本。',
+            'rm.s3b1': '訪談 Infrastructure 領域專家並結合數據分析，評估自動化部署對於人力配置、政策回饋與企業決策的實務影響。',
+            'rm.s4Title': '04. 預期成果',
+            'rm.s4b0': '將學術研究方法與 SI 產業實務深度連結，產出可複製之最佳化自動化部署參考藍圖。',
+            'rm.s4b1': '有效降低人力與時間成本，提升整體專案交付效率並帶動企業營運競爭力。',
+            'rm.copyBtn': '複製研究摘要',
+            'lightbox.title': 'SkyKuo — 個人完整原圖照片',
+            'ae.title': '頭像微調工作台', 'ae.note': '自動邊界鉗制零白邊 · 即時同步至首頁、導覽列與 A4 列印版',
+            'ae.uploadTitle': '上傳本機個人照片', 'ae.uploadSub': '支援 JPG / PNG / WebP（自動壓縮預覽）',
+            'ae.chooseFile': '選擇照片', 'ae.zoom': '縮放倍率 (Zoom)', 'ae.posX': '水平焦點 (X)', 'ae.posY': '垂直焦點 (Y)',
+            'ae.reset': '重設預設值', 'ae.copyCss': '複製 CSS', 'ae.done': '完成套用'
+          },
+          html: {
+            'hero.bio': '專注於企業網路架構與 <strong>Python / Java 網路自動化</strong>，具備政府、金融、電信與大型企業專案實戰經驗，致力以程式化思維提升基礎設施維運效率。',
+            'work.0.b0': '<strong>政府機關</strong>：Security 建置維護。',
+            'work.0.b1': '<strong>學校</strong>：有線／無線及 Security 建置維護。',
+            'work.0.b2': '<strong>銀行</strong>：有線及 Security 建置維護。',
+            'work.0.b3': '透過程式設計完成<strong>網路自動化</strong>，簡化及優化作業程序。',
+            'work.1.b0': '總部 <strong>ATC 網路</strong>規劃、維護及建置。',
+            'work.1.b1': '集團總 <strong>Infrastructure</strong> 規劃、建置及調整。',
+            'work.1.b2': '集團視訊系統評估及建置。',
+            'work.2.b0': '一、二類電信（ISP）及政府機關有線／無線與防火牆建置維運。',
+            'work.2.b1': '全台各園區網路建置、維運與年度歲修支援。',
+            'work.3.b0': '園區企業有線／無線網路設備建置與維運。',
+            'work.3.b1': '針對客戶網路架構進行規劃、建置及調整。',
+            'work.4.b0': '教授 <strong>Linux 與網路管理、Python 程式設計、大數據分析</strong>及網路相關課程。',
+            'work.5.b0': '教授 <strong>Java 程式設計、網頁設計與大數據分析</strong>課程。',
+            'work.5.b1': '處理院辦及系辦相關學術交流研討會。',
+            'research.planSummary': '針對台灣企業 Infrastructure 環境長期面臨的人力短缺與維運成本瓶頸，分別從系統整合商（SI）與甲方企業雙重視角，結合 <strong>Programming 軟體開發與網路自動化部屬</strong>，縮短跨客戶專案交付時程、降低工程師重複作業壓力，並提出具跨產業推廣價值的最佳化部署方案。'
+          },
+          placeholder: {
+            'form.namePh': '例如：Alex / 陳先生',
+            'form.msgPh': '請簡述想討論的架構需求、自動化構想或合作方向...'
+          },
+          msg: {
+            langSwitched: '已切換至繁體中文版',
+            themeLight: '已切換至明亮閱讀模式', themeDark: '已切換至深色科技模式',
+            copied: function (lbl) { return '已複製' + (lbl ? '「' + lbl + '」' : '') + '至剪貼簿！'; },
+            copyFail: '複製失敗，請手動選取內容複製',
+            errName: '請輸入至少 2 個字的稱呼。',
+            errEmail: '請輸入有效的電子信箱格式。',
+            errMsg: '請輸入至少 6 個字的訊息內容。',
+            errForm: '請檢查並修正表單紅字欄位',
+            openingMail: '正在開啟預設郵件程式草稿...',
+            rmSummary: '【中小企業網路自動化暨專案成本優化】從系統整合商（SI）與企業雙重視角，整合程式設計與網路自動化流程（POC、建置、維運、架構調整與新增需求），有效縮減專案人力與時間成本並提升跨產業運作效率。'
+          }
+        },
+        en: {
+          htmlLang: 'en',
+          roles: [
+            'Assistant Technical Manager @ Chung Fu Tech',
+            'Enterprise Network & Security Architect',
+            'Network Automation Engineer',
+            'Adjunct Lecturer @ NTCUST'
+          ],
+          radar: [
+            { label: 'Enterprise Net', title: 'Enterprise Network Architecture', score: '96%', desc: 'Multi-vendor Cisco / Juniper campus & HQ backbone deployment & operations' },
+            { label: 'Security Design', title: 'Security Architecture', score: '60%', desc: 'Palo Alto / Fortinet / Cisco ISE firewall & zero-trust access control' },
+            { label: 'Net Automation', title: 'Network Automation', score: '90%', desc: 'Python / Java automated deployment scripts & operational workflow optimization' },
+            { label: 'SI Integration', title: 'SI System Integration', score: '94%', desc: 'Large-scale project delivery across government, banking, ISP & campuses' },
+            { label: 'Data & Research', title: 'Big Data & Research', score: '86%', desc: 'Machine learning, data mining & international conference publications' },
+            { label: 'Tech Teaching', title: 'Teaching & Consulting', score: '88%', desc: 'University lecturing at NTCUST & teaching assistant experience at TKU' }
+          ],
+          wf: {
+            deploy: 'Deploy', ops: 'Operate', tune: 'Tuning', req: 'New Req',
+            presales: 'Architect / POC', se: 'Deploy / Integration', ae: 'Ops / Expansion'
+          },
+          text: {
+            'nav.about': 'About', 'nav.experience': 'Experience', 'nav.skills': 'Skills',
+            'nav.certs': 'Certifications', 'nav.research': 'Research', 'nav.contact': 'Contact',
+            'drawer.about': 'About & Profile', 'drawer.experience': 'Experience & Education', 'drawer.skills': 'Core Skills Matrix',
+            'drawer.certs': '20+ Certifications', 'drawer.research': 'Research & Papers', 'drawer.contact': 'Contact Me',
+            'action.print': 'Print / Export PDF', 'action.avatarWorkbench': 'Avatar Workbench',
+            'action.copy': 'Copy', 'action.copyCitation': 'Copy Citation', 'action.close': 'Close',
+            'print.subtitle': '"Where there is difficulty, there is value in the challenge." | Assistant Technical Manager · Network & Security Architect',
+            'print.creds': 'Palo Alto NGFW · Cisco CCNP Enterprise / Security · NTCUST Lecturer · National Chung Cheng University IM',
+            'avatar.viewFull': 'View Full',
+            'hero.motto': 'Where there is difficulty, there is value in the challenge.',
+            'hero.ctaContact': 'Contact Me', 'hero.ctaCerts': 'View 20+ Certs',
+            'radar.title': 'Core Expertise Radar', 'radar.hint': 'Tap nodes for details',
+            'kpi.0.title': 'Global Certifications', 'kpi.0.sub': 'Palo Alto, Cisco CCNP Dual-Track, Oracle, Microsoft & TQC+',
+            'kpi.1.val': '6 Roles', 'kpi.1.title': 'Industry & Teaching', 'kpi.1.sub': 'Spanning SI, AUO Global HQ, Telecom ISP & university lecturing',
+            'kpi.2.val': '2 Papers', 'kpi.2.title': 'Conference Papers', 'kpi.2.sub': 'Published at IEEE CyberSciTech 2018 & IETAC 2016',
+            'kpi.3.val': 'Rank #1', 'kpi.3.title': 'Class Valedictorian (1.79%)', 'kpi.3.sub': 'OCU CSIT 1 / 56 · TKU M.S. CSIE Overall Avg 90.00',
+            'exp.title': 'Experience, Teaching & Education', 'exp.desc': 'Combining system integration, global HQ infrastructure, telecom security, university teaching, and CS/IM graduate research.',
+            'exp.tabAll': 'View All', 'exp.tabWork': 'Work & Teaching (6)', 'exp.tabEdu': 'Education (3)',
+            'exp.workHeading': 'Work & Teaching Experience', 'exp.eduHeading': 'Education',
+            'work.0.org': 'Chung Fu Technology', 'work.0.role': 'Assistant Technical Manager',
+            'work.1.org': 'AUO Corporation', 'work.1.role': 'Senior Engineer',
+            'work.2.org': 'Hwacom Systems Inc.', 'work.2.role': 'Senior Engineer',
+            'work.3.org': 'G-Tech Optoelectronics / Chin-Tai Tech', 'work.3.role': 'Network Engineer',
+            'work.4.org': 'National Taichung Univ. of Science & Tech (NTCUST)', 'work.4.role': 'Lecturer',
+            'work.5.org': 'Tamkang University (TKU)', 'work.5.role': 'Undergraduate & Graduate Teaching Assistant',
+            'edu.0.org': 'National Chung Cheng University (CCU)', 'edu.0.badge': 'Graduate Studies', 'edu.0.role': 'Dept. of Information Management & Master of Health IM',
+            'edu.0.b0': 'Focusing on cross-domain network security comparisons and SME network automation cost optimization.',
+            'edu.1.org': 'Tamkang University (TKU)', 'edu.1.role': 'M.S. in Computer Science & Information Engineering',
+            'edu.1.m0': 'Course Avg 89.00', 'edu.1.m1': 'Overall Avg 90.00',
+            'edu.1.t0': 'Cloud Computing & Virtualization', 'edu.1.t1': 'Big Data Analytics', 'edu.1.t2': 'Machine Learning', 'edu.1.t3': 'IoT Routing Protocols',
+            'edu.2.org': 'Overseas Chinese University (OCU)', 'edu.2.badge': 'Rank #1 Graduate', 'edu.2.role': 'B.S. in Information Technology',
+            'edu.2.m0': 'Class Rank 1 / 56 (Top 1.79%)', 'edu.2.m1': 'Academic Avg 86.46',
+            'edu.2.b0': 'Built a strong foundation in programming, data structures, database systems, operating systems, and computer networking.',
+            'skills.title': 'Core Skills Matrix', 'skills.desc': 'Hands-on multi-vendor enterprise networking & NGFW expertise paired with Python / Java automation and Linux operations.',
+            'skills.tabAll': 'All', 'skills.tabNet': 'Networking', 'skills.tabSec': 'Security', 'skills.tabAuto': 'Automation', 'skills.tabData': 'Data & Linux',
+            'skills.0.cat': 'Networking / Security', 'skills.0.sub': 'Enterprise wired/wireless core networks, Cisco ISE zero-trust access, Prime Infrastructure & Firepower threat defense.',
+            'skills.1.cat': 'Security', 'skills.1.sub': 'Next-Generation Firewall architecture planning, policy optimization, and HA security operations for government & banking.',
+            'skills.2.cat': 'Networking', 'skills.2.sub': 'Telecom ISP backbone routing, core switching, and multi-vendor perimeter firewall integration.',
+            'skills.3.cat': 'Security', 'skills.3.sub': 'Integrated campus & enterprise firewall, switching, and wireless security fabric deployment.',
+            'skills.4.cat': 'Automation', 'skills.4.sub': 'Developing automated deployment and configuration audit tools to eliminate manual errors and boost SI project efficiency.',
+            'skills.4.t2': 'Deployment Automation', 'skills.4.t3': 'Web Design',
+            'skills.5.cat': 'Data & Linux', 'skills.5.sub': 'Combining M.S. CS research and university lecturing in big data analytics and professional Linux system/network administration.',
+            'skills.5.t1': 'Big Data Analytics', 'skills.5.t2': 'Linux System & Network Admin',
+            'certs.title': '20+ Professional Certifications', 'certs.desc': 'Covering Palo Alto NGFW, Cisco CCNP Enterprise & Security dual tracks, programming, Linux, and productivity credentials.',
+            'certs.flagship': 'Flagship Tier · Core Certifications',
+            'certs.tabAll': 'All (17)', 'certs.tabNetsec': 'Network & Security (7)', 'certs.tabDevsys': 'Dev & Systems (5)', 'certs.tabOffice': 'Office & Design (5)',
+            'certs.catNetsec': 'Network & Security', 'certs.catDevsys': 'Dev & Systems', 'certs.catOffice': 'Office & Design',
+            'certs.tqcPy': 'TQC+ Python 3 Professional', 'certs.tqcLinux': 'TQC Linux System Administration - Professional (V2)',
+            'research.title': 'Research Plan & Publications', 'research.desc': 'Optimizing SME network deployment and SI engineering manpower costs through software-driven network automation.',
+            'research.planBadge': 'CCU Research Proposal', 'research.planTitle': 'SME Network Automation & Project Cost Optimization',
+            'research.dirLabel': 'RESEARCH DIRECTIONS',
+            'research.dir0': '(1) Cross-Domain Network Security Comparison', 'research.dir1': '(2) Network Automation & Enterprise Efficiency',
+            'research.btnDetail': 'View Research Details', 'research.figCaption': 'Figure 1. Multi-Client SI Infrastructure Project Workflow',
+            'research.figBadge': 'Cost Optimization Model', 'research.pubKicker': 'PUBLISHED INTERNATIONAL CONFERENCE PAPERS',
+            'contact.title': 'Contact & Collaboration', 'contact.desc': 'Open to enterprise network architecture, Python network automation, technical consulting, and lecturing inquiries.',
+            'contact.locationValue': 'Daya Dist., Taichung / Taipei, Taiwan',
+            'form.nameLabel': 'Your Name', 'form.emailLabel': 'Reply Email', 'form.topicLabel': 'Topic', 'form.msgLabel': 'Message',
+            'form.opt0': 'Enterprise Network & Security Consulting (Cisco / Palo Alto / Juniper / Fortinet)',
+            'form.opt1': 'Python Network Automation & Project Optimization',
+            'form.opt2': 'University Lecturing, Corporate Training & Tech Talks',
+            'form.opt3': 'Academic Research & Other Collaborations',
+            'form.submit': 'Open Email Draft', 'form.copyMsg': 'Copy Formatted Message',
+            'form.note': 'Once validated, this opens your mail client to bluesky830727@gmail.com or copies the formatted message.',
+            'footer.copy': '© 2026 SkyKuo (@SkyKuo). "Where there is difficulty, there is value in the challenge."',
+            'rm.badge': 'National Chung Cheng University · Research Proposal', 'rm.title': 'SME Network Automation & Project Cost Optimization',
+            'rm.s1Title': '01. Background & Motivation',
+            'rm.s1Body': 'With evolving demographics and AI automation, manpower cost has become critical for Taiwanese enterprises. In most SME infrastructure environments, immediate commercial value comes from pragmatic network automation powered by software engineering rather than overly complex theoretical tech.',
+            'rm.s2Title': '02. Research Objectives',
+            'rm.s2b0': 'Help enterprise clients and System Integrators (SI) identify key cost-reduction and efficiency bottlenecks to maximize project ROI.',
+            'rm.s2b1': 'Alleviate repetitive multi-client deployment and maintenance pressure on engineers with standardized cross-industry workflows.',
+            'rm.s3Title': '03. Research Scope',
+            'rm.s3b0': 'Analyze time and technical costs invested by SI teams (Pre-sales, SE, AE) across multi-client stages: POC, Deployment, Operations, Tuning, and New Requirements.',
+            'rm.s3b1': 'Combine expert interviews and data analysis to evaluate how automated deployment improves staffing, policy alignment, and enterprise decision-making.',
+            'rm.s4Title': '04. Expected Outcomes',
+            'rm.s4b0': 'Bridge academic methodology with SI industry practice to deliver a replicable network automation deployment blueprint.',
+            'rm.s4b1': 'Significantly cut labor and delivery time costs while elevating operational efficiency and market competitiveness.',
+            'rm.copyBtn': 'Copy Research Summary',
+            'lightbox.title': 'SkyKuo — Full-Resolution Portrait',
+            'ae.title': 'Avatar Workbench', 'ae.note': 'Auto-clamped zero white borders · Live sync to Hero, Navbar & Print PDF',
+            'ae.uploadTitle': 'Upload Local Photo', 'ae.uploadSub': 'Supports JPG / PNG / WebP (auto-compressed)',
+            'ae.chooseFile': 'Choose Photo', 'ae.zoom': 'Zoom Scale', 'ae.posX': 'Horizontal Focus (X)', 'ae.posY': 'Vertical Focus (Y)',
+            'ae.reset': 'Reset Default', 'ae.copyCss': 'Copy CSS', 'ae.done': 'Apply & Close'
+          },
+          html: {
+            'hero.bio': 'Specializing in enterprise network architecture and <strong>Python / Java network automation</strong>, with hands-on delivery across government, banking, telecom, and enterprise sectors to streamline infrastructure operations.',
+            'work.0.b0': '<strong>Government</strong>: Security architecture deployment & maintenance.',
+            'work.0.b1': '<strong>Education</strong>: Campus wired/wireless & security deployment.',
+            'work.0.b2': '<strong>Banking</strong>: Wired network & security infrastructure maintenance.',
+            'work.0.b3': 'Built <strong>network automation</strong> tools via programming to streamline workflows.',
+            'work.1.b0': 'Planned, built, and maintained HQ <strong>ATC network</strong> infrastructure.',
+            'work.1.b1': 'Designed and tuned group-wide <strong>Infrastructure</strong> architecture.',
+            'work.1.b2': 'Evaluated and deployed enterprise video conferencing systems.',
+            'work.2.b0': 'Deployed and maintained Type-I/II Telecom (ISP) & government wired/wireless and firewall systems.',
+            'work.2.b1': 'Supported nationwide science park network operations and annual maintenance.',
+            'work.3.b0': 'Deployed and maintained enterprise campus wired/wireless network equipment.',
+            'work.3.b1': 'Planned, deployed, and optimized client network architectures.',
+            'work.4.b0': 'Taught <strong>Linux & Network Administration, Python Programming, Big Data Analytics</strong>, and networking courses.',
+            'work.5.b0': 'Taught <strong>Java Programming, Web Design, and Big Data Analytics</strong>.',
+            'work.5.b1': 'Coordinated college and department academic conferences and seminars.',
+            'research.planSummary': 'Addressing long-standing IT manpower and maintenance cost bottlenecks in Taiwan’s enterprise infrastructure from both System Integrator (SI) and client perspectives, combining <strong>software programming and automated network deployment</strong> to accelerate delivery and reduce repetitive engineering workload.'
+          },
+          placeholder: {
+            'form.namePh': 'e.g. Alex Chen',
+            'form.msgPh': 'Briefly describe your network architecture, automation idea, or collaboration inquiry...'
+          },
+          msg: {
+            langSwitched: 'Switched to English',
+            themeLight: 'Switched to Light Mode', themeDark: 'Switched to Dark Mode',
+            copied: function (lbl) { return 'Copied' + (lbl ? ' "' + lbl + '"' : '') + ' to clipboard!'; },
+            copyFail: 'Copy failed, please select and copy manually.',
+            errName: 'Please enter at least 2 characters for your name.',
+            errEmail: 'Please enter a valid email address.',
+            errMsg: 'Please enter a message of at least 6 characters.',
+            errForm: 'Please review the highlighted fields.',
+            openingMail: 'Opening default mail draft...',
+            rmSummary: '[SME Network Automation & Project Cost Optimization] Bridging SI and enterprise client perspectives with programming and network automation across POC, deployment, operations, tuning, and expansion to cut labor/time costs.'
+          }
+        },
+        ja: {
+          htmlLang: 'ja',
+          roles: [
+            '中孚科技 技術副理（テクニカルマネージャー）',
+            '企業ネットワーク・セキュリティアーキテクト',
+            'ネットワーク自動化開発エンジニア',
+            '国立台中科技大学 非常勤講師'
+          ],
+          radar: [
+            { label: '企業ネットワーク', title: '企業ネットワーク設計', score: '96%', desc: 'Cisco / Juniper マルチベンダー環境での拠点・本社バックボーン構築運用' },
+            { label: 'セキュリティ設計', title: 'セキュリティ防御設計', score: '60%', desc: 'Palo Alto / Fortinet / Cisco ISE ゼロトラスト・FW構築' },
+            { label: '自動化開発', title: 'ネットワーク自動化開発', score: '90%', desc: 'Python / Java による自動構築スクリプトと運用フロー最適化' },
+            { label: 'SI システム統合', title: 'SI システム統合', score: '94%', desc: '官公庁・銀行・ISP・大学向け大規模プロジェクト導入実績' },
+            { label: 'データ・研究', title: 'ビッグデータ・研究', score: '86%', desc: '機械学習・データマイニングおよび国際会議での論文発表' },
+            { label: '産学教育・講師', title: '産学教育・技術指導', score: '88%', desc: '国立台中科技大学講師・淡江大学TAとしての実践教育' }
+          ],
+          wf: {
+            deploy: '構築', ops: '運用', tune: '構成変更', req: '新規要件',
+            presales: '提案 / POC', se: '構築 / 統合', ae: '運用 / 拡張'
+          },
+          text: {
+            'nav.about': '自己紹介', 'nav.experience': '経歴・学歴', 'nav.skills': 'スキル',
+            'nav.certs': '専門資格', 'nav.research': '研究・論文', 'nav.contact': '連絡先',
+            'drawer.about': '自己紹介・プロフィール', 'drawer.experience': '職務経歴・学歴', 'drawer.skills': 'コアスキル一覧',
+            'drawer.certs': '20+ 専門資格', 'drawer.research': '研究計画・論文', 'drawer.contact': 'お問い合わせ',
+            'action.print': '印刷 / PDF出力', 'action.avatarWorkbench': 'プロフィール写真調整',
+            'action.copy': 'コピー', 'action.copyCitation': '引用形式をコピー', 'action.close': '閉じる',
+            'print.subtitle': '「難易度が高いほど、挑戦する価値がある」｜中孚科技 技術副理・ネットワーク＆セキュリティ設計',
+            'print.creds': 'Palo Alto NGFW · Cisco CCNP Enterprise / Security · 国立台中科技大学講師 · 国立中正大学 情報管理',
+            'avatar.viewFull': '原寸表示',
+            'hero.motto': '難易度が高いほど、挑戦する価値がある',
+            'hero.ctaContact': 'お問い合わせ', 'hero.ctaCerts': '20+ 資格を見る',
+            'radar.title': 'コア専門レーダー', 'radar.hint': 'ノード選択で詳細表示',
+            'kpi.0.title': '国際・専門資格', 'kpi.0.sub': 'Palo Alto、Cisco CCNP 2分野、Oracle、Microsoft、TQC+',
+            'kpi.1.val': '6 件', 'kpi.1.title': '産学・教育経歴', 'kpi.1.sub': 'SI、大手パネル本社、通信ISP案件から大学講義まで幅広く従事',
+            'kpi.2.val': '2 本', 'kpi.2.title': '国際会議論文', 'kpi.2.sub': 'IEEE CyberSciTech 2018 および IETAC 2016 にて発表',
+            'kpi.3.val': '首席卒業', 'kpi.3.title': 'クラス1位 (上位1.79%)', 'kpi.3.sub': '僑光科大 1/56位・淡江大学 情報工学修士 総合平均 90.00',
+            'exp.title': '職務経歴・教育活動・学歴', 'exp.desc': 'SI案件、グループ本社インフラ、通信セキュリティ、大学講義および情報工学・情報管理の修士研究を網羅。',
+            'exp.tabAll': 'すべて表示', 'exp.tabWork': '職務・教育経歴 (6)', 'exp.tabEdu': '学歴 (3)',
+            'exp.workHeading': '職務・教育経歴', 'exp.eduHeading': '学歴',
+            'work.0.org': '中孚科技', 'work.0.role': '技術副理（テクニカルマネージャー）',
+            'work.1.org': 'AUO（友達光電）', 'work.1.role': 'シニアエンジニア',
+            'work.2.org': '華電聯網（Hwacom Systems）', 'work.2.role': 'シニアエンジニア',
+            'work.3.org': '晉泰科技', 'work.3.role': 'ネットワークエンジニア',
+            'work.4.org': '国立台中科技大学', 'work.4.role': '非常勤講師',
+            'work.5.org': '淡江大学', 'work.5.role': '学部・大学院 ティーチングアシスタント',
+            'edu.0.org': '国立中正大学', 'edu.0.badge': '大学院研究', 'edu.0.role': '情報管理学科・大学院（医療情報管理修士課程含む）',
+            'edu.0.b0': '異業種ネットワーク構成のセキュリティ比較および中小企業向けネットワーク自動化コスト最適化を研究。',
+            'edu.1.org': '淡江大学', 'edu.1.role': '情報工学研究科 修士',
+            'edu.1.m0': '科目平均 89.00', 'edu.1.m1': '総合平均 90.00',
+            'edu.1.t0': 'クラウド・仮想化技術', 'edu.1.t1': 'ビッグデータ解析', 'edu.1.t2': '機械学習', 'edu.1.t3': 'IoTルーティングプロトコル',
+            'edu.2.org': '僑光科技大学', 'edu.2.badge': 'クラス首席卒業', 'edu.2.role': '情報科学科 学士',
+            'edu.2.m0': 'クラス順位 1位 / 56名（上位 1.79%）', 'edu.2.m1': '学業平均 86.46',
+            'edu.2.b0': 'プログラミング、データ構造、データベース、OS、コンピュータネットワークの強固な基礎を習得。',
+            'skills.title': 'コアスキル一覧', 'skills.desc': 'マルチベンダー企業ネットワーク・次世代FW実務と、Python / Java自動化開発およびLinux運用管理。',
+            'skills.tabAll': 'すべて', 'skills.tabNet': '企業ネットワーク', 'skills.tabSec': 'セキュリティ', 'skills.tabAuto': '開発・自動化', 'skills.tabData': 'データ・Linux',
+            'skills.0.cat': 'ネットワーク / セキュリティ', 'skills.0.sub': '有線・無線コアネットワーク構築、ISEゼロトラスト認証、PI集中管理、Firepower脅威防御。',
+            'skills.1.cat': 'セキュリティ', 'skills.1.sub': '次世代ファイアウォール設計、ポリシー最適化、官公庁・金融向け高可用性セキュリティ運用。',
+            'skills.2.cat': 'ネットワーク', 'skills.2.sub': '通信ISPバックボーンルーティング、コアスイッチおよび境界FWのマルチベンダー統合構築・運用。',
+            'skills.3.cat': 'セキュリティ', 'skills.3.sub': '大学・企業向け統合FW、スイッチ、無線LANセキュリティファブリックの構築・運用。',
+            'skills.4.cat': '開発・自動化', 'skills.4.sub': '自動構築・設定監査ツールの開発により手作業ミスを削減し、SIプロジェクト効率を大幅に向上。',
+            'skills.4.t2': '自動デプロイスクリプト', 'skills.4.t3': 'Webデザイン',
+            'skills.5.cat': 'データ・Linux', 'skills.5.sub': '大学院研究と大学講義の知見を活かし、ビッグデータ解析および専門級のLinuxシステム・NW管理に対応。',
+            'skills.5.t1': 'ビッグデータ解析', 'skills.5.t2': 'Linux システム・NW管理',
+            'certs.title': '20+ 国際・専門資格', 'certs.desc': 'Palo Alto NGFW、Cisco CCNP（Enterprise / Security）、開発言語、Linux、オフィス系資格を網羅。',
+            'certs.flagship': 'Flagship Tier · 主要フラッグシップ資格',
+            'certs.tabAll': 'すべて (17)', 'certs.tabNetsec': 'NW・セキュリティ (7)', 'certs.tabDevsys': '開発・システム (5)', 'certs.tabOffice': 'オフィス・デザイン (5)',
+            'certs.catNetsec': 'NW・セキュリティ', 'certs.catDevsys': '開発・システム', 'certs.catOffice': 'オフィス・デザイン',
+            'certs.tqcPy': 'TQC+ Python 3 プロフェッショナル', 'certs.tqcLinux': 'TQC Linux システム管理 プロフェッショナル (V2)',
+            'research.title': '研究計画・学術論文', 'research.desc': 'システムインテグレーター（SI）の実務視点から、自動化技術による中小企業NW構築・人件費最適化を探求。',
+            'research.planBadge': '国立中正大学 研究計画', 'research.planTitle': '《中小企業ネットワーク自動化およびプロジェクトコスト最適化》',
+            'research.dirLabel': 'RESEARCH DIRECTIONS · 主な研究テーマ',
+            'research.dir0': '(1) 異業種ネットワーク構成のセキュリティ比較', 'research.dir1': '(2) ネットワーク自動化と企業効率向上',
+            'research.btnDetail': '研究詳細を見る', 'research.figCaption': 'Figure 1. SI インフラ複数顧客プロジェクトワークフロー',
+            'research.figBadge': '自動化コスト最適化モデル', 'research.pubKicker': 'PUBLISHED PAPERS · 国際会議発表論文',
+            'contact.title': 'お問い合わせ・技術交流', 'contact.desc': '企業ネットワーク設計、Pythonネットワーク自動化、プロジェクト協力や講義のご相談はお気軽にご連絡ください。',
+            'contact.locationValue': '台湾 台中市大雅区 / 台北市',
+            'form.nameLabel': 'お名前', 'form.emailLabel': '返信先メール', 'form.topicLabel': 'ご用件', 'form.msgLabel': 'メッセージ内容',
+            'form.opt0': '企業ネットワーク・セキュリティ設計相談（Cisco / Palo Alto / Juniper / Fortinet）',
+            'form.opt1': 'Python ネットワーク自動化・プロジェクト最適化',
+            'form.opt2': '大学講義・企業研修・技術登壇のご依頼',
+            'form.opt3': '学術研究・その他コラボレーション',
+            'form.submit': 'メール作成画面を開く', 'form.copyMsg': '整形メッセージをコピー',
+            'form.note': '入力確認後、bluesky830727@gmail.com 宛のメール作成画面を起動、または内容をコピーできます。',
+            'footer.copy': '© 2026 SkyKuo (@SkyKuo). 「難易度が高いほど、挑戦する価値がある」',
+            'rm.badge': '国立中正大学 · 研究計画詳細', 'rm.title': '中小企業ネットワーク自動化およびプロジェクトコスト最適化',
+            'rm.s1Title': '01. 研究背景と動機',
+            'rm.s1Body': '社会構造の変化とAI自動化の進展に伴い、「人的コスト」は企業にとって重要な課題となっています。多くの中小企業インフラ環境では、高度な理論技術よりも、プログラミングとネットワーク自動化を組み合わせた実務的な構築・運用プロセスの改善が即効性のある価値を生み出します。',
+            'rm.s2Title': '02. 研究目的',
+            'rm.s2b0': '顧客企業とSIベンダー双方のコスト削減・効率化ポイントを特定し、短期間で最大のプロジェクト効果を実現する。',
+            'rm.s2b1': '複数顧客向けの反復的な構築・変更・運用に伴うエンジニア負担を軽減し、標準化モデルを他業種へ展開する。',
+            'rm.s3Title': '03. 研究範囲',
+            'rm.s3b0': 'SIチーム（Pre-sales / SE / AE）が複数顧客（Company A / B）のPOC・構築・運用・構成変更・新規要件に投じる時間と技術コストを分析。',
+            'rm.s3b1': 'インフラ専門家へのヒアリングとデータ分析を通じ、自動化導入が人員配置や企業意思決定に与える実務的効果を検証。',
+            'rm.s4Title': '04. 期待される成果',
+            'rm.s4b0': '学術的アプローチとSI実務を融合し、再現性の高い最適ネットワーク自動化デプロイ設計図を提示。',
+            'rm.s4b1': '人件費と工期を大幅に削減し、プロジェクト品質と企業の競争力向上に貢献する。',
+            'rm.copyBtn': '研究概要をコピー',
+            'lightbox.title': 'SkyKuo — フル解像度プロフィール写真',
+            'ae.title': 'プロフィール写真調整', 'ae.note': '余白防止クランプ対応 · トップ・ナビ・PDF印刷へ即時同期',
+            'ae.uploadTitle': 'ローカル写真をアップロード', 'ae.uploadSub': 'JPG / PNG / WebP 対応（自動圧縮プレビュー）',
+            'ae.chooseFile': '写真を選択', 'ae.zoom': '拡大率 (Zoom)', 'ae.posX': '水平位置 (X)', 'ae.posY': '垂直位置 (Y)',
+            'ae.reset': '初期設定に戻す', 'ae.copyCss': 'CSSをコピー', 'ae.done': '適用して閉じる'
+          },
+          html: {
+            'hero.bio': '企業向けネットワーク設計と <strong>Python / Java によるネットワーク自動化</strong>を専門とし、官公庁・金融・通信・大手企業での豊富な導入実績を通じて、インフラ運用の効率化を推進しています。',
+            'work.0.b0': '<strong>官公庁</strong>：セキュリティ基盤の構築・保守。',
+            'work.0.b1': '<strong>教育機関</strong>：有線・無線およびセキュリティ環境の構築・保守。',
+            'work.0.b2': '<strong>銀行・金融</strong>：有線ネットワークおよびセキュリティ基盤の構築・保守。',
+            'work.0.b3': 'プログラミングによる<strong>ネットワーク自動化</strong>を実現し、作業プロセスを最適化。',
+            'work.1.b0': '本社 <strong>ATC ネットワーク</strong>の設計・構築・保守を担当。',
+            'work.1.b1': 'グループ全体の <strong>Infrastructure</strong> 設計・構築・チューニング。',
+            'work.1.b2': 'グループビデオ会議システムの評価および導入。',
+            'work.2.b0': '第一種・第二種通信事業者（ISP）および官公庁向け有線・無線・FW構築運用。',
+            'work.2.b1': '台湾各地のサイエンスパーク拠点ネットワーク構築・保守・年次点検支援。',
+            'work.3.b0': 'サイエンスパーク企業向け有線・無線ネットワーク機器の構築・保守。',
+            'work.3.b1': '顧客ネットワークアーキテクチャの企画・構築・構成調整。',
+            'work.4.b0': '<strong>Linux・ネットワーク管理、Pythonプログラミング、ビッグデータ解析</strong>等の講座を担当。',
+            'work.5.b0': '<strong>Javaプログラミング、Webデザイン、ビッグデータ解析</strong>の実習指導を担当。',
+            'work.5.b1': '学部・学科主催の学術交流シンポジウム運営をサポート。',
+            'research.planSummary': '台湾企業のインフラ環境が抱える人材不足と運用コスト課題に対し、SIベンダーと顧客企業の双方の視点から <strong>プログラミングとネットワーク自動構築</strong>を統合し、納期短縮とエンジニア負荷軽減を実現する最適導入モデルを提案します。'
+          },
+          placeholder: {
+            'form.namePh': '例：山田 太郎 / Alex',
+            'form.msgPh': 'ご相談内容（ネットワーク設計、自動化開発、講義依頼など）をご記入ください...'
+          },
+          msg: {
+            langSwitched: '日本語表示に切り替えました',
+            themeLight: 'ライトモードに切り替えました', themeDark: 'ダークモードに切り替えました',
+            copied: function (lbl) { return (lbl ? '「' + lbl + '」を' : '') + 'クリップボードにコピーしました！'; },
+            copyFail: 'コピーに失敗しました。手動で選択してコピーしてください。',
+            errName: 'お名前は2文字以上で入力してください。',
+            errEmail: '有効なメールアドレスを入力してください。',
+            errMsg: 'メッセージは6文字以上で入力してください。',
+            errForm: '赤枠の入力内容をご確認ください。',
+            openingMail: 'メール作成画面を起動しています...',
+            rmSummary: '【中小企業ネットワーク自動化およびプロジェクトコスト最適化】SIと顧客企業双方の視点から、プログラミングとネットワーク自動化（POC・構築・運用・構成変更・新規要件）を統合し、人的・時間的コストを削減するモデルを研究。'
+          }
+        }
+      };
+
+      let currentLang = 'zh';
+      let currentRadarIdx = 0;
+      let typewriterController = { reset: function () {} };
+
+      function tMsg(key) {
+        const pack = I18N[currentLang] || I18N.zh;
+        return pack.msg[key];
       }
 
       function copyText(text, label) {
@@ -3787,12 +4695,12 @@
           const ok = document.execCommand('copy');
           document.body.removeChild(el);
           if (ok) {
-            showToast('已複製' + (label ? '「' + label + '」' : '') + '至剪貼簿！', false);
+            showToast(tMsg('copied')(label), false);
           } else {
-            showToast('複製失敗，請手動選取內容複製', true);
+            showToast(tMsg('copyFail'), true);
           }
         } catch (e) {
-          showToast('複製失敗，請手動選取內容複製', true);
+          showToast(tMsg('copyFail'), true);
         }
       }
 
@@ -3818,12 +4726,12 @@
               rootEl.classList.remove('dark');
               rootEl.classList.add('light');
               safeSet(STORAGE_KEYS.theme, 'light');
-              showToast('已切換至明亮閱讀模式', false);
+              showToast(tMsg('themeLight'), false);
             } else {
               rootEl.classList.add('dark');
               rootEl.classList.remove('light');
               safeSet(STORAGE_KEYS.theme, 'dark');
-              showToast('已切換至深色科技模式', false);
+              showToast(tMsg('themeDark'), false);
             }
           });
         }
@@ -4078,10 +4986,7 @@
         const rmCopy = document.getElementById('rm-copy-btn');
         if (rmCopy) {
           rmCopy.addEventListener('click', function () {
-            copyText(
-              '【中小企業網路自動化暨專案成本優化】從系統整合商（SI）與企業雙重視角，整合程式設計與網路自動化流程（POC、建置、維運、架構調整與新增需求），有效縮減專案人力與時間成本並提升跨產業運作效率。',
-              '研究計畫摘要'
-            );
+            copyText(tMsg('rmSummary'), (I18N[currentLang] || I18N.zh).text['rm.title']);
           });
         }
 
@@ -4150,12 +5055,14 @@
       /* -------------------------------------------------------------------
          6. MODULE: INTERACTIVE 6-AXIS RADAR CHART SELECTION
          ------------------------------------------------------------------- */
+      let refreshRadarLanguage = function () {};
       try {
         const radarNodes = document.querySelectorAll('.radar-node');
         const calloutEl = document.getElementById('radar-callout-text');
 
         function selectRadarNode(targetNode) {
           if (!targetNode || !calloutEl) return;
+          currentRadarIdx = Number(targetNode.getAttribute('data-radar-idx') || 0);
           radarNodes.forEach(function (node) {
             const active = node === targetNode;
             node.classList.toggle('is-active', active);
@@ -4167,8 +5074,28 @@
           const title = targetNode.getAttribute('data-title') || '';
           const score = targetNode.getAttribute('data-score') || '';
           const desc = targetNode.getAttribute('data-desc') || '';
-          calloutEl.innerHTML = '<strong>' + title + '（' + score + '）</strong>：' + desc;
+          const sep = currentLang === 'en' ? ': ' : '：';
+          const openP = currentLang === 'en' ? ' (' : '（';
+          const closeP = currentLang === 'en' ? ')' : '）';
+          calloutEl.innerHTML = '<strong>' + title + openP + score + closeP + '</strong>' + sep + desc;
         }
+
+        refreshRadarLanguage = function () {
+          const pack = (I18N[currentLang] || I18N.zh).radar;
+          radarNodes.forEach(function (node) {
+            const idx = Number(node.getAttribute('data-radar-idx') || 0);
+            const item = pack[idx];
+            if (!item) return;
+            node.setAttribute('data-title', item.title);
+            node.setAttribute('data-score', item.score);
+            node.setAttribute('data-desc', item.desc);
+            node.setAttribute('aria-label', item.title + ' ' + item.score);
+            const lblEl = document.getElementById('radar-label-' + idx);
+            if (lblEl) lblEl.textContent = item.label;
+          });
+          const activeNode = radarNodes[currentRadarIdx] || radarNodes[0];
+          if (activeNode) selectRadarNode(activeNode);
+        };
 
         radarNodes.forEach(function (node) {
           node.addEventListener('mouseenter', function () { selectRadarNode(node); });
@@ -4181,6 +5108,159 @@
             }
           });
         });
+      } catch (e) {}
+
+      /* -------------------------------------------------------------------
+         7. MODULE: DYNAMIC TYPEWRITER ROLES (LANGUAGE-AWARE)
+         ------------------------------------------------------------------- */
+      try {
+        const typewriterEl = document.getElementById('typewriter-text');
+        let roleIdx = 0;
+        let charIdx = 0;
+        let deleting = false;
+        let twTimer = null;
+
+        function getRoles() {
+          return (I18N[currentLang] || I18N.zh).roles;
+        }
+
+        function tick() {
+          if (!typewriterEl) return;
+          const roles = getRoles();
+          const current = roles[roleIdx % roles.length];
+          charIdx += deleting ? -1 : 1;
+          typewriterEl.textContent = current.slice(0, Math.max(0, charIdx));
+
+          let wait = deleting ? 38 : 72;
+          if (!deleting && charIdx >= current.length) {
+            deleting = true;
+            wait = 2200;
+          } else if (deleting && charIdx <= 0) {
+            deleting = false;
+            roleIdx = (roleIdx + 1) % roles.length;
+            wait = 320;
+          }
+          twTimer = setTimeout(tick, wait);
+        }
+
+        typewriterController.reset = function () {
+          if (!typewriterEl) return;
+          if (twTimer) clearTimeout(twTimer);
+          const roles = getRoles();
+          roleIdx = 0;
+          charIdx = roles[0].length;
+          deleting = false;
+          typewriterEl.textContent = roles[0];
+          if (!prefersReducedMotion) {
+            twTimer = setTimeout(function () {
+              deleting = true;
+              tick();
+            }, 2000);
+          }
+        };
+
+        typewriterController.reset();
+      } catch (e) {}
+
+      /* -------------------------------------------------------------------
+         7.5 MODULE: LANGUAGE SWITCHER (ZH / EN / JA) + URL PARAM SUPPORT
+         ------------------------------------------------------------------- */
+      try {
+        const langButtons = document.querySelectorAll('.lang-btn[data-lang]');
+
+        function setLanguage(lang, notify) {
+          if (!I18N[lang]) lang = 'zh';
+          currentLang = lang;
+          const pack = I18N[lang];
+          document.documentElement.setAttribute('lang', pack.htmlLang);
+          safeSet(STORAGE_KEYS.lang, lang);
+
+          langButtons.forEach(function (btn) {
+            const active = btn.getAttribute('data-lang') === lang;
+            btn.classList.toggle('is-active', active);
+            btn.setAttribute('aria-selected', active ? 'true' : 'false');
+          });
+
+          document.querySelectorAll('[data-i18n]').forEach(function (el) {
+            const key = el.getAttribute('data-i18n');
+            if (pack.text[key] !== undefined) el.textContent = pack.text[key];
+          });
+
+          document.querySelectorAll('[data-i18n-html]').forEach(function (el) {
+            const key = el.getAttribute('data-i18n-html');
+            if (pack.html[key] !== undefined) el.innerHTML = pack.html[key];
+          });
+
+          document.querySelectorAll('[data-i18n-placeholder]').forEach(function (el) {
+            const key = el.getAttribute('data-i18n-placeholder');
+            if (pack.placeholder[key] !== undefined) el.setAttribute('placeholder', pack.placeholder[key]);
+          });
+
+          // Sync location copy attribute & select option values
+          const locCopyBtn = document.getElementById('copy-location-btn');
+          if (locCopyBtn && pack.text['contact.locationValue']) {
+            locCopyBtn.setAttribute('data-copy', pack.text['contact.locationValue']);
+          }
+          const topicSelect = document.getElementById('contact-topic');
+          if (topicSelect) {
+            Array.prototype.forEach.call(topicSelect.options, function (opt, i) {
+              const txt = pack.text['form.opt' + i];
+              if (txt) opt.value = txt;
+            });
+          }
+
+          // Update SVG SI Workflow Diagram labels
+          const wfMap = {
+            'wf-a-deploy': pack.wf.deploy, 'wf-b-deploy': pack.wf.deploy,
+            'wf-a-ops': pack.wf.ops, 'wf-b-ops': pack.wf.ops,
+            'wf-a-tune': pack.wf.tune, 'wf-b-tune': pack.wf.tune,
+            'wf-a-req': pack.wf.req, 'wf-b-req': pack.wf.req,
+            'wf-role-presales': pack.wf.presales,
+            'wf-role-se': pack.wf.se,
+            'wf-role-ae': pack.wf.ae
+          };
+          Object.keys(wfMap).forEach(function (id) {
+            const el = document.getElementById(id);
+            if (el) el.textContent = wfMap[id];
+          });
+
+          // Update Radar Chart & Typewriter
+          refreshRadarLanguage();
+          typewriterController.reset();
+
+          // Optional URL query sync (?lang=zh|en|ja) inside try/catch for sandbox safety
+          try {
+            if (window.history && typeof window.history.replaceState === 'function' && window.location.protocol !== 'about:') {
+              const url = new URL(window.location.href);
+              url.searchParams.set('lang', lang);
+              window.history.replaceState(null, '', url.toString());
+            }
+          } catch (err) {}
+
+          if (notify) {
+            showToast(pack.msg.langSwitched, false);
+          }
+        }
+
+        langButtons.forEach(function (btn) {
+          btn.addEventListener('click', function () {
+            const target = btn.getAttribute('data-lang') || 'zh';
+            if (target !== currentLang) setLanguage(target, true);
+          });
+        });
+
+        // Initial language detection: URL ?lang= > localStorage > 'zh'
+        let initLang = 'zh';
+        try {
+          const params = new URLSearchParams(window.location.search);
+          const urlLang = (params.get('lang') || '').toLowerCase();
+          if (I18N[urlLang]) initLang = urlLang;
+          else {
+            const savedLang = safeGet(STORAGE_KEYS.lang);
+            if (savedLang && I18N[savedLang]) initLang = savedLang;
+          }
+        } catch (err) {}
+        setLanguage(initLang, false);
       } catch (e) {}
 
       /* -------------------------------------------------------------------
@@ -4331,28 +5411,28 @@
 
           let hasErr = false;
           if (name.length < 2) {
-            setFieldError('name', '請輸入至少 2 個字的稱呼。');
+            setFieldError('name', tMsg('errName'));
             hasErr = true;
           } else {
             setFieldError('name', '');
           }
 
           if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
-            setFieldError('email', '請輸入有效的電子信箱格式。');
+            setFieldError('email', tMsg('errEmail'));
             hasErr = true;
           } else {
             setFieldError('email', '');
           }
 
           if (message.length < 6) {
-            setFieldError('message', '請輸入至少 6 個字的訊息內容。');
+            setFieldError('message', tMsg('errMsg'));
             hasErr = true;
           } else {
             setFieldError('message', '');
           }
 
           if (hasErr) {
-            showToast('請檢查並修正表單紅字欄位', true);
+            showToast(tMsg('errForm'), true);
             return null;
           }
           return { name: name, email: email, topic: topic, message: message };
@@ -4363,15 +5443,27 @@
             e.preventDefault();
             const data = validateForm();
             if (!data) return;
-            const subject = '[SkyKuo 履歷網站交流] ' + data.topic + ' - ' + data.name;
+            const subject = '[Sky CV] ' + data.topic + ' - ' + data.name;
             const body =
-              '您好 SkyKuo：\n\n寄件人：' + data.name +
-              '\n回覆信箱：' + data.email +
-              '\n交流主題：' + data.topic +
-              '\n\n訊息內容：\n' + data.message;
+              'Hi SkyKuo,\n\nFrom: ' + data.name +
+              '\nEmail: ' + data.email +
+              '\nTopic: ' + data.topic +
+              '\n\nMessage:\n' + data.message;
             const url = 'mailto:bluesky830727@gmail.com?subject=' + encodeURIComponent(subject) + '&body=' + encodeURIComponent(body);
-            showToast('正在開啟預設郵件程式草稿...', false);
+            showToast(tMsg('openingMail'), false);
             window.location.href = url;
+          });
+        }
+
+        if (copyFormBtn) {
+          copyFormBtn.addEventListener('click', function () {
+            const data = validateForm();
+            if (!data) return;
+            const formatted =
+              'To: bluesky830727@gmail.com\nSubject: [Sky CV] ' +
+              data.topic + ' - ' + data.name + '\n\nFrom: ' + data.name +
+              ' (' + data.email + ')\nMessage:\n' + data.message;
+            copyText(formatted, 'Message');
           });
         }
 
